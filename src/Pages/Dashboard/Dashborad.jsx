@@ -1,10 +1,10 @@
 
 
 import { useState, useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaUserGroup } from "react-icons/fa6";
-import { BadgePercent, Bell, CalendarDays, ChevronDown, ChevronsLeft, ChevronsRight, MessagesSquare } from "lucide-react";
+import { BadgePercent, Bell, CalendarDays, ChevronDown, ChevronsLeft, ChevronsRight, MessagesSquare, User } from "lucide-react";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { BsFillBarChartFill } from "react-icons/bs";
 
@@ -131,9 +131,19 @@ export default function Dashboard() {
 
   <div className="dropdown dropdown-end">
   <div tabIndex={0} role="" className=""><ChevronDown size={20} /></div>
-  <ul tabIndex={0} className="dropdown-content  menu bg-base-200 rounded-box z-1 w-48 p-2 shadow-md border border-gray-400 ">
-    <li><a>Item 1</a></li>
-    <li><a>Item 2</a></li>
+  <ul tabIndex={0} className="dropdown-content mt-4 menu bg-base-200 rounded-box z-50 w-32 p-2 shadow-md border border-gray-400 ">
+  <li>
+       
+        <Link to="/profile" className="text-gray-700 hover:text-gray-900">
+          Profile
+        </Link>
+      </li>
+      <li >
+     
+        <Link to="/logout" className="text-gray-700 hover:text-gray-900">
+          Logout
+        </Link>
+      </li>
   </ul>
 </div>
   
@@ -143,7 +153,7 @@ export default function Dashboard() {
         </header>
 
    
-        <main className="flex-1 overflow-auto p-12">
+        <main className="flex-1 overflow-auto p-12 bg-[#F5F5F6]">
           <Outlet />
         </main>
       </div>
