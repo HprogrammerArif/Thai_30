@@ -34,7 +34,7 @@ const ClientInfo = () => {
   return (
     <section>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
-        <div className="bg-white flex items-center cursor-pointer justify-between rounded-[15px] shadow-md p-5">
+        <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
           <div className="space-y-2">
             <h1 className="text-gray-800">Pending Approvals</h1>
             <h1 className="font-bold text-xl text-black">13</h1>
@@ -44,7 +44,7 @@ const ClientInfo = () => {
           </div>
         </div>
 
-        <div className="bg-white flex items-center cursor-pointer  justify-between rounded-[15px] shadow-md p-5">
+        <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
           <div className="space-y-2">
             <h1 className="text-gray-800">Active Users</h1>
             <h1 className="font-bold text-xl text-black">102</h1>
@@ -54,7 +54,7 @@ const ClientInfo = () => {
           </div>
         </div>
 
-        <div className="bg-white flex items-center cursor-pointer  justify-between rounded-[15px] shadow-md p-5">
+        <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
           <div className="space-y-2">
             <h1 className="text-gray-800">Active Therapists</h1>
             <h1 className="font-bold text-xl text-black">56</h1>
@@ -64,7 +64,7 @@ const ClientInfo = () => {
           </div>
         </div>
 
-        <div className="bg-white flex items-center cursor-pointer  justify-between rounded-[15px] shadow-md p-5">
+        <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
           <div className="space-y-2">
             <h1 className="text-gray-800">Total Revenue</h1>
             <h1 className="font-bold text-xl text-black">

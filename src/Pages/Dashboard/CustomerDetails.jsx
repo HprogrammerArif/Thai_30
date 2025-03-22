@@ -158,13 +158,14 @@ import React from 'react';
 import { FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
 import { TiInfo } from 'react-icons/ti';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 // Placeholder image URL - replace with actual image URL or import
 const userImage = 'https://i.ibb.co.com/8Ld9cfwp/Frame-1686551036-1.png';
 
 const CustomerDetails = () => {
   const { email } = useParams();
+  const navigate = useNavigate();
 
   const customer = {
     name: 'Mike Millian',
@@ -190,7 +191,7 @@ const CustomerDetails = () => {
     <div className=" mx-auto">
       {/* Back Button */}
       <Link 
-        to="/"
+      onClick={() => navigate(-1)} 
         className="mb-6 inline-block bg-gray-500 text-white px-4 py-2 rounded-full hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
         aria-label="Go back to previous page"
       >
