@@ -293,7 +293,7 @@ const Roles = () => {
   };
 
   return (
-    <section className="p-5">
+    <section>
       {/* Roles & Permissions */}
       <div className="mb-8">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">Roles & Permissions</h2>

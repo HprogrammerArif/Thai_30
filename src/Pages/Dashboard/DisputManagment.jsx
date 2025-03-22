@@ -228,7 +228,7 @@ const DisputeManagement = () => {
   };
 
   return (
-    <section className="p-5">
+    <section>
       {/* Open Disputes */}
       <div className="bg-white rounded-[15px] shadow-md p-6 mb-8">
         <div className="flex justify-between items-center mb-4">
@@ -316,7 +316,7 @@ const DisputeManagement = () => {
 
       {/* Messages Button */}
       <div className="fixed bottom-5 right-5">
-        <button className="bg-[#B28D28] text-white px-4 py-2 rounded-full flex items-center gap-2 hover:bg-[#9a7b23] transition-colors">
+        <button className="bg-[#B28D28] text-white px-4 py-2 rounded-full flex items-center gap-2 hover:bg-[#9a7b23] transition-colors shadow-md shadow-gray-400">
           <FaEnvelope size={16} />
           Messages
           <span className="bg-white text-[#B28D28] rounded-full px-2 py-1 text-xs">10</span>
