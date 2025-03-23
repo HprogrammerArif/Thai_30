@@ -12,6 +12,7 @@ import Analytics from "../Pages/Dashboard/Analytics";
 import Promotions from "../Pages/Dashboard/Promotions";
 import Roles from "../Pages/Dashboard/Roles";
 import DisputManagment from "../Pages/Dashboard/DisputManagment";
+import SignUp from "../Pages/Authentication/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -63,5 +64,11 @@ export const router = createBrowserRouter([
         element: <DisputManagment/>
       }
     ]
+  },
+
+  {
+    path: "/sign_up",
+    element: <SignUp/>
   }
+
 ]);

@@ -311,7 +311,7 @@ const DisputeManagement = () => {
             </div>
           ))}
         </div>
-        <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4">Load previous</button>
+        <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4 hover:underline">Load previous</button>
       </div>
 
       {/* Messages Button */}
