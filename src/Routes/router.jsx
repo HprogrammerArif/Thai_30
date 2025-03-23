@@ -13,6 +13,10 @@ import Promotions from "../Pages/Dashboard/Promotions";
 import Roles from "../Pages/Dashboard/Roles";
 import DisputManagment from "../Pages/Dashboard/DisputManagment";
 import SignUp from "../Pages/Authentication/SignUp";
+import Login from "../Pages/Authentication/Login";
+import Forget_Password from "../Pages/Authentication/Forget_Password";
+import OTP_Verification from "../Pages/Authentication/OTP_Verification";
+import ResetPassword from "../Pages/Authentication/ResetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -69,6 +73,22 @@ export const router = createBrowserRouter([
   {
     path: "/sign_up",
     element: <SignUp/>
+  },
+  {
+    path: "/login",
+    element: <Login/>
+  },
+  {
+    path: "/email_varification",
+    element: <Forget_Password/>
+  },
+  {
+    path: "/verification",
+    element: <OTP_Verification />
+  },
+  {
+    path: "/reset_password",
+    element: <ResetPassword/>
   }
 
 ]);
