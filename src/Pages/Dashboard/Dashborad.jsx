@@ -17,13 +17,13 @@ export default function Dashboard() {
   const menuItems = [
     {
       items: [
-        { name: "Dashboard", icon: <LuLayoutDashboard size={20} />, path: "/home" },
-        { name: "Users & Therapists", icon: <FaUserGroup size={20} />, path: "/client_info" },
-        { name: "Bookings & Payments", icon: <CalendarDays size={20} />, path: "/booking_info" },
-        { name: "Roles & Permissions", icon: <RiUserSettingsLine size={20} />, path: "/roles" },
-        { name: "Analytics", icon: <BsFillBarChartFill size={20} />, path: "/analytics" },
-        { name: "Promotions", icon: <BadgePercent size={20} />, path: "/promotions" },
-        { name: "Dispute Management", icon: <MessagesSquare size={20} />, path: "/dispute_management"},
+        { name: "Dashboard", icon: <LuLayoutDashboard size={20} />, path: "dashboard/home" },
+        { name: "Users & Therapists", icon: <FaUserGroup size={20} />, path: "dashboard/client_info" },
+        { name: "Bookings & Payments", icon: <CalendarDays size={20} />, path: "dashboard/booking_info" },
+        { name: "Roles & Permissions", icon: <RiUserSettingsLine size={20} />, path: "dashboard/roles" },
+        { name: "Analytics", icon: <BsFillBarChartFill size={20} />, path: "dashboard/analytics" },
+        { name: "Promotions", icon: <BadgePercent size={20} />, path: "dashboard/promotions" },
+        { name: "Dispute Management", icon: <MessagesSquare size={20} />, path: "dashboard/dispute_management"},
       ],
     },
   ];

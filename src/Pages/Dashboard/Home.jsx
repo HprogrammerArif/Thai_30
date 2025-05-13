@@ -340,7 +340,7 @@ const AdminHome = () => {
   };
 
   return (
-    <section className="bg-gray-50 min-h-screen">
+    <section className=" min-h-screen">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div
           className="col-span-2 relative p-8 rounded-2xl text-white h-full flex flex-col justify-center shadow-lg"
