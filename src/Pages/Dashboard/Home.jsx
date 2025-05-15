@@ -1,10 +1,13 @@
+
 // import React, { useState } from 'react';
 // import { User } from 'lucide-react';
 // import { FaCheck, FaTimes } from 'react-icons/fa';
 // import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 // import { LiaUserClockSolid } from 'react-icons/lia';
-// import { useAdminInfoQuery, useGetEarningSummaryQuery, useRecentBookingsQuery } from '../redux/features/baseAPI/baseApi';
+// import { useAdminInfoQuery, useGetEarningSummaryQuery, usePendingTherapistQuery, useRecentBookingsQuery } from '../redux/features/baseAPI/baseApi';
+// import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 
+// // Static pendingApprovals (replace with API data if available)
 // const pendingApprovals = [
 //   {
 //     id: 1,
@@ -73,12 +76,16 @@
 //   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 //   const [selectedTherapistId, setSelectedTherapistId] = useState(null);
 //   const [isTherapistModalOpen, setIsTherapistModalOpen] = useState(false);
-//   const [showAllBookings, setShowAllBookings] = useState(false);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const bookingsPerPage = 5;
+
 //   const [timePeriod, setTimePeriod] = useState('last_week');
 
 //   const { data: adminData, isLoading: adminLoading, error: adminError } = useAdminInfoQuery();
 //   const { data: recentBookings, isLoading: bookingsLoading, error: bookingsError } = useRecentBookingsQuery();
 //   const { data: earningsDataRaw, isLoading: earningsLoading, error: earningsError } = useGetEarningSummaryQuery(timePeriod);
+//   const {data: pendingTherapist } = usePendingTherapistQuery();
+//   console.log(pendingTherapist,"")
 
 //   // Transform earnings data for BarChart
 //   const earningsData = earningsDataRaw?.earnings_by_day
@@ -87,6 +94,16 @@
 //         amount,
 //       }))
 //     : [];
+
+//   // Pagination calculations
+//   const totalBookings = recentBookings?.length || 0;
+//   const totalPages = Math.ceil(totalBookings / bookingsPerPage);
+//   const startIndex = (currentPage - 1) * bookingsPerPage;
+//   const endIndex = startIndex + bookingsPerPage;
+//   const displayedBookings = recentBookings?.slice(startIndex, endIndex) || [];
+
+//   const baseURL = "http://192.168.10.139:3333/"
+
 
 //   // Find selected booking by booking_id
 //   const selectedBooking = recentBookings?.find((booking) => booking.booking_id === selectedBookingId);
@@ -113,8 +130,10 @@
 //     setSelectedTherapistId(null);
 //   };
 
-//   const toggleShowAllBookings = () => {
-//     setShowAllBookings(!showAllBookings);
+//   const handlePageChange = (page) => {
+//     if (page >= 1 && page <= totalPages) {
+//       setCurrentPage(page);
+//     }
 //   };
 
 //   // Booking Modal Component
@@ -256,7 +275,7 @@
 //             <button
 //               className="px-4 py-2 bg-[#F1312B] text-white rounded-lg hover:bg-red-600 flex items-center justify-center gap-1"
 //             >
-//               <FaTimes size= {12} /> Reject
+//               <FaTimes size={12} /> Reject
 //             </button>
 //           </div>
 //         </div>
@@ -266,15 +285,17 @@
 
 //   // Handle loading and error states
 //   if (adminLoading || bookingsLoading || earningsLoading) {
-//     return <div>Loading...</div>;
-//   }
+//   return (
+//     <div className="h-screen flex justify-center items-center">
+//       <span className="loading loading-bars loading-lg"></span> <span className="loading loading-bars loading-lg"></span>
+//     </div>
+//   );
+// }
+
 
 //   if (adminError || bookingsError || earningsError) {
 //     return <div>Error loading data: {adminError?.message || bookingsError?.message || earningsError?.message}</div>;
 //   }
-
-//   // Slice bookings to show only 5 initially
-//   const displayedBookings = showAllBookings ? recentBookings : recentBookings?.slice(0, 5);
 
 //   return (
 //     <section className="min-h-screen">
@@ -329,19 +350,9 @@
 //         <div className="bg-white rounded-2xl shadow-lg p-6">
 //           <div className="flex justify-between items-center mb-6">
 //             <h3 className="text-xl font-bold text-gray-800">Recent Bookings</h3>
-//             <div className="flex gap-2">
-//               {/* <button className="px-4 py-1 font-medium text-[14px] rounded-lg text-sm border-2 border-[#B28D28] transition-colors text-[#B28D28]">
-//                 View All
-//               </button> */}
-//               {recentBookings?.length > 5 && (
-//                 <button
-//                   className="px-4 py-1 font-medium text-[14px] rounded-lg text-sm border-2 border-[#B28D28] transition-colors text-[#B28D28]"
-//                   onClick={toggleShowAllBookings}
-//                 >
-//                   {showAllBookings ? 'Show Less' : 'See More'}
-//                 </button>
-//               )}
-//             </div>
+//             {/* <button className="px-4 py-1 font-medium text-[14px] rounded-lg text-sm border-2 border-[#B28D28] transition-colors text-[#B28D28]">
+//               View All
+//             </button> */}
 //           </div>
 //           <div className="space-y-4">
 //             {displayedBookings?.length > 0 ? (
@@ -354,9 +365,10 @@
 //                   <div className="w-12 h-12 bg-gray-200 rounded-full">
 //                     {booking.therapist_image && (
 //                       <img
-//                         src={booking.therapist_image}
+//                         // src={booking.therapist_image}\
+//                         src={`${baseURL}api${booking.therapist_image}`}
 //                         alt={booking.therapist_name}
-//                         className="w-full h-full object-cover rounded-full"
+//                         className="w-full h-full rounded-full object-cover"
 //                       />
 //                     )}
 //                   </div>
@@ -379,6 +391,49 @@
 //               <p className="text-gray-500">No bookings available</p>
 //             )}
 //           </div>
+//           {totalPages > 1 && (
+//             <div className="flex justify-center items-center gap-2 mt-6">
+//               <button
+//                 onClick={() => handlePageChange(currentPage - 1)}
+//                 disabled={currentPage === 1}
+//                 className={`px-3 py-1 rounded-lg text-sm ${
+//                   currentPage === 1
+//                     ? ' text-gray-400 cursor-not-allowed'
+//                     : ' text-black'
+//                 }`}
+//               >
+//                <FaAngleLeft />
+
+//               </button>
+//               {[...Array(totalPages)].map((_, index) => {
+//                 const page = index + 1;
+//                 return (
+//                   <button
+//                     key={page}
+//                     onClick={() => handlePageChange(page)}
+//                     className={`px-3 py-1 rounded-full text-sm ${
+//                       currentPage === page
+//                         ? 'bg-[#B28D28] text-white'
+//                         : 'bg-gray-100 text-black hover:bg-gray-200'
+//                     }`}
+//                   >
+//                     {page}
+//                   </button>
+//                 );
+//               })}
+//               <button
+//                 onClick={() => handlePageChange(currentPage + 1)}
+//                 disabled={currentPage === totalPages}
+//                 className={`px-3 py-1 rounded-lg text-sm flex flex-col justify-end ${
+//                   currentPage === totalPages
+//                     ? ' text-gray-400 cursor-not-allowed'
+//                     : ' text-black'
+//                 }`}
+//               >
+//                  <FaAngleRight />
+//               </button>
+//             </div>
+//           )}
 //         </div>
 
 //         <div className="bg-white rounded-2xl shadow-lg p-6">
@@ -392,7 +447,7 @@
 //               >
 //                 <option value="this_week">This Week</option>
 //                 <option value="last_week">Last Week</option>
-//                 <option value="two_week_ago">Week Ago</option>
+//                 <option value="two_week_ago">Previous Week</option>
 //               </select>
 //               <div className="w-4 h-4 bg-yellow-400 rounded-full"></div>
 //             </div>
@@ -430,7 +485,7 @@
 //           </div>
 //           <div className="text-center mt-6">
 //             <span className="text-3xl font-bold text-gray-800">
-//               ${earningsData.reduce((sum, item) => sum + item.amount, 0).toFixed(2)}
+//               ${earningsData?.reduce((sum, item) => sum + item.amount, 0).toFixed(2)}
 //             </span>
 //           </div>
 //         </div>
@@ -495,78 +550,20 @@
 // };
 
 // export default AdminHome;
-
 import React, { useState } from 'react';
 import { User } from 'lucide-react';
-import { FaCheck, FaTimes } from 'react-icons/fa';
+import { FaCheck, FaTimes, FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { LiaUserClockSolid } from 'react-icons/lia';
-import { useAdminInfoQuery, useGetEarningSummaryQuery, useRecentBookingsQuery } from '../redux/features/baseAPI/baseApi';
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
-
-// Static pendingApprovals (replace with API data if available)
-const pendingApprovals = [
-  {
-    id: 1,
-    propertyName: "Esthera Jackson",
-    specialization: "Massage Therapist",
-    experience: "4 Years",
-    documents: "Verified",
-    phone: "+11234567889",
-    email: "esthera@email.com",
-    location: "San Diego",
-    documentList: [
-      { name: "certificate.jpg", type: "JPG", size: "18 kb" },
-      { name: "ID_document.pdf", type: "PDF", size: "18 kb" },
-      { name: "license.png", type: "PNG", size: "18 kb" },
-    ],
-  },
-  {
-    id: 2,
-    propertyName: "Tony Adams",
-    specialization: "Massage Therapist",
-    experience: "4 Years",
-    documents: "Verified",
-    phone: "+11234567889",
-    email: "tony@email.com",
-    location: "Los Angeles",
-    documentList: [
-      { name: "certificate.jpg", type: "JPG", size: "18 kb" },
-      { name: "ID_document.pdf", type: "PDF", size: "18 kb" },
-      { name: "license.png", type: "PNG", size: "18 kb" },
-    ],
-  },
-  {
-    id: 3,
-    propertyName: "Forran Torres",
-    specialization: "Massage Therapist",
-    experience: "4 Years",
-    documents: "View",
-    phone: "+11234567889",
-    email: "forran@email.com",
-    location: "San Francisco",
-    documentList: [
-      { name: "certificate.jpg", type: "JPG", size: "18 kb" },
-      { name: "ID_document.pdf", type: "PDF", size: "18 kb" },
-      { name: "license.png", type: "PNG", size: "18 kb" },
-    ],
-  },
-  {
-    id: 4,
-    propertyName: "Rodrygo Del",
-    specialization: "Massage Therapist",
-    experience: "4 Years",
-    documents: "View",
-    phone: "+11234567889",
-    email: "rodrygo@email.com",
-    location: "Seattle",
-    documentList: [
-      { name: "certificate.jpg", type: "JPG", size: "18 kb" },
-      { name: "ID_document.pdf", type: "PDF", size: "18 kb" },
-      { name: "license.png", type: "PNG", size: "18 kb" },
-    ],
-  },
-];
+import {
+  useAdminInfoQuery,
+  useGetEarningSummaryQuery,
+  usePendingTherapistQuery,
+  useRecentBookingsQuery,
+  useApproveTherapistMutation,
+  useRejectTherapistMutation,
+} from '../redux/features/baseAPI/baseApi';
+import { Link } from 'react-router-dom';
 
 const AdminHome = () => {
   const [selectedBookingId, setSelectedBookingId] = useState(null);
@@ -575,12 +572,16 @@ const AdminHome = () => {
   const [isTherapistModalOpen, setIsTherapistModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const bookingsPerPage = 5;
-
   const [timePeriod, setTimePeriod] = useState('last_week');
+
+  const baseURL = "http://192.168.10.139:3333/";
 
   const { data: adminData, isLoading: adminLoading, error: adminError } = useAdminInfoQuery();
   const { data: recentBookings, isLoading: bookingsLoading, error: bookingsError } = useRecentBookingsQuery();
   const { data: earningsDataRaw, isLoading: earningsLoading, error: earningsError } = useGetEarningSummaryQuery(timePeriod);
+  const { data: pendingTherapist, isLoading: isPendingLoading, error: pendingError } = usePendingTherapistQuery();
+  const [approveTherapist, { isLoading: isApproving }] = useApproveTherapistMutation();
+  const [rejectTherapist, { isLoading: isRejecting }] = useRejectTherapistMutation();
 
   // Transform earnings data for BarChart
   const earningsData = earningsDataRaw?.earnings_by_day
@@ -590,6 +591,50 @@ const AdminHome = () => {
       }))
     : [];
 
+  // Transform pendingTherapist data to match UI structure
+  const transformedPendingApprovals = pendingTherapist?.map((therapist) => ({
+    id: therapist.profile_id,
+    propertyName: therapist.full_name,
+    specialization: "Massage Therapist", 
+    experience: "Unknown", 
+    documents: therapist.documents[0]?.is_approved ? "Verified" : "View",
+    phone: therapist.phone_number || "N/A",
+    email: therapist.email || "N/A",
+    location: "Unknown", 
+    documentList: [
+      therapist.documents[0]?.id_document && {
+        name: "ID Document",
+        type: "PDF",
+        size: "Unknown",
+        url: `${baseURL}${therapist.documents[0].id_document}`,
+      },
+      therapist.documents[0]?.ssn_or_ittn && {
+        name: "SSN/ITTN",
+        type: "PDF",
+        size: "Unknown",
+        url: `${baseURL}${therapist.documents[0].ssn_or_ittn}`,
+      },
+      therapist.documents[0]?.drivers_license && {
+        name: "Driver's License",
+        type: "PDF",
+        size: "Unknown",
+        url: `${baseURL}${therapist.documents[0].drivers_license}`,
+      },
+      therapist.documents[0]?.liability_insurance && {
+        name: "Liability Insurance",
+        type: "PDF",
+        size: "Unknown",
+        url: `${baseURL}${therapist.documents[0].liability_insurance}`,
+      },
+      therapist.documents[0]?.certifications && {
+        name: "Certifications",
+        type: "PDF",
+        size: "Unknown",
+        url: `${baseURL}${therapist.documents[0].certifications}`,
+      },
+    ].filter(Boolean),
+  })) || [];
+
   // Pagination calculations
   const totalBookings = recentBookings?.length || 0;
   const totalPages = Math.ceil(totalBookings / bookingsPerPage);
@@ -597,13 +642,9 @@ const AdminHome = () => {
   const endIndex = startIndex + bookingsPerPage;
   const displayedBookings = recentBookings?.slice(startIndex, endIndex) || [];
 
-  const baseURL = "http://192.168.10.139:3333/"
-
-
-  // Find selected booking by booking_id
+  // Find selected booking and therapist
   const selectedBooking = recentBookings?.find((booking) => booking.booking_id === selectedBookingId);
-  // Find selected therapist by id
-  const selectedTherapist = pendingApprovals?.find((therapist) => therapist.id === selectedTherapistId);
+  const selectedTherapist = transformedPendingApprovals?.find((therapist) => therapist.id === selectedTherapistId);
 
   const handleBookingClick = (bookingId) => {
     setSelectedBookingId(bookingId);
@@ -631,6 +672,26 @@ const AdminHome = () => {
     }
   };
 
+  const handleApprove = async (profileId) => {
+    try {
+      await approveTherapist(profileId).unwrap();
+      closeTherapistModal();
+    } catch (error) {
+      console.error('Error approving therapist:', error);
+     
+    }
+  };
+
+  const handleReject = async (profileId) => {
+    try {
+      await rejectTherapist(profileId).unwrap();
+      closeTherapistModal();
+    } catch (error) {
+      console.error('Error rejecting therapist:', error);
+     
+    }
+  };
+
   // Booking Modal Component
   const BookingModal = ({ isOpen, onClose, booking }) => {
     if (!isOpen || !booking) return null;
@@ -640,7 +701,7 @@ const AdminHome = () => {
         <div className="bg-white rounded-xl p-6 w-full max-w-4xl h-[50vh] backdrop-blur-lg">
           <div className="flex justify-between items-start mb-4">
             <h3 className="text-xl font-bold text-gray-800 mb-10">Booking Details</h3>
-            <button 
+            <button
               onClick={onClose}
               className="text-gray-500 hover:text-red-700 font-semibold"
             >
@@ -702,10 +763,10 @@ const AdminHome = () => {
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white rounded-xl p-6 w-full max-w-3xl">
+        <div className="bg-white rounded-xl p-6 w-full max-w-5xl">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-bold text-gray-800">Therapist Request</h3>
-            <button 
+            <button
               onClick={onClose}
               className="text-gray-500 hover:text-red-700 font-semibold"
             >
@@ -716,45 +777,44 @@ const AdminHome = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-gray-500">Name</p>
-                <p className="font-medium text-gray-800">{therapist.propertyName}</p>
+                <p className="font-medium text-gray-800">{therapist?.propertyName}</p>
               </div>
-              <div>
-                <p className="text-sm text-gray-500">Specialty</p>
-                <p className="font-medium text-gray-800">{therapist.specialization}</p>
+
+               <div>
+                <p className="text-sm text-gray-500">Phone</p>
+                <p className="font-medium text-gray-800">{therapist?.phone}</p>
               </div>
+             
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-sm text-gray-500">Phone</p>
-                <p className="font-medium text-gray-800">{therapist.phone}</p>
-              </div>
               <div>
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="font-medium text-gray-800">{therapist.email}</p>
+                <p className="font-medium text-gray-800">{therapist?.email}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-sm text-gray-500">Experience</p>
-                <p className="font-medium text-gray-800">{therapist.experience}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Location</p>
-                <p className="font-medium text-gray-800">{therapist.location}</p>
-              </div>
             </div>
+
+
             <div className="pt-8">
               <p className="text-sm text-gray-500 mb-2">Documents</p>
-              <div className="space-y-3">
-                {therapist.documentList.map((doc, index) => (
+              <div className=" grid grid-cols-3 gap-3 ">
+                {therapist?.documentList?.map((doc, index) => (
                   <div
                     key={index}
-                    className="flex items-center w-3/6 gap-3 p-3 border border-[#B28D2833]/20 bg-[#FAE08C1A]/10 rounded-lg"
+                    className="flex items-start gap-3 p-3 border border-[#B28D2833]/20 bg-[#FAE08C1A]/10 rounded-lg"
                   >
-                    <span className="text-sm font-medium text-gray-500">{doc.type}</span>
+                    <span className="text-sm font-medium text-gray-500">{doc?.type}</span>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-800">{doc.name}</p>
-                      <p className="text-xs text-gray-500">{doc.size}</p>
+                      <Link
+                        href={doc?.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-medium text-gray-800 hover:underline"
+                      >
+                        {doc?.name}
+                      </Link>
+                      <p className="text-xs text-gray-500">{doc?.size}</p>
                     </div>
                   </div>
                 ))}
@@ -764,13 +824,17 @@ const AdminHome = () => {
           <div className="flex items-center justify-end gap-3 mt-10">
             <button
               className="px-4 py-2 bg-[#4AB228] text-white rounded-lg hover:bg-green-600 flex items-center justify-center gap-1"
+              onClick={() => handleApprove(therapist.id)}
+              disabled={isApproving}
             >
-              <FaCheck size={12} /> Approve
+              {isApproving ? 'Approving...' : <><FaCheck size={12} /> Approve</>}
             </button>
             <button
               className="px-4 py-2 bg-[#F1312B] text-white rounded-lg hover:bg-red-600 flex items-center justify-center gap-1"
+              onClick={() => handleReject(therapist.id)}
+              disabled={isRejecting}
             >
-              <FaTimes size={12} /> Reject
+              {isRejecting ? 'Rejecting...' : <><FaTimes size={12} /> Reject</>}
             </button>
           </div>
         </div>
@@ -779,12 +843,20 @@ const AdminHome = () => {
   };
 
   // Handle loading and error states
-  if (adminLoading || bookingsLoading || earningsLoading) {
-    return <div>Loading...</div>;
+  if (adminLoading || bookingsLoading || earningsLoading || isPendingLoading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
+    );
   }
 
-  if (adminError || bookingsError || earningsError) {
-    return <div>Error loading data: {adminError?.message || bookingsError?.message || earningsError?.message}</div>;
+  if (adminError || bookingsError || earningsError || pendingError) {
+    return (
+      <div className="text-red-500">
+        Error loading data: {adminError?.message || bookingsError?.message || earningsError?.message || pendingError?.message}
+      </div>
+    );
   }
 
   return (
@@ -827,7 +899,7 @@ const AdminHome = () => {
               </span>
               <h3 className="text-xl font-bold text-gray-800">Pending Approvals</h3>
             </div>
-            <p className="text-4xl font-bold text-gray-900">{adminData?.pending_approvals || 0}</p>
+            <p className="text-4xl font-bold text-gray-900">{transformedPendingApprovals.length || 0}</p>
             <div className="relative w-full bg-gray-200 h-3 rounded-full mt-4">
               <div className="absolute left-0 h-3 bg-yellow-500 rounded-full" style={{ width: "75%" }}></div>
             </div>
@@ -840,9 +912,6 @@ const AdminHome = () => {
         <div className="bg-white rounded-2xl shadow-lg p-6">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-bold text-gray-800">Recent Bookings</h3>
-            {/* <button className="px-4 py-1 font-medium text-[14px] rounded-lg text-sm border-2 border-[#B28D28] transition-colors text-[#B28D28]">
-              View All
-            </button> */}
           </div>
           <div className="space-y-4">
             {displayedBookings?.length > 0 ? (
@@ -855,7 +924,6 @@ const AdminHome = () => {
                   <div className="w-12 h-12 bg-gray-200 rounded-full">
                     {booking.therapist_image && (
                       <img
-                        // src={booking.therapist_image}\
                         src={`${baseURL}api${booking.therapist_image}`}
                         alt={booking.therapist_name}
                         className="w-full h-full rounded-full object-cover"
@@ -887,13 +955,10 @@ const AdminHome = () => {
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
                 className={`px-3 py-1 rounded-lg text-sm ${
-                  currentPage === 1
-                    ? ' text-gray-400 cursor-not-allowed'
-                    : ' text-black'
+                  currentPage === 1 ? 'text-gray-400 cursor-not-allowed' : 'text-black'
                 }`}
               >
-               <FaAngleLeft />
-
+                <FaAngleLeft />
               </button>
               {[...Array(totalPages)].map((_, index) => {
                 const page = index + 1;
@@ -914,13 +979,11 @@ const AdminHome = () => {
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={`px-3 py-1 rounded-lg text-sm flex flex-col justify-end ${
-                  currentPage === totalPages
-                    ? ' text-gray-400 cursor-not-allowed'
-                    : ' text-black'
+                className={`px-3 py-1 rounded-lg text-sm ${
+                  currentPage === totalPages ? 'text-gray-400 cursor-not-allowed' : 'text-black'
                 }`}
               >
-                 <FaAngleRight />
+                <FaAngleRight />
               </button>
             </div>
           )}
@@ -965,7 +1028,6 @@ const AdminHome = () => {
                     strokeWidth={1}
                     radius={[5, 5, 0, 0]}
                     barSize={20}
-                    onMouseOver={(data) => console.log(data)}
                   />
                 </BarChart>
               </ResponsiveContainer>
@@ -983,14 +1045,14 @@ const AdminHome = () => {
         <div className="bg-white rounded-2xl shadow-lg p-6 col-span-2 mt-10">
           <h3 className="text-xl font-bold text-gray-800 mb-6">Pending Therapist Approvals</h3>
           <div className="grid grid-cols-5 gap-4 text-sm font-medium text-gray-700 mb-4">
-            <div className="text-base">Property Name</div>
+            <div className="text-base">Therapist Name</div>
             <div className="text-base">Specialization</div>
             <div className="text-base">Experience</div>
             <div className="text-base">Documents</div>
             <div className="text-base">Action</div>
           </div>
-          {pendingApprovals?.length > 0 ? (
-            pendingApprovals.map((approval) => (
+          {transformedPendingApprovals.length > 0 ? (
+            transformedPendingApprovals.map((approval) => (
               <div
                 key={approval.id}
                 className="grid grid-cols-5 gap-4 py-3 border-t border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer"
@@ -1010,11 +1072,25 @@ const AdminHome = () => {
                   {approval.documents}
                 </div>
                 <div className="flex gap-3">
-                  <button className="px-3 py-1 bg-green-700 text-white rounded-lg hover:bg-green-700 flex items-center gap-1">
-                    <FaCheck size={12} /> Approve
+                  <button
+                    className="px-3 py-1 bg-green-700 text-white rounded-lg hover:bg-green-700 flex items-center gap-1"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleApprove(approval.id);
+                    }}
+                    disabled={isApproving}
+                  >
+                    {isApproving ? 'Approving...' : <><FaCheck size={12} /> Approve</>}
                   </button>
-                  <button className="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center gap-1">
-                    <FaTimes size={12} /> Reject
+                  <button
+                    className="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center gap-1"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleReject(approval.id);
+                    }}
+                    disabled={isRejecting}
+                  >
+                    {isRejecting ? 'Rejecting...' : <><FaTimes size={12} /> Reject</>}
                   </button>
                 </div>
               </div>
@@ -1025,12 +1101,12 @@ const AdminHome = () => {
         </div>
       </div>
 
-      <BookingModal 
+      <BookingModal
         isOpen={isBookingModalOpen}
         onClose={closeBookingModal}
         booking={selectedBooking}
       />
-      <TherapistModal 
+      <TherapistModal
         isOpen={isTherapistModalOpen}
         onClose={closeTherapistModal}
         therapist={selectedTherapist}

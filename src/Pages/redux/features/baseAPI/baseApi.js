@@ -59,8 +59,25 @@ tagTypes: ["User"],
 
     //pending therapist
     pendingTherapist: builder.query({
-      query: ()=>""
-    })
+      query: ()=>"api/pending-therapist-approvals/",
+    }),
+
+    approveTherapist: builder.mutation({
+      query: (profileId) => ({
+        url: `therapist-approval/${profileId}/approve`,
+        method: 'POST',
+      }),
+      invalidatesTags: ['PendingTherapists'],
+    }),
+
+
+    rejectTherapist: builder.mutation({
+      query: (profileId) => ({
+        url: `therapist-approval/${profileId}/reject`,
+        method: 'POST',
+      }),
+      invalidatesTags: ['PendingTherapists'],
+    }),
 
 
   }),
@@ -79,6 +96,11 @@ export const {
 
  useGetEarningSummaryQuery,
  useGetAdminQuery,
+
+ usePendingTherapistQuery,
+
+ useApproveTherapistMutation,
+useRejectTherapistMutation,
 
  
  
