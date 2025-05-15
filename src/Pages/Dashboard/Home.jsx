@@ -580,6 +580,7 @@ const AdminHome = () => {
   const { data: recentBookings, isLoading: bookingsLoading, error: bookingsError } = useRecentBookingsQuery();
   const { data: earningsDataRaw, isLoading: earningsLoading, error: earningsError } = useGetEarningSummaryQuery(timePeriod);
   const { data: pendingTherapist, isLoading: isPendingLoading, error: pendingError } = usePendingTherapistQuery();
+  console.log(pendingTherapist)
   const [approveTherapist, { isLoading: isApproving }] = useApproveTherapistMutation();
   const [rejectTherapist, { isLoading: isRejecting }] = useRejectTherapistMutation();
 
@@ -593,7 +594,7 @@ const AdminHome = () => {
 
   // Transform pendingTherapist data to match UI structure
   const transformedPendingApprovals = pendingTherapist?.map((therapist) => ({
-    id: therapist.profile_id,
+    id: therapist.user_id,
     propertyName: therapist.full_name,
     specialization: "Massage Therapist", 
     experience: "Unknown", 
@@ -673,6 +674,7 @@ const AdminHome = () => {
   };
 
   const handleApprove = async (profileId) => {
+    console.log(profileId, "profileId")
     try {
       await approveTherapist(profileId).unwrap();
       closeTherapistModal();
@@ -778,6 +780,7 @@ const AdminHome = () => {
               <div>
                 <p className="text-sm text-gray-500">Name</p>
                 <p className="font-medium text-gray-800">{therapist?.propertyName}</p>
+                
               </div>
 
                <div>
@@ -806,14 +809,15 @@ const AdminHome = () => {
                   >
                     <span className="text-sm font-medium text-gray-500">{doc?.type}</span>
                     <div className="flex-1">
-                      <Link
-                        href={doc?.url}
+                      <a
+                       href={`${baseURL}api${doc?.url}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm font-medium text-gray-800 hover:underline"
+                      className="text-sm font-medium text-gray-800 hover:underline"
                       >
                         {doc?.name}
-                      </Link>
+                      </a>
+
                       <p className="text-xs text-gray-500">{doc?.size}</p>
                     </div>
                   </div>
