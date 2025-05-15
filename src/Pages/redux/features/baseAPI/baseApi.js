@@ -57,6 +57,11 @@ tagTypes: ["User"],
       query: (timePeriod) => `api/earning-summary/?time_period=${timePeriod}`,
     }),
 
+    //pending therapist
+    pendingTherapist: builder.query({
+      query: ()=>""
+    })
+
 
   }),
 })

@@ -17,6 +17,8 @@ export default function Dashboard() {
   const navigate = useNavigate(); 
   console.log(adminData)
 
+  const baseURL = "http://192.168.10.139:3333/"
+
   const menuItems = [
     {
       items: [
@@ -111,7 +113,7 @@ export default function Dashboard() {
 
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Navbar */}
-        <header className="h-16 bg-white border-b border-gray-200">
+        <header className="h-16 bg-white border-b border-gray-200 py-10">
           <div className="h-full px-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
@@ -134,7 +136,8 @@ export default function Dashboard() {
               <div className="flex items-center justify-center gap-2">
                 <div className="w-12">
                   <img
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    // src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                   src={`${baseURL}api${adminData?.image}`}
                     className="rounded-full"
                     alt="Admin Avatar"
                   />

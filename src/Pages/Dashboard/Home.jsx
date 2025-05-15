@@ -597,6 +597,9 @@ const AdminHome = () => {
   const endIndex = startIndex + bookingsPerPage;
   const displayedBookings = recentBookings?.slice(startIndex, endIndex) || [];
 
+  const baseURL = "http://192.168.10.139:3333/"
+
+
   // Find selected booking by booking_id
   const selectedBooking = recentBookings?.find((booking) => booking.booking_id === selectedBookingId);
   // Find selected therapist by id
@@ -852,9 +855,10 @@ const AdminHome = () => {
                   <div className="w-12 h-12 bg-gray-200 rounded-full">
                     {booking.therapist_image && (
                       <img
-                        src={booking.therapist_image}
+                        // src={booking.therapist_image}\
+                        src={`${baseURL}api${booking.therapist_image}`}
                         alt={booking.therapist_name}
-                        className="w-full h-full object-cover rounded-full"
+                        className="w-full h-full rounded-full object-cover"
                       />
                     )}
                   </div>
