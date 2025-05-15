@@ -7,12 +7,15 @@ import { FaUserGroup } from "react-icons/fa6";
 import { BadgePercent, Bell, CalendarDays, ChevronDown, ChevronsLeft, ChevronsRight, MessagesSquare } from "lucide-react";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { BsFillBarChartFill } from "react-icons/bs";
+import { useGetAdminQuery } from "../redux/features/baseAPI/baseApi";
 
 export default function Dashboard() {
+  const {data:adminData} = useGetAdminQuery()
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Dashboard");
-  const location = useLocation(); // Get current route
-  const navigate = useNavigate(); // For programmatic navigation
+  const location = useLocation(); 
+  const navigate = useNavigate(); 
+  console.log(adminData)
 
   const menuItems = [
     {
@@ -59,7 +62,7 @@ export default function Dashboard() {
                 isCollapsed ? "opacity-0 -translate-x-full" : "opacity-100 translate-x-0"
               }`}
             >
-              <img src="https://i.ibb.co.com/6JmxrwwH/Group-1686551099-1.png" alt="Logo" />
+              <img src="https://res.cloudinary.com/dpi0t9wfn/image/upload/v1747305047/Group_1686551099_1_pijkms.png" alt="Logo" />
             </div>
           </div>
         </div>
@@ -137,8 +140,8 @@ export default function Dashboard() {
                   />
                 </div>
                 <div>
-                  <h2 className="font-bold">Admin</h2>
-                  <p className="text-gray-900">admin@hn.com</p>
+                  <h2 className="font-bold">{adminData?.full_name}</h2>
+                  <p className="text-gray-900">{adminData?.email}</p>
                 </div>
                 <div className="dropdown dropdown-end">
                   <div tabIndex={0} role="button">

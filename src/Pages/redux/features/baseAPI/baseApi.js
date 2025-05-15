@@ -3,7 +3,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const baseApi = createApi({
   reducerPath: 'baseApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: 'http://192.168.10.139:3333/' 
+    baseUrl: 'http://192.168.10.139:3333/' ,
+     prepareHeaders: (headers) => {
+            const token = localStorage.getItem("access_token");
+            if (token) {
+                headers.set("Authorization", `Bearer ${token}`);
+            }
+            return headers;
+        },
 }),
 
 tagTypes: ["User"],
@@ -28,10 +35,27 @@ tagTypes: ["User"],
       body: userData,
       providesTags: ["User"]
     })
-   })
+   }),
 
-   //getuser
- 
+   //getadmin
+   getAdmin: builder.query({
+    query: ()=>"api/admin/profile/"
+   }),
+
+   //admin_home
+ adminInfo: builder.query({
+    query: ()=>"/api/admin/dashboard/summary/"
+ }), 
+
+
+ //recent bookings
+ recentBookings: builder.query({
+  query: ()=>"api/recent-booking/"
+ }),
+
+  getEarningSummary: builder.query({
+      query: (timePeriod) => `api/earning-summary/?time_period=${timePeriod}`,
+    }),
 
 
   }),
@@ -44,6 +68,14 @@ export const {
 
  //login user
  useLoginUserMutation,
+ useAdminInfoQuery,
+ useRecentBookingsQuery,
+
+
+ useGetEarningSummaryQuery,
+ useGetAdminQuery,
+
+ 
  
 
 } = baseApi

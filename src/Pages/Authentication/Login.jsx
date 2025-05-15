@@ -128,27 +128,23 @@ const Login = () => {
                 </Link>
               </div>
 
-              {/* <button 
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full bg-[#B28D28] p-2 rounded-full text-white text-base font-semibold ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:bg-[#8F5E0A]'}`}
-              >
-                {isSubmitting ? 'Logging in...' : 'Login'}
-              </button> */}
+        
 
-
-               <button
+            <button
   type="submit"
-  disabled={isSubmitting}
+  disabled={isSubmitting || isLoading}
   className={`rounded-full w-full text-base text-white
-    ${isLoading ? 'hover:bg-[#be892d] cursor-not-allowed' : 'bg-[#B28D28]'}
-    ${isLoading ? '' : 'hover:bg-[#be8c35]'}
-    px-4 py-2 transition duration-300 font-semibold shadow-md`}
+    ${isLoading ? 'bg-yellow-500 cursor-not-allowed' : 'bg-[#B28D28] hover:bg-[#be892d]'}
+    px-4 py-2 font-semibold shadow-md`}
 >
-  {isLoading ? 
-    <span className="loading loading-bars loading-sm"></span> 
-    : 'Login'}
+  {isLoading ? (
+    <span className="loading loading-bars loading-sm"></span>
+  ) : (
+    'Login'
+  )}
 </button>
+
+
 
               <p className="text-center text-gray-900 mt-4">
                 Don't have an account? 
