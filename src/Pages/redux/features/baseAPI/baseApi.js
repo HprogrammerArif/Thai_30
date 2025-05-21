@@ -13,7 +13,7 @@ export const baseApi = createApi({
         },
 }),
 
-tagTypes: ["User"],
+tagTypes: ["User", "Therapist", "PendingTherapists"],
   endpoints: (builder) => ({
 
 
@@ -79,6 +79,38 @@ tagTypes: ["User"],
       invalidatesTags: ['PendingTherapists'],
     }),
 
+    //get Therapist details
+    getTherapistDetails: builder.query({
+    query: (query) => `api/admin/therapists/?query=${encodeURIComponent(query)}`,
+    providesTags: ['Therapist'],
+  }),
+
+
+    getCustomersDetails: builder.query({
+    query: (query) => `api/admin/customers/?query=${encodeURIComponent(query)}`,
+    providesTags: ['Customer'],
+  }),
+
+  //gettherapist details
+  getTherapistDetailsInfo: builder.query({
+    query: (id)=>`api/admin/therapists/${id}`
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   }),
 })
@@ -100,8 +132,15 @@ export const {
  usePendingTherapistQuery,
 
  useApproveTherapistMutation,
-useRejectTherapistMutation,
+ useRejectTherapistMutation,
 
+
+ //users and therapist
+  useGetTherapistDetailsQuery,
+  useGetCustomersDetailsQuery,
+
+  useGetTherapistDetailsInfoQuery,
+  
  
  
 
