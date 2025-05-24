@@ -1,4 +1,3 @@
-
 import { createBrowserRouter } from "react-router-dom";
 
 import Dashborad from "../Pages/Dashboard/Dashborad";
@@ -22,27 +21,27 @@ import ResetPassword from "../Pages/Authentication/ResetPassword";
 export const router = createBrowserRouter([
   {
     index: true,
-    element: <Login />
+    element: <Login />,
   },
   {
     path: "/login",
-    element: <Login />
+    element: <Login />,
   },
   {
     path: "/sign_up",
-    element: <SignUp />
+    element: <SignUp />,
   },
   {
     path: "/email_varification",
-    element: <Forget_Password />
+    element: <Forget_Password />,
   },
   {
     path: "/verification",
-    element: <OTP_Verification />
+    element: <OTP_Verification />,
   },
   {
     path: "/reset_password",
-    element: <ResetPassword />
+    element: <ResetPassword />,
   },
 
   // Dashboard routes (accessed after login)
@@ -54,14 +53,13 @@ export const router = createBrowserRouter([
       { path: "home", element: <AdminHome /> },
       { path: "profile", element: <Profile /> },
       { path: "client_info", element: <ClientInfo /> },
-      { path: "customer/:email", element: <CustomerDetails /> },
+      { path: "customer/:id", element: <CustomerDetails /> },
       { path: "therapist/:id", element: <TherapistDetails /> },
       { path: "booking_info", element: <Bookings /> },
       { path: "analytics", element: <Analytics /> },
       { path: "promotions", element: <Promotions /> },
       { path: "roles", element: <Roles /> },
-      { path: "dispute_management", element: <DisputManagment /> }
-    ]
-  }
+      { path: "dispute_management", element: <DisputManagment /> },
+    ],
+  },
 ]);
-
