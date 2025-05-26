@@ -13,7 +13,7 @@ export const baseApi = createApi({
     },
   }),
 
-  tagTypes: ["User", "Therapist", "PendingTherapists"],
+  tagTypes: ["User", "Therapist", "PendingTherapists", "Booking", "Customer"],
   endpoints: (builder) => ({
     //authentication
     createUser: builder.mutation({
@@ -96,6 +96,20 @@ export const baseApi = createApi({
     getCustomerDetailsInfo: builder.query({
       query: (id) => `api/admin/customers/${id}/`,
     }),
+
+    //bookings
+    getAllBookings: builder.query({
+      query: () => "api/all_bookings/",
+      providesTags: ["Booking"],
+    }),
+
+    //get details of booking
+    getBookingDetails: builder.query({
+      query: (bookingId) => `api/admin/booking-detail/${bookingId}/`,
+      providesTags: ["Booking"],
+    }),
+
+
   }),
 });
 
@@ -122,4 +136,10 @@ export const {
 
   useGetTherapistDetailsInfoQuery,
   useGetCustomerDetailsInfoQuery,
+
+  //bookings
+  useGetAllBookingsQuery,
+
+  //booking details
+  useGetBookingDetailsQuery,
 } = baseApi;
