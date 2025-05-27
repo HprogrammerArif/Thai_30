@@ -109,6 +109,15 @@ export const baseApi = createApi({
       providesTags: ["Booking"],
     }),
 
+    //delete booking
+    deleteBooking: builder.mutation({
+      query: (id) => ({
+        url: `api/manage_bookings/${id}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Booking"],
+    }),
+
     //transaction history
     getTransactionHistory:builder.query({
       query: ()=> "api/admin/transactions/",
@@ -154,6 +163,9 @@ export const {
 
   //booking details
   useGetBookingDetailsQuery,
+
+  //delete booking
+  useDeleteBookingMutation,
 
   //transaction history
   useGetTransactionHistoryQuery,
