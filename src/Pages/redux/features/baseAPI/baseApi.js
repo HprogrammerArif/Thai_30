@@ -109,6 +109,18 @@ export const baseApi = createApi({
       providesTags: ["Booking"],
     }),
 
+    //transaction history
+    getTransactionHistory:builder.query({
+      query: ()=> "api/admin/transactions/",
+      providesTags: ["Transaction"],
+    }),
+
+    //transaction history details
+    getTransactionHistoryDetails: builder.query({
+      query: (selectedTransactionId) => `api/admin/transactions/${selectedTransactionId}/`,
+      providesTags: ["Transaction"],
+    }),
+
 
   }),
 });
@@ -142,4 +154,9 @@ export const {
 
   //booking details
   useGetBookingDetailsQuery,
+
+  //transaction history
+  useGetTransactionHistoryQuery,
+  useGetTransactionHistoryDetailsQuery,
+
 } = baseApi;

@@ -28,56 +28,6 @@ const TherapistDetails = () => {
   const [documentType, setDocumentType] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
 
-  // Therapist data
-  const therapist = {
-    id: id,
-    name: "Mical Mindez",
-    email: "mike@email.com",
-    phone: "+1 555 123 4567",
-    specialization: "Thai Massage Therapist",
-    joined: "Joined July 2023",
-    rating: 4.2,
-    totalBookings: 102,
-    totalEarnings: 4280,
-    pendingPayout: 850,
-    licenses: [
-      { name: "License 1", expiry: "March 15, 2025", status: "Verified" },
-      { name: "License 2", expiry: "20 March, 2025", status: "Verified" },
-    ],
-    performanceMetrics: {
-      noShowRate: 2,
-      cancellationRate: 2,
-      onTimeRate: 96,
-    },
-    workSchedule: [
-      { day: "Saturday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Sunday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Monday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Tuesday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Wednesday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Thursday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Friday", hours: "OFF" },
-    ],
-    reviews: [
-      {
-        name: "Sarah M.",
-        rating: 5,
-        comment: "Excellent session! Very professional and helpful.",
-        time: "2h ago",
-        image:
-          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
-      },
-      {
-        name: "John D.",
-        rating: 5,
-        comment: "Great therapist, would definitely recommend!",
-        time: "1d ago",
-        image:
-          "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&h=150&fit=crop",
-      },
-    ],
-  };
-
   // Function to open the modal
   const openAddDocumentModal = () => {
     document.getElementById("add_document_modal").showModal();
@@ -161,7 +111,7 @@ const TherapistDetails = () => {
           </div>
 
           {/* Performance Metrics */}
-          <div className="bg-white rounded-[20px] p-6">
+          {/* <div className="bg-white rounded-[20px] p-6">
             <h2 className="text-lg font-semibold mb-6">Performance Metrics</h2>
             <div className="relative w-48 h-48 mx-auto">
               <svg className="w-full h-full" viewBox="0 0 100 100">
@@ -220,7 +170,7 @@ const TherapistDetails = () => {
                 </span>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Right Column */}
@@ -256,7 +206,7 @@ const TherapistDetails = () => {
               <div className="space-y-2">
                 <h1 className="text-gray-800">Pending Payout</h1>
                 <h1 className="font-bold text-xl text-black">
-                  ${therapist.pendingPayout}
+                  ${therapistInfo?.pendingPayout}
                 </h1>
               </div>
               <div className="bg-[#B28D28] p-2 rounded-xl">
@@ -529,12 +479,12 @@ const TherapistDetails = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-gray-600">Name</p>
-                <p className="font-medium text-gray-900">{therapist.name}</p>
+                <p className="font-medium text-gray-900">{therapistInfo?.name}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-600">Specialty</p>
                 <p className="font-medium text-gray-900">
-                  {therapist.specialization}
+                  {therapistInfo?.specialization}
                 </p>
               </div>
             </div>
