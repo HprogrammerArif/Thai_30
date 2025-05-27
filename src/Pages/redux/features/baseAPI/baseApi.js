@@ -130,6 +130,23 @@ export const baseApi = createApi({
       providesTags: ["Transaction"],
     }),
 
+    //delete customer and therapist
+    deleteCustomer: builder.mutation({
+      query: (customerId) => ({
+        url: `api/admin/customers/${customerId}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Customer"],
+    }),
+
+    deleteTherapist: builder.mutation({
+      query: (therapistId) => ({
+        url: `api/admin/therapists/${therapistId}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Therapist"],
+    }),
+
 
   }),
 });
@@ -170,5 +187,9 @@ export const {
   //transaction history
   useGetTransactionHistoryQuery,
   useGetTransactionHistoryDetailsQuery,
+
+  //delete customer and therapist
+  useDeleteCustomerMutation,
+  useDeleteTherapistMutation,
 
 } = baseApi;

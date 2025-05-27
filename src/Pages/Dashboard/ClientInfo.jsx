@@ -6,12 +6,17 @@ import { FaEdit, FaTrash, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {
   useAdminInfoQuery,
+  useDeleteCustomerMutation,
+  useDeleteTherapistMutation,
   useGetCustomersDetailsQuery,
   useGetTherapistDetailsQuery,
 } from "../redux/features/baseAPI/baseApi";
+import { LuTrash2 } from "react-icons/lu";
 
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
+
+
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -41,21 +46,50 @@ const ClientInfo = () => {
     return query.toLowerCase().trim();
   };
 
+
   const customerApiQuery = mapStatusQuery(debouncedCustomerSearchQuery);
   const therapistApiQuery = mapStatusQuery(debouncedTherapistSearchQuery);
   const { data: adminData } = useAdminInfoQuery();
-  const {
-    data: customerData,
-    isLoading,
-    isError,
-    error,
-  } = useGetCustomersDetailsQuery(debouncedCustomerSearchQuery || "");
+  const {data: customerData,isLoading,isError, error,} = useGetCustomersDetailsQuery(debouncedCustomerSearchQuery || "");
 
   console.log("customerData", customerData);
 
   const { data: therapistData } = useGetTherapistDetailsQuery(
     debouncedTherapistSearchQuery || ""
   );
+  console.log("therapistData",therapistData);
+
+  const [deleteCustomer] = useDeleteCustomerMutation();
+  const [deleteTherapist] = useDeleteTherapistMutation();
+
+
+  //delete therapist/customers function
+const handleDeleteCustomer = (customerId) =>{
+  console.log(customerId, "customerId");
+  
+  try {
+    const response = deleteCustomer(customerId).unwrap();
+    console.log(response, "Customer deleted successfully");
+  } catch (error) {
+    console.error("Error deleting customer:", error);
+    
+  }
+};
+
+
+const handleDeleteTherapist = (id) => {
+  console.log(id, "therapistId");
+  
+  try {
+    const response = deleteTherapist(id).unwrap();
+    console.log(response, "Therapist deleted successfully");
+  } catch (error) {
+    console.error("Error deleting therapist:", error);
+    
+  }
+}
+
+  
 
   const paseURL = "http://192.168.10.139:3333/";
 
@@ -339,12 +373,15 @@ const ClientInfo = () => {
                         </span>
                       </td>
                       <td className="p-3 flex space-x-2">
-                        <button className="text-gray-500">
+                        {/* <button className="text-gray-500">
                           <FaEdit size={20} />
-                        </button>
-                        <button className="text-red-500">
-                          <FaTrash size={20} />
-                        </button>
+                        </button> */}
+                        <button
+                            onClick={()=>handleDeleteCustomer(customer?.user_id)}
+                             className="text-red-500 shadow-sm shadow-gray-300 p-2 rounded-full hover:text-red-700 transition-colors"
+                             title="Delete">
+                               <LuTrash2 size={20} />
+                         </button>
                       </td>
                     </tr>
                   ))
@@ -484,12 +521,13 @@ const ClientInfo = () => {
                         </span>
                       </td>
                       <td className="p-3 flex space-x-2">
-                        <button className="text-gray-500">
-                          <FaEdit size={20} />
-                        </button>
-                        <button className="text-red-500">
-                          <FaTrash size={20} />
-                        </button>
+                      
+                        <button
+                        onClick={()=>handleDeleteTherapist(therapist?.therapist_id)}
+                             className="text-red-500 shadow-sm shadow-gray-300 p-2 rounded-full hover:text-red-700 transition-colors"
+                             title="Delete">
+                               <LuTrash2 size={20} />
+                         </button>
                       </td>
                     </tr>
                   ))
