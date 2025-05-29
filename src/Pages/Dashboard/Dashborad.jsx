@@ -318,7 +318,7 @@ export default function Dashboard() {
                 <div className="w-12">
                   <img
                     src={`${baseURL}api${adminData?.image}`}
-                    className="rounded-full"
+                    className="rounded-full w-10 h-10 object-cover"
                     alt="Admin Avatar"
                   />
                 </div>
@@ -335,7 +335,7 @@ export default function Dashboard() {
                     className="dropdown-content mt-4 menu bg-base-200 rounded-box z-50 w-32 p-2 shadow-md border border-gray-400"
                   >
                     <li>
-                      <NavLink to="/profile" className="text-gray-700 hover:text-gray-900">
+                      <NavLink to="/dashboard/profile" className="text-gray-700 hover:text-gray-900">
                         Profile
                       </NavLink>
                     </li>

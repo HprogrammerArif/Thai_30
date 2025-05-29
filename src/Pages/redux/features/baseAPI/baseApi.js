@@ -24,6 +24,7 @@ export const baseApi = createApi({
       }),
     }),
 
+    
     //login user
 
     loginUser: builder.mutation({
@@ -148,6 +149,12 @@ export const baseApi = createApi({
     }),
 
 
+    //analytics data
+    getAnalyticsData: builder.query({
+      query: ()=>"api/admin_dashboard_analytics_view/"
+    })
+
+
   }),
 });
 
@@ -191,5 +198,8 @@ export const {
   //delete customer and therapist
   useDeleteCustomerMutation,
   useDeleteTherapistMutation,
+
+  //analytics data
+  useGetAnalyticsDataQuery,
 
 } = baseApi;

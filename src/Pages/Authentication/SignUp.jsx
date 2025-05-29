@@ -23,8 +23,6 @@ const SignUp = () => {
   const onSubmit = async (userData) => {
     console.log(userData);
 
-
-
     const payload = {
       ...userData,
       role: "admin"
@@ -32,7 +30,7 @@ const SignUp = () => {
 
   try {
     const response = await createUser(payload).unwrap();
-    
+    console.log(response)
     navigate('/login')
     
   } catch (error) {
@@ -152,15 +150,15 @@ const SignUp = () => {
                   placeholder="Enter phone number"
                   enableSearch
                   onChange={(value) => {
-                    setValue('phone', value);
-                    trigger('phone');
+                    setValue('phone_number', value);
+                    trigger('phone_number');
                   }}
                   inputProps={{
-                    name: 'phone',
+                    name: 'phone_number',
                     required: true
                   }}
                 />
-                {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
+                {errors.phone_number && <p className="text-red-500 text-sm mt-1">{errors.phone_number.message}</p>}
               </div>
 
               {/* Submit Button */}
