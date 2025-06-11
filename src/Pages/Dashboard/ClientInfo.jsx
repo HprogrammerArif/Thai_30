@@ -52,8 +52,6 @@ const ClientInfo = () => {
   const { data: adminData } = useAdminInfoQuery();
   const {data: customerData,isLoading,isError, error,} = useGetCustomersDetailsQuery(debouncedCustomerSearchQuery || "");
 
-  console.log("customerData", customerData);
-
   const { data: therapistData } = useGetTherapistDetailsQuery(
     debouncedTherapistSearchQuery || ""
   );

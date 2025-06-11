@@ -36,7 +36,6 @@ const Promotions = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    // Handle form submission logic here (e.g., save the promotion data)
     console.log('Promotion saved');
     closeModal();
   };
@@ -121,7 +120,7 @@ const Promotions = () => {
                 </div>
               ))}
             </div>
-            <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4">View all codes</button>
+            <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4">Manage</button>
           </div>
 
           {/* Referral Program */}

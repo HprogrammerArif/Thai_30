@@ -5,7 +5,7 @@ import { FaDollarSign } from "react-icons/fa";
 import { FaCalendarCheck } from "react-icons/fa6";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { LuTrash2 } from "react-icons/lu";
-import { useDeleteBookingMutation, useGetAllBookingsQuery, useGetBookingDetailsQuery } from "../redux/features/baseAPI/baseApi";
+import { useAdminInfoQuery, useDeleteBookingMutation, useGetAllBookingsQuery, useGetBookingDetailsQuery } from "../redux/features/baseAPI/baseApi";
 import TransactionHistory from "./TransactionHistory";
 
 const Bookings = () => {
@@ -15,6 +15,8 @@ const Bookings = () => {
   const itemsPerPage = 5; 
   const maxPageButtons = 5; 
 
+   const { data: adminData } = useAdminInfoQuery();
+   console.log("adminData", adminData)
   const { data: bookingsInfo } = useGetAllBookingsQuery();
   const { data: bookingDetails } = useGetBookingDetailsQuery(selectedBookingId);
   const [deleteBooking, {isLoading}] = useDeleteBookingMutation()

@@ -57,21 +57,37 @@ export const baseApi = createApi({
 
     //pending therapist
     pendingTherapist: builder.query({
-      query: () => "api/pending-therapist-approvals/",
+      query: () => "/api/pending-therapist-approvals/",
     }),
 
+    // approveTherapist: builder.mutation({
+    //   query: (profileId) => ({
+    //     url: `api/admin/therapist/documents/${profileId}/`,
+    //     method: "PATCH",
+        
+    //   }),
+    //   invalidatesTags: ["PendingTherapists"],
+    // }),
+
     approveTherapist: builder.mutation({
-      query: (profileId) => ({
-        url: `therapist-approval/${profileId}/approve`,
-        method: "POST",
-      }),
-      invalidatesTags: ["PendingTherapists"],
+  query: ({ profileId, body }) => ({
+    url: `api/admin/therapist/documents/${profileId}/`,
+    method: "PATCH",
+    body,
+  }),
+  invalidatesTags: ["PendingTherapists"],
+}),
+
+
+    //getMassageType
+    getMassageType: builder.query({
+      query: ()=> "api/massage-types/"
     }),
 
     rejectTherapist: builder.mutation({
       query: (profileId) => ({
-        url: `therapist-approval/${profileId}/reject`,
-        method: "POST",
+        url: `api/admin/therapist/documents/${profileId}/reject/`,
+        method: "PATCH",
       }),
       invalidatesTags: ["PendingTherapists"],
     }),
@@ -198,6 +214,11 @@ export const {
   //delete customer and therapist
   useDeleteCustomerMutation,
   useDeleteTherapistMutation,
+
+
+  //getMassageType
+
+  useGetMassageTypeQuery,
 
   //analytics data
   useGetAnalyticsDataQuery,

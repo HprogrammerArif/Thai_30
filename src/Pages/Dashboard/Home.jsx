@@ -12,7 +12,7 @@ import {
   useApproveTherapistMutation,
   useRejectTherapistMutation,
 } from '../redux/features/baseAPI/baseApi';
-import { Link } from 'react-router-dom';
+import ApproveTherapist from './ApproveTherapist';
 
 const AdminHome = () => {
   const [selectedBookingId, setSelectedBookingId] = useState(null);
@@ -122,15 +122,7 @@ const AdminHome = () => {
     }
   };
 
-  const handleApprove = async (profileId) => {
-    console.log(profileId, "profileId")
-    try {
-      await approveTherapist(profileId).unwrap();
-      closeTherapistModal();
-    } catch (error) {
-      console.error('Error approving therapist:', error);
-    }
-  };
+
 
   const handleReject = async (profileId) => {
     try {
@@ -267,13 +259,18 @@ const AdminHome = () => {
             </div>
           </div>
           <div className="flex items-center justify-end gap-3 mt-10">
-            <button
+            {/* <button
               className="px-4 py-2 bg-[#4AB228] text-white rounded-lg hover:bg-green-600 flex items-center justify-center gap-1"
               onClick={() => handleApprove(therapist.id)}
               disabled={isApproving}
             >
               {isApproving ? 'Approving...' : <><FaCheck size={12} /> Approve</>}
-            </button>
+            </button> */}
+
+            <ApproveTherapist 
+            therapistId={therapist.id}
+            isApproving={isApproving}
+            />
             <button
               className="px-4 py-2 bg-[#F1312B] text-white rounded-lg hover:bg-red-600 flex items-center justify-center gap-1"
               onClick={() => handleReject(therapist.id)}
