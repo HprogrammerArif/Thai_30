@@ -79,6 +79,11 @@ export const baseApi = createApi({
 }),
 
 
+//pending payout section
+    getPendingPayout:builder.query({
+      query: ()=>"api/withdrawal/all/"
+    }),
+
     //getMassageType
     getMassageType: builder.query({
       query: ()=> "api/massage-types/"
@@ -215,6 +220,8 @@ export const {
   useDeleteCustomerMutation,
   useDeleteTherapistMutation,
 
+  //panding payout
+  useGetPendingPayoutQuery,
 
   //getMassageType
 

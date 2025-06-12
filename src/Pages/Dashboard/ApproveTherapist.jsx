@@ -187,7 +187,7 @@ const ApproveTherapist = ({ therapistId, isApproving }) => {
   const messageTypeRef = useRef(null);
   const { data: messageType } = useGetMassageTypeQuery();
   const [approveTherapist, { isLoading }] = useApproveTherapistMutation();
-console.log("adffasdfd",therapistId)
+console.log("adffasdfd",messageType)
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
