@@ -84,6 +84,15 @@ export const baseApi = createApi({
       query: ()=>"api/withdrawal/all/"
     }),
 
+    //pending payout approval
+    pendingPayoutApproval: builder.mutation({
+      query: ({ id, body })=>({
+        url: `api/withdrawal/update/${id}/`,
+        method: "PATCH",
+        body,
+      }),
+    }),
+
     //getMassageType
     getMassageType: builder.query({
       query: ()=> "api/massage-types/"
@@ -222,6 +231,7 @@ export const {
 
   //panding payout
   useGetPendingPayoutQuery,
+  usePendingPayoutApprovalMutation,
 
   //getMassageType
 

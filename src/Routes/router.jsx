@@ -17,6 +17,7 @@ import Login from "../Pages/Authentication/Login";
 import Forget_Password from "../Pages/Authentication/Forget_Password";
 import OTP_Verification from "../Pages/Authentication/OTP_Verification";
 import ResetPassword from "../Pages/Authentication/ResetPassword";
+import Finance_admin_home from "../Pages/FinanceAdminDashboard/finance_admin_home";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +61,15 @@ export const router = createBrowserRouter([
       { path: "promotions", element: <Promotions /> },
       { path: "roles", element: <Roles /> },
       { path: "dispute_management", element: <DisputManagment /> },
+
+
+       // Finance Admin Dashboard routes
+      {path: "finance_admin_home", element: <Finance_admin_home/>},
+
+
+
     ],
   },
+
+ 
 ]);
