@@ -13,7 +13,7 @@ export const baseApi = createApi({
     },
   }),
 
-  tagTypes: ["User", "Therapist", "PendingTherapists", "Booking", "Customer"],
+  tagTypes: ["User", "Therapist", "PendingTherapists", "Booking", "Customer", "PendingPayout", "Transaction"],
   endpoints: (builder) => ({
     //authentication
     createUser: builder.mutation({
@@ -65,6 +65,7 @@ export const baseApi = createApi({
     //     url: `api/admin/therapist/documents/${profileId}/`,
     //     method: "PATCH",
         
+    
     //   }),
     //   invalidatesTags: ["PendingTherapists"],
     // }),
@@ -81,7 +82,8 @@ export const baseApi = createApi({
 
 //pending payout section
     getPendingPayout:builder.query({
-      query: ()=>"api/withdrawal/all/"
+      query: ()=>"api/withdrawal/all/",
+      providesTags: ["PendingPayout"],
     }),
 
     //pending payout approval
@@ -91,6 +93,7 @@ export const baseApi = createApi({
         method: "PATCH",
         body,
       }),
+      invalidatesTags: ["PendingPayout"],
     }),
 
     //getMassageType

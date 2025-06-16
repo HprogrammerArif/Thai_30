@@ -30,6 +30,7 @@ export default function Dashboard() {
 
         //Finance Admin Dashboard routes
         {name: "Dashboard", icon: <LuLayoutDashboard size={20} />, path: "/dashboard/finance_admin_home" },
+        { name: "Dispute Management", icon: <MessagesSquare size={20} />, path: "/dashboard/dispute_management" },
       ],
     },
   ];

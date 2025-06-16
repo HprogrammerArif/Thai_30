@@ -187,50 +187,6 @@ const Analytics = () => {
             </ResponsiveContainer>
           </div>
         </div>
-        {/* <div className="bg-white rounded-[15px] shadow-md p-6">
-  <h2 className="text-lg font-semibold text-black mb-4">Top Services</h2>
-  <div className="flex flex-col items-center">
-    <ResponsiveContainer width="100%" height={300}>
-      <PieChart>
-        <Pie
-          data={servicesData}
-          dataKey="percentage"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          outerRadius={120}
-          innerRadius={60}
-          labelLine={false}
-          label={renderCustomizedLabel}
-        >
-          {servicesData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip
-          formatter={(value) => `${value}%`}
-          contentStyle={{
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-            borderRadius: '8px',
-            padding: '8px',
-            border: 'none',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-            color: 'black', // Ensure tooltip text is black
-          }}
-          labelStyle={{ color: 'black' }}
-          itemStyle={{ color: 'black' }}
-        />
-        <Legend
-          verticalAlign="bottom"
-          height={36}
-          iconType="circle"
-          formatter={(value) => <span className="text-sm font-medium text-black">{value}</span>}
-        />
-      </PieChart>
-    </ResponsiveContainer>
-  </div>
-</div> */}
-
       </div>
 
       {/* Customer Insights */}

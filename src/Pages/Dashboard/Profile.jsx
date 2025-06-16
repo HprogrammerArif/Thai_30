@@ -371,7 +371,7 @@ const Profile = () => {
                   <p className="font-medium text-gray-800">{adminData?.email}</p>
                 )}
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-beanatween">
                 <p className="font-medium text-gray-500">Contact number</p>
                 {isEditingProfile ? (
                   <input
