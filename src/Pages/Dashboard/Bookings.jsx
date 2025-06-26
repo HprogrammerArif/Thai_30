@@ -19,9 +19,10 @@ const Bookings = () => {
    console.log("adminData", adminData)
   const { data: bookingsInfo } = useGetAllBookingsQuery();
   const { data: bookingDetails } = useGetBookingDetailsQuery(selectedBookingId);
+  console.log("bookingDetails", bookingDetails)
   const [deleteBooking, {isLoading}] = useDeleteBookingMutation()
 
-  const baseURL = "http://192.168.10.139:3333/";
+  const baseURL = "http://192.168.10.16:3333/";
 
   const filteredBookings = bookingsInfo?.filter((booking) =>
     booking.booking_status.toLowerCase().includes(searchStatus.toLowerCase())
@@ -346,7 +347,11 @@ const Bookings = () => {
             </form>
           </div>
           {bookingDetails && (
-            <div className="space-y-4">
+           <div>
+             <div className="space-y-4">
+              <div className="bg-[#E8DDBF] text-[#B28D28] w-1/6 py-[6px] rounded-r-full ps-3">
+                {bookingDetails?.booking_status}
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-500">Therapist Name</p>
@@ -416,6 +421,7 @@ const Bookings = () => {
                 </div>
               </div>
             </div>
+           </div>
           )}
         </div>
       </dialog>

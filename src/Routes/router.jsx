@@ -18,6 +18,7 @@ import Forget_Password from "../Pages/Authentication/Forget_Password";
 import OTP_Verification from "../Pages/Authentication/OTP_Verification";
 import ResetPassword from "../Pages/Authentication/ResetPassword";
 import Finance_admin_home from "../Pages/FinanceAdminDashboard/finance_admin_home";
+import BookingAdminHome from "../Pages/BookingAdminDashboard/BookingAdminHome";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +66,9 @@ export const router = createBrowserRouter([
 
        // Finance Admin Dashboard routes
       {path: "finance_admin_home", element: <Finance_admin_home/>},
+
+      //booking admin dashboard routes
+      {path: "booking_admin_home", element: <BookingAdminHome />}, 
 
 
 

@@ -15,7 +15,7 @@ export default function Dashboard() {
   const navigate = useNavigate()
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const baseURL = "http://192.168.10.139:3333/";
+  const baseURL = "http://192.168.10.16:3333/";
 
   const menuItems = [
     {
@@ -31,6 +31,12 @@ export default function Dashboard() {
         //Finance Admin Dashboard routes
         {name: "Dashboard", icon: <LuLayoutDashboard size={20} />, path: "/dashboard/finance_admin_home" },
         { name: "Dispute Management", icon: <MessagesSquare size={20} />, path: "/dashboard/dispute_management" },
+
+
+        //Booking Admin Dashboard routes
+        {name: "Dashboard", icon: <LuLayoutDashboard size={20} />, path: "/dashboard/booking_admin_home" },
+         { name: "Users & Therapists", icon: <FaUserGroup size={20} />, path: "/dashboard/client_info" },
+        { name: "Bookings & Payments", icon: <CalendarDays size={20} />, path: "/dashboard/booking_info" }, 
       ],
     },
   ];

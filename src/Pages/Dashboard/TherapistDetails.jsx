@@ -22,7 +22,7 @@ const TherapistDetails = () => {
 
   const navigate = useNavigate();
   const userImage = "https://i.ibb.co.com/8Ld9cfwp/Frame-1686551036-1.png";
-  const baseURL = "http://192.168.10.139:3333/api";
+  const baseURL = "http://192.168.10.16:3333/api";
 
   // State for the modal and form
   const [documentType, setDocumentType] = useState("");

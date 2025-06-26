@@ -18,7 +18,7 @@ export default function TransactionHistory() {
   });
   console.log("Transaction Details:", transactionDetails, "Loading:", detailsLoading, "Error:", detailsError);
 
-  const baseURL = "http://192.168.10.139:3333/api";
+  const baseURL = "http://192.168.10.16:3333/api";
   const transactions = transactionsResult?.results || [];
 
   // Pagination logic

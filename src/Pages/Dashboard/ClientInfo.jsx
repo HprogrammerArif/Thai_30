@@ -89,7 +89,7 @@ const handleDeleteTherapist = (id) => {
 
   
 
-  const paseURL = "http://192.168.10.139:3333/";
+  const paseURL = "http://192.168.10.16:3333/";
 
   // Pagination calculations for Customers
   const filteredCustomers = customerData

@@ -17,7 +17,7 @@ const CustomerDetails = () => {
   console.log("customerData", customerData);
 
   const navigate = useNavigate();
-  const baseURL = "http://192.168.10.139:3333/api";
+  const baseURL = "http://192.168.10.16:3333/api";
 
   const customer = {
     name: "Mike Millian",
