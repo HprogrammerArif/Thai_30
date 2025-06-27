@@ -5,13 +5,23 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://192.168.10.16:3333/",
     
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem("access_token");
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
+    // prepareHeaders: (headers) => {
+    //   const token = localStorage.getItem("access_token");
+    //   if (token) {
+    //     headers.set("Authorization", `Bearer ${token}`);
+    //   }
+    //   return headers;
+    // },
+
+
+     prepareHeaders: (headers, { getState }) => {
+    const token = (getState()).auth.token;
+
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+    return headers;
+  },
   }),
 
   tagTypes: ["User", "Therapist", "PendingTherapists", "Booking", "Customer", "PendingPayout", "Transaction"],
@@ -34,6 +44,32 @@ export const baseApi = createApi({
         method: "POST",
         body: userData,
         providesTags: ["User"],
+      }),
+    }),
+
+    //Forget password
+    requestPasswordReset: builder.mutation({
+      query: (body) => ({
+        url: "auth/forgot-password/",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    //Verify OTP
+    verifyOtp: builder.mutation({
+      query: (body) => ({
+        url: "auth/verify-otp/",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    resetPassword: builder.mutation({
+      query: (body) => ({
+        url: "auth/reset-password/",
+        method: "POST",
+        body,
       }),
     }),
 
@@ -186,7 +222,34 @@ export const baseApi = createApi({
     //analytics data
     getAnalyticsData: builder.query({
       query: ()=>"api/admin_dashboard_analytics_view/"
-    })
+    }),
+
+
+    // ROLES AND PERMISSION
+
+    //new admin request
+    getNewAdminRequest: builder.query({
+      query: () => "api/admin-requests/",
+      providesTags: ["admin-request"],
+    }),
+
+    // UPDATE REQUEST ADMIN ROLE
+    updateToAdminRequest: builder.mutation({
+      query: ({ id, role, approved }) => ({
+        url: `api/admin-requests/`,
+        method: "POST",
+        body: { role, approved },
+      }),
+      invalidatesTags: ["admin-request"],
+    }),
+
+    //Therapist Background Check
+
+    //Get Therapist Background
+    getTherapistData: builder.query({
+      query: () => "api/admin/therapists-background/",
+      providesTags: ["therapists-background"],
+    }),
 
 
   }),
@@ -195,6 +258,9 @@ export const baseApi = createApi({
 export const {
   //authentication
   useCreateUserMutation,
+  useRequestPasswordResetMutation,
+  useVerifyOtpMutation,
+  useResetPasswordMutation,
 
   //login user
   useLoginUserMutation,
@@ -243,5 +309,12 @@ export const {
 
   //analytics data
   useGetAnalyticsDataQuery,
+
+  // ROLES AND PERMISSION
+  useGetNewAdminRequestQuery,
+  useUpdateToAdminRequestMutation,
+
+  //THERAPIST
+  useGetTherapistDataQuery,
 
 } = baseApi;

@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.8.1",
     "chart.js": "^4.4.8",
     "classnames": "^2.5.1",
+    "jwt-decode": "^4.0.0",
     "localforage": "^1.10.0",
     "lucide-react": "^0.454.0",
     "match-sorter": "^8.0.0",
@@ -27,6 +28,8 @@
     "react-router-dom": "^6.27.0",
     "react-toastify": "^11.0.5",
     "recharts": "^2.15.1",
+    "redux-persist": "^6.0.0",
+    "sonner": "^2.0.5",
     "sort-by": "^1.2.0"
   },
   "devDependencies": {

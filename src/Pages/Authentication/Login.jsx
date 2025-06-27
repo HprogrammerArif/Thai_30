@@ -1,6 +1,5 @@
 
 
-
 import { useState } from 'react';
 import { Mail, Lock, ArrowLeft } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,10 +7,15 @@ import { useForm } from 'react-hook-form';
 import { useLoginUserMutation } from '../redux/features/baseAPI/baseApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { verifyToken } from '../../utils/verifyToken';
+import { setUser } from '../redux/features/auth/authSlice';
 
 const Login = () => {
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       email: '',
@@ -25,8 +29,14 @@ const Login = () => {
     try {
       const response = await loginUser(userData).unwrap();
 
-      localStorage.setItem("access_token", response?.access);
-      localStorage.setItem("refresh_token", response?.refresh);
+      console.log({ response });
+     // const user = verifyToken(response.access);
+      //console.log({user})
+      dispatch(setUser({ user: response.user_profile, token: response.access }));
+      toast.success("Logged in");
+
+      // localStorage.setItem("access_token", response?.access);
+      // localStorage.setItem("refresh_token", response?.refresh);
 
       navigate('/dashboard/home');
     } catch (error) {

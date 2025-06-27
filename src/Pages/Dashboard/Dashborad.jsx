@@ -1,60 +1,228 @@
-
-
-
 import { useState } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom"; 
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaUserGroup } from "react-icons/fa6";
-import { BadgePercent, Bell, CalendarDays, ChevronDown, ChevronsLeft, ChevronsRight, MessagesSquare } from "lucide-react";
+import {
+  BadgePercent,
+  Bell,
+  CalendarDays,
+  ChevronDown,
+  ChevronsLeft,
+  ChevronsRight,
+  MessagesSquare,
+} from "lucide-react";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { useGetAdminQuery } from "../redux/features/baseAPI/baseApi";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectCurrentUser } from "../redux/features/auth/authSlice";
+
+const userRole = {
+  ADMIN: "admin",
+  FINANCE: "finance",
+  BOOKING: "booking",
+};
 
 export default function Dashboard() {
+  const dispatch = useDispatch();
   const { data: adminData } = useGetAdminQuery();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const baseURL = "http://192.168.10.16:3333/";
 
-  const menuItems = [
-    {
-      items: [
-        { name: "Dashboard", icon: <LuLayoutDashboard size={20} />, path: "/dashboard/home" },
-        { name: "Users & Therapists", icon: <FaUserGroup size={20} />, path: "/dashboard/client_info" },
-        { name: "Bookings & Payments", icon: <CalendarDays size={20} />, path: "/dashboard/booking_info" },
-        { name: "Roles & Permissions", icon: <RiUserSettingsLine size={20} />, path: "/dashboard/roles" },
-        { name: "Analytics", icon: <BsFillBarChartFill size={20} />, path: "/dashboard/analytics" },
-        { name: "Promotions", icon: <BadgePercent size={20} />, path: "/dashboard/promotions" },
-        { name: "Dispute Management", icon: <MessagesSquare size={20} />, path: "/dashboard/dispute_management" },
+  // const menuItems = [
+  //   {
+  //     items: [
+  //       {
+  //         name: "Dashboard",
+  //         icon: <LuLayoutDashboard size={20} />,
+  //         path: "/dashboard/home",
+  //       },
+  //       {
+  //         name: "Users & Therapists",
+  //         icon: <FaUserGroup size={20} />,
+  //         path: "/dashboard/client_info",
+  //       },
+  //       {
+  //         name: "Bookings & Payments",
+  //         icon: <CalendarDays size={20} />,
+  //         path: "/dashboard/booking_info",
+  //       },
+  //       {
+  //         name: "Roles & Permissions",
+  //         icon: <RiUserSettingsLine size={20} />,
+  //         path: "/dashboard/roles",
+  //       },
+  //       {
+  //         name: "Analytics",
+  //         icon: <BsFillBarChartFill size={20} />,
+  //         path: "/dashboard/analytics",
+  //       },
+  //       {
+  //         name: "Promotions",
+  //         icon: <BadgePercent size={20} />,
+  //         path: "/dashboard/promotions",
+  //       },
+  //       {
+  //         name: "Dispute Management",
+  //         icon: <MessagesSquare size={20} />,
+  //         path: "/dashboard/dispute_management",
+  //       },
 
-        //Finance Admin Dashboard routes
-        {name: "Dashboard", icon: <LuLayoutDashboard size={20} />, path: "/dashboard/finance_admin_home" },
-        { name: "Dispute Management", icon: <MessagesSquare size={20} />, path: "/dashboard/dispute_management" },
+  //       //Finance Admin Dashboard routes
+  //       {
+  //         name: "Dashboard",
+  //         icon: <LuLayoutDashboard size={20} />,
+  //         path: "/dashboard/finance_admin_home",
+  //       },
+  //       {
+  //         name: "Dispute Management",
+  //         icon: <MessagesSquare size={20} />,
+  //         path: "/dashboard/dispute_management",
+  //       },
 
+  //       //Booking Admin Dashboard routes
+  //       {
+  //         name: "Dashboard",
+  //         icon: <LuLayoutDashboard size={20} />,
+  //         path: "/dashboard/booking_admin_home",
+  //       },
+  //       {
+  //         name: "Users & Therapists",
+  //         icon: <FaUserGroup size={20} />,
+  //         path: "/dashboard/client_info",
+  //       },
+  //       {
+  //         name: "Bookings & Payments",
+  //         icon: <CalendarDays size={20} />,
+  //         path: "/dashboard/booking_info",
+  //       },
+  //     ],
+  //   },
+  // ];
 
-        //Booking Admin Dashboard routes
-        {name: "Dashboard", icon: <LuLayoutDashboard size={20} />, path: "/dashboard/booking_admin_home" },
-         { name: "Users & Therapists", icon: <FaUserGroup size={20} />, path: "/dashboard/client_info" },
-        { name: "Bookings & Payments", icon: <CalendarDays size={20} />, path: "/dashboard/booking_info" }, 
-      ],
-    },
-  ];
+  const user = useSelector(selectCurrentUser);
+  let menuItems = [];
 
-  //logout function
-  const handleLogOut =( )=>{
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+  const role = "finance"
 
-    setTimeout(() => {
-      navigate("/login")
-    }, 500);
+  switch (role) {
+    case userRole.ADMIN:
+      menuItems = [
+        {
+          items: [
+            {
+              name: "Dashboard",
+              icon: <LuLayoutDashboard size={20} />,
+              path: "/dashboard/home",
+            },
+            {
+              name: "Users & Therapists",
+              icon: <FaUserGroup size={20} />,
+              path: "/dashboard/client_info",
+            },
+            {
+              name: "Bookings & Payments",
+              icon: <CalendarDays size={20} />,
+              path: "/dashboard/booking_info",
+            },
+            {
+              name: "Roles & Permissions",
+              icon: <RiUserSettingsLine size={20} />,
+              path: "/dashboard/roles",
+            },
+            {
+              name: "Analytics",
+              icon: <BsFillBarChartFill size={20} />,
+              path: "/dashboard/analytics",
+            },
+            {
+              name: "Promotions",
+              icon: <BadgePercent size={20} />,
+              path: "/dashboard/promotions",
+            },
+            {
+              name: "Dispute Management",
+              icon: <MessagesSquare size={20} />,
+              path: "/dashboard/dispute_management",
+            },
+          ],
+        },
+      ];
+      break;
+
+    case userRole.FINANCE:
+      menuItems = [
+       {
+        items: [
+           //Finance Admin Dashboard routes
+        {
+          name: "Dashboard",
+          icon: <LuLayoutDashboard size={20} />,
+          path: "/dashboard/finance_admin_home",
+        },
+        {
+          name: "Dispute Management",
+          icon: <MessagesSquare size={20} />,
+          path: "/dashboard/dispute_management",
+        },
+        ]
+       }
+      ];
+      break;
+
+    case userRole.BOOKING:
+      menuItems = [
+       {
+        items : [
+           //Booking Admin Dashboard routes
+        {
+          name: "Dashboard",
+          icon: <LuLayoutDashboard size={20} />,
+          path: "/dashboard/booking_admin_home",
+        },
+        {
+          name: "Users & Therapists",
+          icon: <FaUserGroup size={20} />,
+          path: "/dashboard/client_info",
+        },
+        {
+          name: "Bookings & Payments",
+          icon: <CalendarDays size={20} />,
+          path: "/dashboard/booking_info",
+        },
+        ]
+       }
+      ];
+      break;
+
+    default:
+      break;
   }
 
+  // //logout function
+  // const handleLogOut =( )=>{
+  //   localStorage.removeItem("access_token");
+  //   localStorage.removeItem("refresh_token");
+
+  //   setTimeout(() => {
+  //     navigate("/login")
+  //   }, 500);
+  // }
+
+  const handleLogOut = () => {
+    dispatch(logout());
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 500);
+  };
+
   // Derive selectedItem for header display
-  const selectedItem = menuItems[0].items.find(
-    (item) => item.path === location.pathname
-  )?.name || "Dashboard";
+  const selectedItem =
+    menuItems[0]?.items?.find((item) => item.path === location.pathname)
+      ?.name || "Dashboard";
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -69,7 +237,9 @@ export default function Dashboard() {
           <div className="flex items-center ms-1 gap-2 mt-20">
             <div
               className={`transform transition-all duration-500 ${
-                isCollapsed ? "opacity-0 -translate-x-full" : "opacity-100 translate-x-0"
+                isCollapsed
+                  ? "opacity-0 -translate-x-full"
+                  : "opacity-100 translate-x-0"
               }`}
             >
               <img
@@ -92,20 +262,26 @@ export default function Dashboard() {
                       end // Ensure exact matching for routes
                       className={({ isActive }) =>
                         `flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 group relative ${
-                          isActive ? "bg-gray-200 text-gray-900 font-semibold" : ""
+                          isActive
+                            ? "bg-gray-200 text-gray-900 font-semibold"
+                            : ""
                         }`
                       }
                     >
                       <span
                         className={`group-hover:text-gray-700 transition-colors duration-300 ${
-                          location.pathname === item.path ? "text-gray-900" : "text-gray-500"
+                          location.pathname === item.path
+                            ? "text-gray-900"
+                            : "text-gray-500"
                         }`}
                       >
                         {item.icon}
                       </span>
                       <span
                         className={`transform transition-all duration-500 ${
-                          isCollapsed ? "opacity-0 -translate-x-full" : "opacity-100 translate-x-0"
+                          isCollapsed
+                            ? "opacity-0 -translate-x-full"
+                            : "opacity-100 translate-x-0"
                         } whitespace-nowrap`}
                       >
                         {item.name}
@@ -133,12 +309,19 @@ export default function Dashboard() {
                 onClick={() => setIsCollapsed(!isCollapsed)}
                 className="p-2 hover:bg-gray-200 rounded-full transition-colors duration-300"
               >
-                {isCollapsed ? <ChevronsRight size={20} /> : <ChevronsLeft size={20} />}
+                {isCollapsed ? (
+                  <ChevronsRight size={20} />
+                ) : (
+                  <ChevronsLeft size={20} />
+                )}
               </button>
               <div className="flex flex-col">
-                <span className="text-gray-700 font-bold text-xl">{selectedItem}</span>
+                <span className="text-gray-700 font-bold text-xl">
+                  {selectedItem}
+                </span>
                 <h1>
-                  Hi, Welcome <span className="text-[#B28D28] font-bold">Admin</span>
+                  Hi, Welcome{" "}
+                  <span className="text-[#B28D28] font-bold">Admin</span>
                 </h1>
               </div>
             </div>
@@ -167,14 +350,18 @@ export default function Dashboard() {
                     className="dropdown-content mt-4 menu bg-base-200 rounded-box z-50 w-32 p-2 shadow-md border border-gray-400"
                   >
                     <li>
-                      <NavLink to="/dashboard/profile" className="text-gray-700 hover:text-gray-900">
+                      <NavLink
+                        to="/dashboard/profile"
+                        className="text-gray-700 hover:text-gray-900"
+                      >
                         Profile
                       </NavLink>
                     </li>
                     <li>
                       <button
-                      onClick={handleLogOut}
-                      className="text-gray-700 hover:text-gray-900">
+                        onClick={handleLogOut}
+                        className="text-gray-700 hover:text-gray-900"
+                      >
                         Logout
                       </button>
                     </li>

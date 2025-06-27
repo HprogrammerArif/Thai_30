@@ -19,6 +19,7 @@ import OTP_Verification from "../Pages/Authentication/OTP_Verification";
 import ResetPassword from "../Pages/Authentication/ResetPassword";
 import Finance_admin_home from "../Pages/FinanceAdminDashboard/finance_admin_home";
 import BookingAdminHome from "../Pages/BookingAdminDashboard/BookingAdminHome";
+import ProtectedRoute from "../Layout/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
   // Dashboard routes (accessed after login)
   {
     path: "/dashboard",
-    element: <Dashborad />,
+    element: <ProtectedRoute><Dashborad /></ProtectedRoute>,
     children: [
       { index: true, element: <AdminHome /> },
       { path: "home", element: <AdminHome /> },
@@ -69,8 +70,6 @@ export const router = createBrowserRouter([
 
       //booking admin dashboard routes
       {path: "booking_admin_home", element: <BookingAdminHome />}, 
-
-
 
     ],
   },
