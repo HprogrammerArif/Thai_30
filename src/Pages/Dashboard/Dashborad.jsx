@@ -227,6 +227,8 @@ export default function Dashboard() {
     }, 500);
   };
 
+  const user = useSelector(selectCurrentUser)
+console.log({user})
   // Derive selectedItem for header display
   const selectedItem =
     menuItems[0]?.items?.find((item) => item.path === location.pathname)
@@ -329,7 +331,7 @@ export default function Dashboard() {
                 </span>
                 <h1>
                   Hi, Welcome{" "}
-                  <span className="text-[#B28D28] font-bold">Admin</span>
+                  <span className="text-[#B28D28] font-bold">{user?.role}</span>
                 </h1>
               </div>
             </div>
@@ -379,6 +381,7 @@ export default function Dashboard() {
             </div>
           </div>
         </header>
+
 
         {/* Main Content */}
         <main className="flex-1 overflow-auto p-12 bg-[#F5F5F6]">

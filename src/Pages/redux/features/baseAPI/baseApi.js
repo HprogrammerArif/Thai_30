@@ -4,7 +4,7 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://192.168.10.16:3333/",
-    
+
     // prepareHeaders: (headers) => {
     //   const token = localStorage.getItem("access_token");
     //   if (token) {
@@ -13,18 +13,25 @@ export const baseApi = createApi({
     //   return headers;
     // },
 
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
 
-     prepareHeaders: (headers, { getState }) => {
-    const token = (getState()).auth.token;
-
-    if (token) {
-      headers.set("Authorization", `Bearer ${token}`);
-    }
-    return headers;
-  },
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
 
-  tagTypes: ["User", "Therapist", "PendingTherapists", "Booking", "Customer", "PendingPayout", "Transaction"],
+  tagTypes: [
+    "User",
+    "Therapist",
+    "PendingTherapists",
+    "Booking",
+    "Customer",
+    "PendingPayout",
+    "Transaction",
+  ],
   endpoints: (builder) => ({
     //authentication
     createUser: builder.mutation({
@@ -35,7 +42,6 @@ export const baseApi = createApi({
       }),
     }),
 
-    
     //login user
 
     loginUser: builder.mutation({
@@ -101,31 +107,29 @@ export const baseApi = createApi({
     //   query: (profileId) => ({
     //     url: `api/admin/therapist/documents/${profileId}/`,
     //     method: "PATCH",
-        
-    
+
     //   }),
     //   invalidatesTags: ["PendingTherapists"],
     // }),
 
     approveTherapist: builder.mutation({
-  query: ({ profileId, body }) => ({
-    url: `api/admin/therapist/documents/${profileId}/`,
-    method: "PATCH",
-    body,
-  }),
-  invalidatesTags: ["PendingTherapists"],
-}),
+      query: ({ profileId, body }) => ({
+        url: `api/admin/therapist/documents/${profileId}/`,
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: ["PendingTherapists"],
+    }),
 
-
-//pending payout section
-    getPendingPayout:builder.query({
-      query: ()=>"api/withdrawal/all/",
+    //pending payout section
+    getPendingPayout: builder.query({
+      query: () => "api/withdrawal/all/",
       providesTags: ["PendingPayout"],
     }),
 
     //pending payout approval
     pendingPayoutApproval: builder.mutation({
-      query: ({ id, body })=>({
+      query: ({ id, body }) => ({
         url: `api/withdrawal/update/${id}/`,
         method: "PATCH",
         body,
@@ -135,8 +139,32 @@ export const baseApi = createApi({
 
     //getMassageType
     getMassageType: builder.query({
-      query: ()=> "api/massage-types/"
+      query: () => "api/massage-types/",
+      providesTags: ["get-massage-types"],
     }),
+
+    // UPDATE MESSAGE TYPE
+    updateMassageType: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `api/massage-types/${id}`,
+        method: "PUT",
+        body: formData,
+      }),
+       invalidatesTags: ["get-massage-types"],
+    }),
+
+    //ADD MESSAGE
+  addMassageType: builder.mutation({
+  query: (formData) => ({
+    url: "api/massage-types/",
+    method: "POST",
+    body: formData,
+  }),
+  invalidatesTags: ["get-massage-types"],
+}),
+
+
+    
 
     rejectTherapist: builder.mutation({
       query: (profileId) => ({
@@ -190,14 +218,15 @@ export const baseApi = createApi({
     }),
 
     //transaction history
-    getTransactionHistory:builder.query({
-      query: ()=> "api/admin/transactions/",
+    getTransactionHistory: builder.query({
+      query: () => "api/admin/transactions/",
       providesTags: ["Transaction"],
     }),
 
     //transaction history details
     getTransactionHistoryDetails: builder.query({
-      query: (selectedTransactionId) => `api/admin/transactions/${selectedTransactionId}/`,
+      query: (selectedTransactionId) =>
+        `api/admin/transactions/${selectedTransactionId}/`,
       providesTags: ["Transaction"],
     }),
 
@@ -218,12 +247,10 @@ export const baseApi = createApi({
       invalidatesTags: ["Therapist"],
     }),
 
-
     //analytics data
     getAnalyticsData: builder.query({
-      query: ()=>"api/admin_dashboard_analytics_view/"
+      query: () => "api/admin_dashboard_analytics_view/",
     }),
-
 
     // ROLES AND PERMISSION
 
@@ -250,8 +277,6 @@ export const baseApi = createApi({
       query: () => "api/admin/therapists-background/",
       providesTags: ["therapists-background"],
     }),
-
-
   }),
 });
 
@@ -306,6 +331,8 @@ export const {
   //getMassageType
 
   useGetMassageTypeQuery,
+  useUpdateMassageTypeMutation,
+  useAddMassageTypeMutation,
 
   //analytics data
   useGetAnalyticsDataQuery,
@@ -316,5 +343,4 @@ export const {
 
   //THERAPIST
   useGetTherapistDataQuery,
-
 } = baseApi;

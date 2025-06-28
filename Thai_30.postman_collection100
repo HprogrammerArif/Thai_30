@@ -1,0 +1,3616 @@
+{
+	"info": {
+		"_postman_id": "b0b001e6-5d93-4c90-a8cc-995a13a0f435",
+		"name": "Thai_30",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44047238",
+		"_collection_link": "https://universal-satellite-1207077.postman.co/workspace/Md.-Iktear's-Workspace~835c6f0c-0ab6-4c55-8fea-e93684c7a9c1/collection/44047238-b0b001e6-5d93-4c90-a8cc-995a13a0f435?action=share&source=collection_link&creator=44047238"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Normal Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jvaichatgpt@gmail.com\",\n    \"full_name\": \"aininjas\",\n    \"phone_number\": \"01796331459\",\n    \"password\": \"11111\",\n    \"role\": \"client\" //client, therapist, admin\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/normal_signup/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"normal_signup",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jvaichatgpt@gmail.com\",\n    \"otp\": \"2943\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/verify_otp/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"verify_otp",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jvaichatgpt@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/resend_otp/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"resend_otp",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"iktear100@gmail.com\",\n    \"password\": \"iktear@12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/login/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Social SignUp or SignIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@test.com\",\n    \"full_name\": \"Social Test Name\",\n    \"role\": \"therapist\",\n    \"auth_provider\": \"facebook\" //facebook, google, apple\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/social_signup_signin/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"social_signup_signin",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forget Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"iktear500@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/forgot-password/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"forgot-password",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify-otp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"iktear500@gmail.com\",\n  \"otp\": \"4653\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/verify-otp/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"verify-otp",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"iktear500@gmail.com\",\n  \"password\": \"iktear@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/reset-password/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"reset-password",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3ODM3NzczLCJpYXQiOjE3NDY5NzM3NzMsImp0aSI6ImUyODk1NjZlN2Q4NjQ0NjM4OTA2YWZjMWE1ODQ0ZjhhIiwidXNlcl9pZCI6Nzh9.Bzx1gKcUAGPPSWPBIceBrJd_qYY2xT7YlkcRuXeKOQ4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"current_password\": \"iktear@123\",\n  \"new_password\": \"iktear@12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/change-password/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"change-password",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "admin profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxOTA3OTExLCJpYXQiOjE3NTEwNDM5MTEsImp0aSI6IjQ5YzM3MWQwYWM4NzRhNTM4MzgwNDU5N2QwYTg3ZjliIiwidXNlcl9pZCI6Mn0.l-fXoCKoX372WknNkvAyIWDUMxc0Jxf2Ei2HPFQKRjg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin/profile/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit admin profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxOTA3OTExLCJpYXQiOjE3NTEwNDM5MTEsImp0aSI6IjQ5YzM3MWQwYWM4NzRhNTM4MzgwNDU5N2QwYTg3ZjliIiwidXNlcl9pZCI6Mn0.l-fXoCKoX372WknNkvAyIWDUMxc0Jxf2Ei2HPFQKRjg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"admin\",\r\n    \"email\": \"admin@gmail.com\",\r\n    \"phone_number\": null,\r\n    \"role\": \"super_admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/admin/profile/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "therapists_documents_list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxOTkyMjk5LCJpYXQiOjE3NTExMjgyOTksImp0aSI6IjUyNGU2ZDYwMTBkNjQ2NjdhOTVjYTNmYzMwMjQ5NTRhIiwidXNlcl9pZCI6Mn0.GrNRMS4opI88mEWaaKRLBp4OhZoOE28yzdpaWd96M7c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}api/admin/documents/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"documents",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Summary",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxOTkyMjk5LCJpYXQiOjE3NTExMjgyOTksImp0aSI6IjUyNGU2ZDYwMTBkNjQ2NjdhOTVjYTNmYzMwMjQ5NTRhIiwidXNlcl9pZCI6Mn0.GrNRMS4opI88mEWaaKRLBp4OhZoOE28yzdpaWd96M7c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin/dashboard/summary/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"dashboard",
+								"summary",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assign role&approve",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2NDQ1MTc0LCJpYXQiOjE3NDU1ODExNzQsImp0aSI6ImI5Njk4MjAxMDI5YzQ5YWZhMTQ5YWM4ZTA4YWJkNTMyIiwidXNlcl9pZCI6OH0.AgSXGRCwNg7Or-wGrnadqiX20KzkNcG6_5PO4PKfCog",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"is_approved\": true,\r\n    \"assign_role\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/documents/41/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"documents",
+								"41",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assign role&approve Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2NDQ1MTc0LCJpYXQiOjE3NDU1ODExNzQsImp0aSI6ImI5Njk4MjAxMDI5YzQ5YWZhMTQ5YWM4ZTA4YWJkNTMyIiwidXNlcl9pZCI6OH0.AgSXGRCwNg7Or-wGrnadqiX20KzkNcG6_5PO4PKfCog",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"is_approved\": true,\r\n    \"assign_role\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/documents/41/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"documents",
+								"41",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Massage Type",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxOTkyMjk5LCJpYXQiOjE3NTExMjgyOTksImp0aSI6IjUyNGU2ZDYwMTBkNjQ2NjdhOTVjYTNmYzMwMjQ5NTRhIiwidXNlcl9pZCI6Mn0.GrNRMS4opI88mEWaaKRLBp4OhZoOE28yzdpaWd96M7c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/massage-types/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"massage-types",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add massage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxOTkyMjk5LCJpYXQiOjE3NTExMjgyOTksImp0aSI6IjUyNGU2ZDYwMTBkNjQ2NjdhOTVjYTNmYzMwMjQ5NTRhIiwidXNlcl9pZCI6Mn0.GrNRMS4opI88mEWaaKRLBp4OhZoOE28yzdpaWd96M7c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\r\n            \"name\": \"Aromatherapy Massage\",\r\n            \"massage_fee\": \"150.00\",\r\n            \"booking_fee\": \"5.00\",\r\n            \"tip_fee\": \"2.00\",\r\n            \"is_active\": true\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/massage-types/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"massage-types",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get support and policy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2ODcxMzgwLCJpYXQiOjE3NDYwMDczODAsImp0aSI6IjA5ODhkYjU1MzVmMjQ1NWY4MWU0NjMwMjcyYzFkNWM1IiwidXNlcl9pZCI6OH0.g6KI8_OJm30DO4IrGel3zlQfU1Wx_SZ-qFPEvOuOkLc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/support_policy/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"support_policy",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add support_policy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2ODcxMzgwLCJpYXQiOjE3NDYwMDczODAsImp0aSI6IjA5ODhkYjU1MzVmMjQ1NWY4MWU0NjMwMjcyYzFkNWM1IiwidXNlcl9pZCI6OH0.g6KI8_OJm30DO4IrGel3zlQfU1Wx_SZ-qFPEvOuOkLc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "support_mail",
+									"value": "iktear500@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "support_number",
+									"value": "01873381172",
+									"type": "text"
+								},
+								{
+									"key": "term_privacy_policy",
+									"type": "file",
+									"src": "/C:/Users/Bdcalling/Downloads/basic-text.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/support_policy/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"support_policy",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update support_policy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2ODcxMzgwLCJpYXQiOjE3NDYwMDczODAsImp0aSI6IjA5ODhkYjU1MzVmMjQ1NWY4MWU0NjMwMjcyYzFkNWM1IiwidXNlcl9pZCI6OH0.g6KI8_OJm30DO4IrGel3zlQfU1Wx_SZ-qFPEvOuOkLc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "support_mail",
+									"value": "iktear@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "support_number",
+									"value": "01873381172",
+									"type": "text"
+								},
+								{
+									"key": "term_privacy_policy",
+									"type": "file",
+									"src": "/C:/Users/Bdcalling/Downloads/basic-text.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/support_policy/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"support_policy",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recent-booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2NDQ1MTc0LCJpYXQiOjE3NDU1ODExNzQsImp0aSI6ImI5Njk4MjAxMDI5YzQ5YWZhMTQ5YWM4ZTA4YWJkNTMyIiwidXNlcl9pZCI6OH0.AgSXGRCwNg7Or-wGrnadqiX20KzkNcG6_5PO4PKfCog",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/recent-booking/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"recent-booking",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4OTUxODI1LCJpYXQiOjE3NDgwODc4MjUsImp0aSI6IjNjMTBjODUwNTZmMjRhMDI4YjkyMmRlNDQwZmVkZmEyIiwidXNlcl9pZCI6OH0.ACZY0pnI2Mqtf9bg4v17W8kherlGLcoz_PpCWlL-5wU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/all_bookings/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"all_bookings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "manage booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4OTUxODI1LCJpYXQiOjE3NDgwODc4MjUsImp0aSI6IjNjMTBjODUwNTZmMjRhMDI4YjkyMmRlNDQwZmVkZmEyIiwidXNlcl9pZCI6OH0.ACZY0pnI2Mqtf9bg4v17W8kherlGLcoz_PpCWlL-5wU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/manage_bookings/<booking_id>/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"manage_bookings",
+								"<booking_id>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "earning-summary",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NDg2NTI5LCJpYXQiOjE3NDY2MjI1MjksImp0aSI6ImZlNThlNjQ1MzBiYTQxYzU5YjExMzA0YjY0N2U3MTNlIiwidXNlcl9pZCI6OH0.uBo5KSi1S_jLrb-c4DpC8iWzYVBNgE2cHGfFWZp59EY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/earning-summary/?time_period=last_week",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"earning-summary",
+								""
+							],
+							"query": [
+								{
+									"key": "time_period",
+									"value": "last_week"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "booking-detail",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "therapists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3ODE4MTE5LCJpYXQiOjE3NDY5NTQxMTksImp0aSI6IjYwNmZkZjAyNDU4YTQyMGZhNmEyM2YxYWJjMTdmYzQyIiwidXNlcl9pZCI6OH0.6OrX6rFGYcVAwmLOoyem_zHbQWo4iCCPiXztQ4dvric",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"latitude\": 37.421900,\r\n    \"longitude\": -122.084000\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}api/admin/therapists/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"therapists",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "therapists Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3ODE4MTE5LCJpYXQiOjE3NDY5NTQxMTksImp0aSI6IjYwNmZkZjAyNDU4YTQyMGZhNmEyM2YxYWJjMTdmYzQyIiwidXNlcl9pZCI6OH0.6OrX6rFGYcVAwmLOoyem_zHbQWo4iCCPiXztQ4dvric",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"latitude\": 37.421900,\r\n    \"longitude\": -122.084000\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}api/admin/therapists/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"therapists",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "therapist status update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3ODE4MTE5LCJpYXQiOjE3NDY5NTQxMTksImp0aSI6IjYwNmZkZjAyNDU4YTQyMGZhNmEyM2YxYWJjMTdmYzQyIiwidXNlcl9pZCI6OH0.6OrX6rFGYcVAwmLOoyem_zHbQWo4iCCPiXztQ4dvric",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"latitude\": 37.421900,\r\n    \"longitude\": -122.084000\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}api/admin/therapists/18/toggle/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"therapists",
+								"18",
+								"toggle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Therapist deactivate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NTcwNTAyLCJpYXQiOjE3NDY3MDY1MDIsImp0aSI6IjVlNGRlMjQ1YzFhNDQzMzA5ZWIzNjQyZDNkZWJkYjkyIiwidXNlcl9pZCI6OH0.jpehMacoJ4g0px0_iRWAzhNxtr7mG_y-afBe_hY1Lmk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin/therapists/40/deactivate/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"therapists",
+								"40",
+								"deactivate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "therapist_info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NTcwNTAyLCJpYXQiOjE3NDY3MDY1MDIsImp0aSI6IjVlNGRlMjQ1YzFhNDQzMzA5ZWIzNjQyZDNkZWJkYjkyIiwidXNlcl9pZCI6OH0.jpehMacoJ4g0px0_iRWAzhNxtr7mG_y-afBe_hY1Lmk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin/therapists/41/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"therapists",
+								"41",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin_dashboard_analytics",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3ODE4MTE5LCJpYXQiOjE3NDY5NTQxMTksImp0aSI6IjYwNmZkZjAyNDU4YTQyMGZhNmEyM2YxYWJjMTdmYzQyIiwidXNlcl9pZCI6OH0.6OrX6rFGYcVAwmLOoyem_zHbQWo4iCCPiXztQ4dvric",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin_dashboard_analytics_view/?year=2025",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin_dashboard_analytics_view",
+								""
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2025"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3ODM3ODIxLCJpYXQiOjE3NDY5NzM4MjEsImp0aSI6Ijg1NTQxZWNkNjg0MTQ1MGM4NjY1NWYzODc5Zjg4MWNkIiwidXNlcl9pZCI6OH0.cSZZtgU0rnV37oJP4adc99m8fN95qf0Zqp-RjgYtJjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin/customers/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client details",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "client status update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3ODM3ODIxLCJpYXQiOjE3NDY5NzM4MjEsImp0aSI6Ijg1NTQxZWNkNjg0MTQ1MGM4NjY1NWYzODc5Zjg4MWNkIiwidXNlcl9pZCI6OH0.cSZZtgU0rnV37oJP4adc99m8fN95qf0Zqp-RjgYtJjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin/customers/36/toggle/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"customers",
+								"36",
+								"toggle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction_history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4OTUxODI1LCJpYXQiOjE3NDgwODc4MjUsImp0aSI6IjNjMTBjODUwNTZmMjRhMDI4YjkyMmRlNDQwZmVkZmEyIiwidXNlcl9pZCI6OH0.ACZY0pnI2Mqtf9bg4v17W8kherlGLcoz_PpCWlL-5wU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin/transactions/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"transactions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4OTUxODI1LCJpYXQiOjE3NDgwODc4MjUsImp0aSI6IjNjMTBjODUwNTZmMjRhMDI4YjkyMmRlNDQwZmVkZmEyIiwidXNlcl9pZCI6OH0.ACZY0pnI2Mqtf9bg4v17W8kherlGLcoz_PpCWlL-5wU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin/transactions/<int:payment_id>/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"transactions",
+								"<int:payment_id>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pending_therapist_approval",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4OTUxODI1LCJpYXQiOjE3NDgwODc4MjUsImp0aSI6IjNjMTBjODUwNTZmMjRhMDI4YjkyMmRlNDQwZmVkZmEyIiwidXNlcl9pZCI6OH0.ACZY0pnI2Mqtf9bg4v17W8kherlGLcoz_PpCWlL-5wU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/pending-therapist-approvals/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"pending-therapist-approvals",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-dispute-settings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4MTcyMTQ4LCJpYXQiOjE3NDczMDgxNDgsImp0aSI6IjVhODUyYTlhYTBhZjRmZmZiZThkNmNmNDE4OGRmNDBjIiwidXNlcl9pZCI6OH0.GKJGZxGePGcv0SxTQNAC2vtQ6hWhfn0cVpgITaG1oUA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dispute_type\": \"Therapist Not Show\",\r\n  \"resolution_type\": \"Auto Refund\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}dispute/create-dispute-settings/",
+							"host": [
+								"{{base_url}}dispute"
+							],
+							"path": [
+								"create-dispute-settings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dispute-settings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4MTcyMTQ4LCJpYXQiOjE3NDczMDgxNDgsImp0aSI6IjVhODUyYTlhYTBhZjRmZmZiZThkNmNmNDE4OGRmNDBjIiwidXNlcl9pZCI6OH0.GKJGZxGePGcv0SxTQNAC2vtQ6hWhfn0cVpgITaG1oUA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dispute_type\": \"Therapist Not Show\",\r\n  \"resolution_type\": \"Auto Refund\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{base_url}}dispute/dispute-settings/",
+							"host": [
+								"{{base_url}}dispute"
+							],
+							"path": [
+								"dispute-settings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "suggest-compensation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4MTcyMTQ4LCJpYXQiOjE3NDczMDgxNDgsImp0aSI6IjVhODUyYTlhYTBhZjRmZmZiZThkNmNmNDE4OGRmNDBjIiwidXNlcl9pZCI6OH0.GKJGZxGePGcv0SxTQNAC2vtQ6hWhfn0cVpgITaG1oUA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"amount\": \"75.00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}dispute/suggest-compensation/2/",
+							"host": [
+								"{{base_url}}dispute"
+							],
+							"path": [
+								"suggest-compensation",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin-requests",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4OTUxODI1LCJpYXQiOjE3NDgwODc4MjUsImp0aSI6IjNjMTBjODUwNTZmMjRhMDI4YjkyMmRlNDQwZmVkZmEyIiwidXNlcl9pZCI6OH0.ACZY0pnI2Mqtf9bg4v17W8kherlGLcoz_PpCWlL-5wU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin-requests/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin-requests",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin-requests details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin-requests/88/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin-requests",
+								"88",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin-requests approve",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxOTkyMjk5LCJpYXQiOjE3NTExMjgyOTksImp0aSI6IjUyNGU2ZDYwMTBkNjQ2NjdhOTVjYTNmYzMwMjQ5NTRhIiwidXNlcl9pZCI6Mn0.GrNRMS4opI88mEWaaKRLBp4OhZoOE28yzdpaWd96M7c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"assign_role\" : \"finance_admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/admin-requests/117/approve/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin-requests",
+								"117",
+								"approve",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin-requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin-requests/88/reject/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin-requests",
+								"88",
+								"reject",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "therapist_background_check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin/therapist_background_check/<int:therapist_user_id>/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"therapist_background_check",
+								"<int:therapist_user_id>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_document_expiry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4MzU1MDI2LCJpYXQiOjE3NDc0OTEwMjYsImp0aSI6IjFkN2QzY2U3NjJhNTQ2NDJiNDExZWMzNTU3ZjZjMTg4IiwidXNlcl9pZCI6OH0.1KEqqNcX0W8JyfZhROw17mPzluQdwzmBMLmH_e13mhw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"document_type\": \"drivers_license\",\r\n  \"expiry_date\": \"2027-03-20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/admin/set_document_expiry/9/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"set_document_expiry",
+								"9",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deactivate_therapist",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/admin/deactivate_therapist/<int:therapist_user_id>/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"admin",
+								"deactivate_therapist",
+								"<int:therapist_user_id>",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payout pending",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "payout pending Copy",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "payout history update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4Njg2MDc0LCJpYXQiOjE3NDc4MjIwNzQsImp0aSI6Ijc5ZTY4MGFmODdmNTQ1ZGJiNzI3OWRkZTZkMjFhOWQ2IiwidXNlcl9pZCI6OX0.FnCXERXJu_PCST-5MRKawLmCjM7HEFk70o6GilbgZxE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"amount\": 120.00,\r\n  \"method\": \"stripe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}therapist/withdrawal/request/",
+							"host": [
+								"{{base_url}}therapist"
+							],
+							"path": [
+								"withdrawal",
+								"request",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "referral-program/manage/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNTEyNjc4LCJpYXQiOjE3NDk2NDg2NzgsImp0aSI6ImU5OWI2YWZmNjVhOTRjOWY5ZmRjNDMzZDEzZWY4N2Q2IiwidXNlcl9pZCI6OH0.LNGmPJv5f0-jDgc5qRQoMoS2H1KawsV0z_4KZvYd0DM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"referrer_reward\": 200.00,\r\n  \"referee_reward\": 100.00,\r\n  \"is_active\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/referral-program/manage/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"referral-program",
+								"manage",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "referral-program/manage/ Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNTEyNjc4LCJpYXQiOjE3NDk2NDg2NzgsImp0aSI6ImU5OWI2YWZmNjVhOTRjOWY5ZmRjNDMzZDEzZWY4N2Q2IiwidXNlcl9pZCI6OH0.LNGmPJv5f0-jDgc5qRQoMoS2H1KawsV0z_4KZvYd0DM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"referrer_reward\": 200.00,\r\n  \"referee_reward\": 100.00,\r\n  \"is_active\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/referral-program/manage/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"referral-program",
+								"manage",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "massage-add-ons",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNTEyNjc4LCJpYXQiOjE3NDk2NDg2NzgsImp0aSI6ImU5OWI2YWZmNjVhOTRjOWY5ZmRjNDMzZDEzZWY4N2Q2IiwidXNlcl9pZCI6OH0.LNGmPJv5f0-jDgc5qRQoMoS2H1KawsV0z_4KZvYd0DM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"referrer_reward\": 200.00,\r\n  \"referee_reward\": 100.00,\r\n  \"is_active\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/massage-add-ons/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"massage-add-ons",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "massage-add-ons Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUwNTEyNjc4LCJpYXQiOjE3NDk2NDg2NzgsImp0aSI6ImU5OWI2YWZmNjVhOTRjOWY5ZmRjNDMzZDEzZWY4N2Q2IiwidXNlcl9pZCI6OH0.LNGmPJv5f0-jDgc5qRQoMoS2H1KawsV0z_4KZvYd0DM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"referrer_reward\": 200.00,\r\n  \"referee_reward\": 100.00,\r\n  \"is_active\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/massage-add-ons/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"massage-add-ons",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Get User Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{vault:authorization-secret}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}auth/get_user_profile/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"get_user_profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{vault:authorization-secret}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"full_name\": \"aininjas updated\",\n    \"role\": \"client\",\n    \"phone_number\": \"01796331459\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/update_user_profile/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"update_user_profile",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "therapist",
+			"item": [
+				{
+					"name": "therapist profile setup",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "full_name",
+									"value": "Mical Martinez",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "+11234567890",
+									"type": "text"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1990-06-15",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/iktea/Downloads/Smarter Faster More efficient@2x@2x 1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}therapist/therapist/setup/85/",
+							"host": [
+								"{{base_url}}therapist"
+							],
+							"path": [
+								"therapist",
+								"setup",
+								"85",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "therapist profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzE5NzQ1LCJpYXQiOjE3NDY0NTU3NDUsImp0aSI6IjJkNTk5MzZlMzVhNDRmMTE4MDNmMDE1MWQyOTFkMWRiIiwidXNlcl9pZCI6NDF9.v1RLsi84WVqa8w_hMuv0aiAbDkfhl7omyC2nuUuJTck",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/therapists/profile/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"therapists",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "therapist profile update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzE5NzQ1LCJpYXQiOjE3NDY0NTU3NDUsImp0aSI6IjJkNTk5MzZlMzVhNDRmMTE4MDNmMDE1MWQyOTFkMWRiIiwidXNlcl9pZCI6NDF9.v1RLsi84WVqa8w_hMuv0aiAbDkfhl7omyC2nuUuJTck",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"about\": \"edit4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/therapists/profile/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"therapists",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "therapist profile addons update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzE5NzQ1LCJpYXQiOjE3NDY0NTU3NDUsImp0aSI6IjJkNTk5MzZlMzVhNDRmMTE4MDNmMDE1MWQyOTFkMWRiIiwidXNlcl9pZCI6NDF9.v1RLsi84WVqa8w_hMuv0aiAbDkfhl7omyC2nuUuJTck",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"about\": \"edit4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/therapists/profile/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"therapists",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "therapist all review",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "review response",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzE5NzQ1LCJpYXQiOjE3NDY0NTU3NDUsImp0aSI6IjJkNTk5MzZlMzVhNDRmMTE4MDNmMDE1MWQyOTFkMWRiIiwidXNlcl9pZCI6NDF9.v1RLsi84WVqa8w_hMuv0aiAbDkfhl7omyC2nuUuJTck",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"response\": \"Thank You So Much\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/reviews/13/response/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"reviews",
+								"13",
+								"response",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzE5NzQ1LCJpYXQiOjE3NDY0NTU3NDUsImp0aSI6IjJkNTk5MzZlMzVhNDRmMTE4MDNmMDE1MWQyOTFkMWRiIiwidXNlcl9pZCI6NDF9.v1RLsi84WVqa8w_hMuv0aiAbDkfhl7omyC2nuUuJTck",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/reviews/17/delete/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"reviews",
+								"17",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "documents",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2NTQyMDkxLCJpYXQiOjE3NDU2NzgwOTEsImp0aSI6IjNjYTZlYjY4YWRjODQ4MGFiY2EyNmE5MThmZGRhYmUzIiwidXNlcl9pZCI6OH0.A43gRw1o-HdpsSdaHGGRXMXk_zTKSOLZvHZ1rsL3lYk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/documents/41/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"documents",
+								"41",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add document",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2NDQ0NDU5LCJpYXQiOjE3NDU1ODA0NTksImp0aSI6IjQ4NGYyODFhNzFmMTRhMjc5YWQ3MzBiMjYxODMwNTlhIiwidXNlcl9pZCI6NDF9",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_document",
+									"type": "file",
+									"src": "/C:/Users/Bdcalling/Downloads/protected.pdf"
+								},
+								{
+									"key": "drivers_license",
+									"type": "file",
+									"src": "/C:/Users/Bdcalling/Downloads/fillable-form.pdf"
+								},
+								{
+									"key": "certifications",
+									"type": "file",
+									"src": "/C:/Users/Bdcalling/Downloads/basic-text.pdf"
+								},
+								{
+									"key": "user",
+									"value": "40",
+									"type": "text"
+								},
+								{
+									"key": "is_approved",
+									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "id_document",
+									"type": "file",
+									"src": "/C:/Users/Bdcalling/Downloads/basic-text.pdf"
+								},
+								{
+									"key": "drivers_license",
+									"type": "file",
+									"src": "/C:/Users/Bdcalling/Downloads/basic-text.pdf"
+								},
+								{
+									"key": "certifications",
+									"type": "file",
+									"src": "/C:/Users/Bdcalling/Downloads/basic-text.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/documents/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"documents",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "invite_friend",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MDk1Njg0LCJpYXQiOjE3NDUyMzE2ODQsImp0aSI6IjU5MDM4MDZiMGQ5MzQ3NGNhYWVkNzU1ZjBmMTFlYzAzIiwidXNlcl9pZCI6OH0.a_rv_D7b2GFJdkntNo-FOBu8mOxF6akDJ0H2kRtjByI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"iktear500@gmail.com\",\r\n    \"message\": \"Hey, join this amazing platform!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/invite-friend/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"invite-friend",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "working hourss details with therapist id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2ODcxMzgwLCJpYXQiOjE3NDYwMDczODAsImp0aSI6IjA5ODhkYjU1MzVmMjQ1NWY4MWU0NjMwMjcyYzFkNWM1IiwidXNlcl9pZCI6OH0.g6KI8_OJm30DO4IrGel3zlQfU1Wx_SZ-qFPEvOuOkLc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/working-hours/41/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"working-hours",
+								"41",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update working hourss",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2NjE1MDY1LCJpYXQiOjE3NDU3NTEwNjUsImp0aSI6IjU1NjA1NjVkZTgwZDQ1MzE5ODc1ZDRkMGM3NTU3NmJkIiwidXNlcl9pZCI6OH0.q9fM_mYwTewRCh0C9vHEkIoumea3Z2N6BVo6uV7FTVA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"monday_start\": \"19:15:28\",\r\n    \"monday_end\": \"22:15:29\",\r\n    \"monday_available\": true,\r\n    \"tuesday_start\": \"19:15:37\",\r\n    \"tuesday_end\": \"12:15:38\",\r\n    \"tuesday_available\": true,\r\n    \"wednesday_start\": null,\r\n    \"wednesday_end\": null,\r\n    \"wednesday_available\": false,\r\n    \"thursday_start\": \"19:15:37\",\r\n    \"thursday_end\": \"12:15:38\",\r\n    \"thursday_available\": true,\r\n    \"friday_start\": null,\r\n    \"friday_end\": null,\r\n    \"friday_available\": false,\r\n    \"saturday_start\": null,\r\n    \"saturday_end\": null,\r\n    \"saturday_available\": false,\r\n    \"sunday_start\": \"19:15:28\",\r\n    \"sunday_end\": \"22:15:29\",\r\n    \"sunday_available\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/working-hours/41/update/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"working-hours",
+								"41",
+								"update",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update pending book list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2NzA5MjU4LCJpYXQiOjE3NDU4NDUyNTgsImp0aSI6Ijc3YjU2ZDFjNzA4OTQ0YzdhZjAwNzg2Y2M3NGU1ODVjIiwidXNlcl9pZCI6NDJ9.WZ1r7zAv4R_uk7aTplu6BOPRobi_gFgPrz_mM25zHSI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"status\": \"pending\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/bookings/update/8/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"bookings",
+								"update",
+								"8",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upcoming-appointments",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "appointment-requests",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NjQ1MzczLCJpYXQiOjE3NDY3ODEzNzMsImp0aSI6IjFiMzJhYTllZGMzODRkMTJiY2YwNTIyYzUzMzk4ZDlhIiwidXNlcl9pZCI6OX0.batMhqhXK-WY1IjNGTy-eeNhepVD-7qC1RAMxBwTN-k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}therapist/appointment-requests/",
+							"host": [
+								"{{base_url}}therapist"
+							],
+							"path": [
+								"appointment-requests",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accept_appointmen",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NjY2MTM3LCJpYXQiOjE3NDY4MDIxMzcsImp0aSI6IjhlZmI4YzNlYTRhZDRjN2ZhNTUzMjQ4NjMwM2I0OGExIiwidXNlcl9pZCI6OX0.kWMLXY3Oa6VqOE3Bw42RRyqb2T77BOuDrsP0qq6_5eg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}therapist/accept_appointment/22/",
+							"host": [
+								"{{base_url}}therapist"
+							],
+							"path": [
+								"accept_appointment",
+								"22",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reject-appointments",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}therapist/reject-appointments/25/",
+							"host": [
+								"{{base_url}}therapist"
+							],
+							"path": [
+								"reject-appointments",
+								"25",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "booking on date",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NjY2MTM3LCJpYXQiOjE3NDY4MDIxMzcsImp0aSI6IjhlZmI4YzNlYTRhZDRjN2ZhNTUzMjQ4NjMwM2I0OGExIiwidXNlcl9pZCI6OX0.kWMLXY3Oa6VqOE3Bw42RRyqb2T77BOuDrsP0qq6_5eg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}therapist/bookings/date?date=2025-05-10",
+							"host": [
+								"{{base_url}}therapist"
+							],
+							"path": [
+								"bookings",
+								"date"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2025-05-10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "therapist_earnings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3ODIyMzY5LCJpYXQiOjE3NDY5NTgzNjksImp0aSI6IjRiMjQ3N2UzODk2YjRiMDBiN2NhNjAwNWIwYjRlMjZiIiwidXNlcl9pZCI6OX0.BRqddpuRH4vFHV2TUKsdoR2dXMUUHeZWXMs72fEBZMQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}therapist/therapist_earnings/?period=day",
+							"host": [
+								"{{base_url}}therapist"
+							],
+							"path": [
+								"therapist_earnings",
+								""
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "day"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "booking with id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3ODIyMzY5LCJpYXQiOjE3NDY5NTgzNjksImp0aSI6IjRiMjQ3N2UzODk2YjRiMDBiN2NhNjAwNWIwYjRlMjZiIiwidXNlcl9pZCI6OX0.BRqddpuRH4vFHV2TUKsdoR2dXMUUHeZWXMs72fEBZMQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}therapist/bookings/39/",
+							"host": [
+								"{{base_url}}therapist"
+							],
+							"path": [
+								"bookings",
+								"39",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "navigation",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "chat inbox",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4Mjc3MzA0LCJpYXQiOjE3NDc0MTMzMDQsImp0aSI6IjMwYmJhMTI5OWFkMzQ0MjFiNWYyMWEzODRjOTRjNmNhIiwidXNlcl9pZCI6MzV9.hEbY0zX05STGskZhZZW8iswPDsZxt9CJYg6HotxLvgM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/chat/inbox/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"chat",
+								"inbox",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "withdrawal request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4Njg2MDc0LCJpYXQiOjE3NDc4MjIwNzQsImp0aSI6Ijc5ZTY4MGFmODdmNTQ1ZGJiNzI3OWRkZTZkMjFhOWQ2IiwidXNlcl9pZCI6OX0.FnCXERXJu_PCST-5MRKawLmCjM7HEFk70o6GilbgZxE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"amount\": 120.00,\r\n  \"method\": \"stripe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}therapist/withdrawal/request/",
+							"host": [
+								"{{base_url}}therapist"
+							],
+							"path": [
+								"withdrawal",
+								"request",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payout history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4Njg2MDc0LCJpYXQiOjE3NDc4MjIwNzQsImp0aSI6Ijc5ZTY4MGFmODdmNTQ1ZGJiNzI3OWRkZTZkMjFhOWQ2IiwidXNlcl9pZCI6OX0.FnCXERXJu_PCST-5MRKawLmCjM7HEFk70o6GilbgZxE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"amount\": 120.00,\r\n  \"method\": \"stripe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}therapist/withdrawal/request/",
+							"host": [
+								"{{base_url}}therapist"
+							],
+							"path": [
+								"withdrawal",
+								"request",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "client",
+			"item": [
+				{
+					"name": "client-profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/clients/35/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"clients",
+								"35",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit client profile",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Bdcalling/Downloads/1741685934469.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/clients/35/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"clients",
+								"35",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "booking lists",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1NTk1MDc3LCJpYXQiOjE3NDQ3MzEwNzcsImp0aSI6IjFhNGFkMDljYjcwYjQwZTNiMjZmZmQ2MmFlZmJmMjQ1IiwidXNlcl9pZCI6OH0.KUkEpzdX5GcJrP1uaznLEMcLm6TK9s8eIWkapiXfFkU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}auth/bookings/",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"bookings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2NTMxMDE2LCJpYXQiOjE3NDU2NjcwMTYsImp0aSI6IjM3NjkwNzBiN2FmYTQ3ZTliY2IwYzExOWQwNjFkY2FiIiwidXNlcl9pZCI6Mzh9.8OgKHCizC5acy381GdKUAbCDIr1rNocRnBWu8DJ4auo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"age_range_start\": 10,\r\n        \"age_range_end\": 20,\r\n        \"massage_preference\": \"single\",\r\n        \"number_of_people\": 1,\r\n        \"duration\": 30,\r\n        \"date_time\": \"2025-04-26T12:23:10Z\",\r\n        \"location_type\": \"home\",\r\n        \"number_of_floors\": 2,\r\n        \"elevator_or_escalator\": false,\r\n        \"parking_type\": null,\r\n        \"any_pets\": false,\r\n        \"i_am_returning_customer\": false,\r\n        \"have_own_massage_table\": false,\r\n        \"preferred_modality\": \"\",\r\n        \"preferred_pressure\": \"\",\r\n        \"reaseon_for_massage\": \"\",\r\n        \"moisturizer\": \"\",\r\n        \"coversion_preference\": \"\",\r\n        \"pregnancy\": \"\",\r\n        \"instant_appointment\": true,\r\n        \"status\": \"pending\",\r\n        \"created_at\": \"2025-04-26T12:24:16.180239Z\",\r\n        \"user\": 2,\r\n        \"therapist_user_id\": 18\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/bookings/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"bookings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzA0MTQ1LCJpYXQiOjE3NDY0NDAxNDUsImp0aSI6IjUzZmJkODUyYTFiZTRjYWM5NTk2ZjNjMjUyZGY3YTA2IiwidXNlcl9pZCI6NjJ9.rTGYeLvMxiNS5qQ0-HczsA8RJkJTQQZE_lYng4vzYWU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"therapist_user_id\": 18,\r\n        \"therapist_full_name\": \"Muhammad Iktear\",\r\n        \"name\": null,\r\n        \"age_range_start\": 10,\r\n        \"age_range_end\": 20,\r\n        \"massage_preference\": \"single\",\r\n        \"number_of_people\": 1,\r\n        \"duration\": 30,\r\n        \"date_time\": \"2025-04-26T18:23:10+06:00\",\r\n        \"location_type\": \"home\",\r\n        \"number_of_floors\": 2,\r\n        \"elevator_or_escalator\": false,\r\n        \"parking_type\": null,\r\n        \"any_pets\": false,\r\n        \"i_am_returning_customer\": false,\r\n        \"have_own_massage_table\": false,\r\n        \"preferred_modality\": \"\",\r\n        \"preferred_pressure\": \"\",\r\n        \"reaseon_for_massage\": \"\",\r\n        \"moisturizer\": \"\",\r\n        \"coversion_preference\": \"\",\r\n        \"pregnancy\": \"\",\r\n        \"instant_appointment\": false,\r\n        \"status\": \"pending\",\r\n        \"created_at\": \"2025-05-05T16:28:22.208240+06:00\",\r\n        \"user\": 62,\r\n        \"therapist\": 1\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/bookings/update/36/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"bookings",
+								"update",
+								"36",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzA0MTQ1LCJpYXQiOjE3NDY0NDAxNDUsImp0aSI6IjUzZmJkODUyYTFiZTRjYWM5NTk2ZjNjMjUyZGY3YTA2IiwidXNlcl9pZCI6NjJ9.rTGYeLvMxiNS5qQ0-HczsA8RJkJTQQZE_lYng4vzYWU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/bookings/update/36/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"bookings",
+								"update",
+								"36",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzA0MTQ1LCJpYXQiOjE3NDY0NDAxNDUsImp0aSI6IjUzZmJkODUyYTFiZTRjYWM5NTk2ZjNjMjUyZGY3YTA2IiwidXNlcl9pZCI6NjJ9.rTGYeLvMxiNS5qQ0-HczsA8RJkJTQQZE_lYng4vzYWU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"therapist_id\": 41,\r\n  \"rating\": 5,\r\n  \"review\": \"Excellent experience!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/client/reviews/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"client",
+								"reviews",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzA0MTQ1LCJpYXQiOjE3NDY0NDAxNDUsImp0aSI6IjUzZmJkODUyYTFiZTRjYWM5NTk2ZjNjMjUyZGY3YTA2IiwidXNlcl9pZCI6NjJ9.rTGYeLvMxiNS5qQ0-HczsA8RJkJTQQZE_lYng4vzYWU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 5,\r\n    \"review\": \"Excellent experience!...\",\r\n    \"response\": null,\r\n    \"client\": 62,\r\n    \"therapist\": 8,\r\n    \"created_at\": \"2025-05-05T17:32:06.793669+06:00\",\r\n    \"therapist_user_id\": 41,\r\n    \"therapist_full_name\": \"Muhammad Iktear\",\r\n    \"client_full_name\": \"Saydun Nabi Tuhin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/client/reviews/18/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"client",
+								"reviews",
+								"18",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzA0MTQ1LCJpYXQiOjE3NDY0NDAxNDUsImp0aSI6IjUzZmJkODUyYTFiZTRjYWM5NTk2ZjNjMjUyZGY3YTA2IiwidXNlcl9pZCI6NjJ9.rTGYeLvMxiNS5qQ0-HczsA8RJkJTQQZE_lYng4vzYWU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/client/reviews/18/delete/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"client",
+								"reviews",
+								"18",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "favorite therapist list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MTI2MTgyLCJpYXQiOjE3NDYyNjIxODIsImp0aSI6IjFmNWVmYzYyMDE3MjQ5NDQ4MDZjYWY1OGUxYjBkYmI5IiwidXNlcl9pZCI6OH0.PAdef-XqxzHateySLNjBJ1jqI-mZvn9uzazayZHQehE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/love_therapists/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"love_therapists",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add favorite therapist",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MDk1Njg0LCJpYXQiOjE3NDUyMzE2ODQsImp0aSI6IjU5MDM4MDZiMGQ5MzQ3NGNhYWVkNzU1ZjBmMTFlYzAzIiwidXNlcl9pZCI6OH0.a_rv_D7b2GFJdkntNo-FOBu8mOxF6akDJ0H2kRtjByI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"therapist\": 96\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}client/love-therapists/",
+							"host": [
+								"{{base_url}}client"
+							],
+							"path": [
+								"love-therapists",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove therapist from favorite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3MzA0MTQ1LCJpYXQiOjE3NDY0NDAxNDUsImp0aSI6IjUzZmJkODUyYTFiZTRjYWM5NTk2ZjNjMjUyZGY3YTA2IiwidXNlcl9pZCI6NjJ9.rTGYeLvMxiNS5qQ0-HczsA8RJkJTQQZE_lYng4vzYWU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"therapist_id\": 41\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/love-therapists/update/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"love-therapists",
+								"update",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter_with_massage_name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/therapists-by-massage-type/?massage_type=Swedish Massage",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"therapists-by-massage-type",
+								""
+							],
+							"query": [
+								{
+									"key": "massage_type",
+									"value": "Swedish Massage"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "see payment card",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2NjE0NTk2LCJpYXQiOjE3NDU3NTA1OTYsImp0aSI6IjIzZGM5YzVjMWRjODQ5NThiYjFhNWFmMDBhMzg0OTYwIiwidXNlcl9pZCI6OH0.-HZLevluheYoRmjh7QzZVMG3hC-ODsQTDkjTDNwyR_c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/payment-cards/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"payment-cards",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payment_summary_view",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "add payment card",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2ODcxMzgwLCJpYXQiOjE3NDYwMDczODAsImp0aSI6IjA5ODhkYjU1MzVmMjQ1NWY4MWU0NjMwMjcyYzFkNWM1IiwidXNlcl9pZCI6OH0.g6KI8_OJm30DO4IrGel3zlQfU1Wx_SZ-qFPEvOuOkLc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"client\": 7,\r\n        \"card_number\": \"1425 1248 2544 5545\",\r\n        \"card_holder\": \"JVAICHATGPT\",\r\n        \"expiry_date\": \"2026-05-03\",\r\n        \"card_type\": \"credit\",\r\n        \"cvv\": 1234\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/payment-cards/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"payment-cards",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payment process",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ5ODE5NTg2LCJpYXQiOjE3NDg5NTU1ODYsImp0aSI6ImEyZjExMWYxOTZjYjQ5MWNhMjliOTZiMmJiNDc4MWQ4IiwidXNlcl9pZCI6MTAzfQ.VaaPk3SMVZ4PQsVFxrw04HETLSeSbGkuT1G8X6tHuT8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"promo_code\": \"PROMO123\",\r\n  \"redeem\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}client/payment/process/172/",
+							"host": [
+								"{{base_url}}client"
+							],
+							"path": [
+								"payment",
+								"process",
+								"172",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payment_confirm",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2ODcxMzgwLCJpYXQiOjE3NDYwMDczODAsImp0aSI6IjA5ODhkYjU1MzVmMjQ1NWY4MWU0NjMwMjcyYzFkNWM1IiwidXNlcl9pZCI6OH0.g6KI8_OJm30DO4IrGel3zlQfU1Wx_SZ-qFPEvOuOkLc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "payment_method",
+									"value": "pm_card_visa",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/payment/confirm/18/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"payment",
+								"confirm",
+								"18",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payout",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "filter-therapists",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NTcwNTAyLCJpYXQiOjE3NDY3MDY1MDIsImp0aSI6IjVlNGRlMjQ1YzFhNDQzMzA5ZWIzNjQyZDNkZWJkYjkyIiwidXNlcl9pZCI6OH0.jpehMacoJ4g0px0_iRWAzhNxtr7mG_y-afBe_hY1Lmk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}client/filter-therapists/?rating=3&min_price=200&max_price=600&gender=female&availability=04:00 pm",
+							"host": [
+								"{{base_url}}client"
+							],
+							"path": [
+								"filter-therapists",
+								""
+							],
+							"query": [
+								{
+									"key": "rating",
+									"value": "3"
+								},
+								{
+									"key": "min_price",
+									"value": "200"
+								},
+								{
+									"key": "max_price",
+									"value": "600"
+								},
+								{
+									"key": "gender",
+									"value": "female"
+								},
+								{
+									"key": "availability",
+									"value": "04:00 pm"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client_booking_detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3OTI0MjIxLCJpYXQiOjE3NDcwNjAyMjEsImp0aSI6Ijk5ZWFkOTk4YjJlODQzM2M5ZmZkNWM1YzVlOWQ5NGJhIiwidXNlcl9pZCI6MzV9.FYH70F-4nLASYRBcgtMIlocDONKmhwDsXRqpQyovuwk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}client/client_booking_detail_view/41/",
+							"host": [
+								"{{base_url}}client"
+							],
+							"path": [
+								"client_booking_detail_view",
+								"41",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client_booking_navigation",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "booking cancel",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "create-dispute",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4MTczNDE5LCJpYXQiOjE3NDczMDk0MTksImp0aSI6ImNhYzM3MGVjNjI1ZjQ4MmU4YmI2MjZkMTg4NzBjNzFmIiwidXNlcl9pZCI6MzV9.Uqs4SsRSM0WjWU57PAozE5oXH_D7Zyrs95F-wMV2er4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dispute_setting_id\": 2,\r\n  \"booking_id\": 49\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}dispute/create-dispute/",
+							"host": [
+								"{{base_url}}dispute"
+							],
+							"path": [
+								"create-dispute",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "add loyalty program",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jvaichatgpt@gmail.com\",\n    \"full_name\": \"aininjas\",\n    \"phone_number\": \"01796331459\",\n    \"password\": \"11111\",\n    \"role\": \"client\" //client, therapist\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}api/loyalty/program/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"loyalty",
+								"program",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loyalty action",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jvaichatgpt@gmail.com\",\n    \"full_name\": \"aininjas\",\n    \"phone_number\": \"01796331459\",\n    \"password\": \"11111\",\n    \"role\": \"client\" //client, therapist\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}api/loyalty/program/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"loyalty",
+								"program",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loyalty action",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"points\": 30\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/loyalty/action/4/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"loyalty",
+								"action",
+								"4",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loyalty rewards",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"points\": 30\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/loyalty/action/4/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"loyalty",
+								"action",
+								"4",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "invite-friend",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"points\": 30\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/loyalty/action/4/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"loyalty",
+								"action",
+								"4",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Location",
+			"item": [
+				{
+					"name": "location update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3Mzk5ODk3LCJpYXQiOjE3NDY1MzU4OTcsImp0aSI6ImE1OTQxOTJmNzRmNTRhNTE5Y2FhNmE0NzNkOGRiNWU1IiwidXNlcl9pZCI6OH0.wFpc3sXkF3nVOoFl_KbzCi6cJZN3zdpT2CodB4U3LTo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"latitude\": 37.421900,\r\n    \"longitude\": -122.084000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/update-location/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"update-location",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "chat",
+			"item": [
+				{
+					"name": "create and get room using sender and receiver id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MTg3MTMxLCJpYXQiOjE3NDUzMjMxMzEsImp0aSI6ImJkMzFmNThkN2MyYjRmZDBhYjQyNDdmOWVjMmM1YTRmIiwidXNlcl9pZCI6OH0.SBQK8qCELY_YQjm3MvTK5kdl1IRYGrdaWHp9un2IxGc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/chat/get-or-create-room/8/18/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"chat",
+								"get-or-create-room",
+								"8",
+								"18",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all message in room",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MTg3MTMxLCJpYXQiOjE3NDUzMjMxMzEsImp0aSI6ImJkMzFmNThkN2MyYjRmZDBhYjQyNDdmOWVjMmM1YTRmIiwidXNlcl9pZCI6OH0.SBQK8qCELY_YQjm3MvTK5kdl1IRYGrdaWHp9un2IxGc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/chat/messages/1/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"chat",
+								"messages",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "create/get room id using user id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2NDM2NjM2LCJpYXQiOjE3NDU1NzI2MzYsImp0aSI6ImE0ZmNlOTc1MmUzZDRmYWZhYWZmNmM5NDk5ZWU2Y2Q4IiwidXNlcl9pZCI6OH0.hLCbSbkFqDpddrSKz6dQ3gqnYG0on4tJas1S52aWwnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/notification/get-or-create-room/8/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"notification",
+								"get-or-create-room",
+								"8",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all notification using room id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AI",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4MzQxMjkyLCJpYXQiOjE3NDc0NzcyOTIsImp0aSI6IjAzMTIwMzhlMjcxOTQ3MzQ5MmNhZWU5NTljNjA0MjE1IiwidXNlcl9pZCI6MzV9.85Or5kayP1TCfIzz1rxWfqdyVTll_VJi4iqqp_45w7E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pain_locations\": [\"Neck\", \"Shoulders\"],\r\n    \"other_pain_location\": \"Slight pain in the left trapezius\",\r\n    \"pain_types\": [\"Tight/Stiff\", \"Dull ache\"],\r\n    \"other_pain_type\": null,\r\n    \"pain_severity\": 7,\r\n    \"pain_duration\": \"3-7 days\",\r\n    \"previous_treatment\": true,\r\n    \"previous_treatment_details\": \"Had a sports massage two weeks ago, helped a bit.\",\r\n    \"massage_goals\": [\"Release tension\", \"Pain relief\"],\r\n    \"other_massage_goal\": \"Improve posture awareness\",\r\n    \"lifestyle_factors\": [\"Desk/computer work\"],\r\n    \"diagnosed_condition\": false,\r\n    \"diagnosed_condition_details\": null,\r\n    \"additional_notes\": \"I prefer unscented oil if possible. Also, I have a slight sensitivity to deep pressure on my right shoulder.\",\r\n    \"agreed_to_terms\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}AI/bookings/170/symptom-check/",
+							"host": [
+								"{{base_url}}AI"
+							],
+							"path": [
+								"bookings",
+								"170",
+								"symptom-check",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://192.168.10.139:3333/",
+			"type": "string"
+		}
+	]
+}

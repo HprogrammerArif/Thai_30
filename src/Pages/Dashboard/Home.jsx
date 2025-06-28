@@ -14,6 +14,7 @@ import {
 } from '../redux/features/baseAPI/baseApi';
 import ApproveTherapist from './ApproveTherapist';
 import PayoutLayout from './PayoutLayout';
+import MassageTypes from '../../Layout/components/MassageTypes';
 
 const AdminHome = () => {
   const [selectedBookingId, setSelectedBookingId] = useState(null);
@@ -30,7 +31,7 @@ const AdminHome = () => {
   const { data: recentBookings, isLoading: bookingsLoading, error: bookingsError } = useRecentBookingsQuery();
   const { data: earningsDataRaw, isLoading: earningsLoading, error: earningsError } = useGetEarningSummaryQuery(timePeriod);
   const { data: pendingTherapist, isLoading: isPendingLoading, error: pendingError } = usePendingTherapistQuery();
-  console.log(pendingTherapist)
+  console.log({pendingTherapist})
   const [approveTherapist, { isLoading: isApproving }] = useApproveTherapistMutation();
   const [rejectTherapist, { isLoading: isRejecting }] = useRejectTherapistMutation();
 
@@ -87,6 +88,8 @@ const AdminHome = () => {
   })) || [];
 
   console.log('transformedPendingApprovals',transformedPendingApprovals)
+  console.log("pendingTherapist length:", pendingTherapist?.length);
+
 
   // Pagination calculations
   const totalBookings = recentBookings?.length || 0;
@@ -347,6 +350,7 @@ const AdminHome = () => {
       </div>
 
       <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
         <div className="bg-white rounded-2xl shadow-lg p-6">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-bold text-gray-800">Recent Bookings</h3>
@@ -529,6 +533,8 @@ const AdminHome = () => {
       <div className='bg-white rounded-2xl shadow-lg p-6 col-span-2 mt-10'>
         <PayoutLayout/>
       </div>
+
+      <MassageTypes/>
     </section>
   );
 };
