@@ -20,6 +20,7 @@ import ResetPassword from "../Pages/Authentication/ResetPassword";
 import Finance_admin_home from "../Pages/FinanceAdminDashboard/finance_admin_home";
 import BookingAdminHome from "../Pages/BookingAdminDashboard/BookingAdminHome";
 import ProtectedRoute from "../Layout/ProtectedRoute";
+import BookingHistory from "../Pages/BookingAdminDashboard/BookingHistory";
 
 export const router = createBrowserRouter([
   {
@@ -69,7 +70,8 @@ export const router = createBrowserRouter([
       {path: "finance_admin_home", element: <Finance_admin_home/>},
 
       //booking admin dashboard routes
-      {path: "booking_admin_home", element: <BookingAdminHome />}, 
+      {path: "booking_admin_home", element: <BookingAdminHome />},
+      { path: "booking_history", element: <BookingHistory /> },
 
     ],
   },

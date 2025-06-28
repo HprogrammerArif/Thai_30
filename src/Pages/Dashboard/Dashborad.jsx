@@ -10,12 +10,14 @@ import {
   ChevronsLeft,
   ChevronsRight,
   MessagesSquare,
+  
 } from "lucide-react";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { useGetAdminQuery } from "../redux/features/baseAPI/baseApi";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectCurrentUser } from "../redux/features/auth/authSlice";
+import { FaHistory } from "react-icons/fa";
 
 const userRole = {
   ADMIN: "admin",
@@ -31,132 +33,46 @@ export default function Dashboard() {
 
   const baseURL = "http://192.168.10.16:3333/";
 
-  // const menuItems = [
-  //   {
-  //     items: [
-  //       {
-  //         name: "Dashboard",
-  //         icon: <LuLayoutDashboard size={20} />,
-  //         path: "/dashboard/home",
-  //       },
-  //       {
-  //         name: "Users & Therapists",
-  //         icon: <FaUserGroup size={20} />,
-  //         path: "/dashboard/client_info",
-  //       },
-  //       {
-  //         name: "Bookings & Payments",
-  //         icon: <CalendarDays size={20} />,
-  //         path: "/dashboard/booking_info",
-  //       },
-  //       {
-  //         name: "Roles & Permissions",
-  //         icon: <RiUserSettingsLine size={20} />,
-  //         path: "/dashboard/roles",
-  //       },
-  //       {
-  //         name: "Analytics",
-  //         icon: <BsFillBarChartFill size={20} />,
-  //         path: "/dashboard/analytics",
-  //       },
-  //       {
-  //         name: "Promotions",
-  //         icon: <BadgePercent size={20} />,
-  //         path: "/dashboard/promotions",
-  //       },
-  //       {
-  //         name: "Dispute Management",
-  //         icon: <MessagesSquare size={20} />,
-  //         path: "/dashboard/dispute_management",
-  //       },
-
-  //       //Finance Admin Dashboard routes
-  //       {
-  //         name: "Dashboard",
-  //         icon: <LuLayoutDashboard size={20} />,
-  //         path: "/dashboard/finance_admin_home",
-  //       },
-  //       {
-  //         name: "Dispute Management",
-  //         icon: <MessagesSquare size={20} />,
-  //         path: "/dashboard/dispute_management",
-  //       },
-
-  //       //Booking Admin Dashboard routes
-  //       {
-  //         name: "Dashboard",
-  //         icon: <LuLayoutDashboard size={20} />,
-  //         path: "/dashboard/booking_admin_home",
-  //       },
-  //       {
-  //         name: "Users & Therapists",
-  //         icon: <FaUserGroup size={20} />,
-  //         path: "/dashboard/client_info",
-  //       },
-  //       {
-  //         name: "Bookings & Payments",
-  //         icon: <CalendarDays size={20} />,
-  //         path: "/dashboard/booking_info",
-  //       },
-  //     ],
-  //   },
-  // ];
-
-  const user = useSelector(selectCurrentUser);
-  let menuItems = [];
-
-  const role = "finance"
-
-  switch (role) {
-    case userRole.ADMIN:
-      menuItems = [
+  const menuItems = [
+    {
+      items: [
         {
-          items: [
-            {
-              name: "Dashboard",
-              icon: <LuLayoutDashboard size={20} />,
-              path: "/dashboard/home",
-            },
-            {
-              name: "Users & Therapists",
-              icon: <FaUserGroup size={20} />,
-              path: "/dashboard/client_info",
-            },
-            {
-              name: "Bookings & Payments",
-              icon: <CalendarDays size={20} />,
-              path: "/dashboard/booking_info",
-            },
-            {
-              name: "Roles & Permissions",
-              icon: <RiUserSettingsLine size={20} />,
-              path: "/dashboard/roles",
-            },
-            {
-              name: "Analytics",
-              icon: <BsFillBarChartFill size={20} />,
-              path: "/dashboard/analytics",
-            },
-            {
-              name: "Promotions",
-              icon: <BadgePercent size={20} />,
-              path: "/dashboard/promotions",
-            },
-            {
-              name: "Dispute Management",
-              icon: <MessagesSquare size={20} />,
-              path: "/dashboard/dispute_management",
-            },
-          ],
+          name: "Dashboard",
+          icon: <LuLayoutDashboard size={20} />,
+          path: "/dashboard/home",
         },
-      ];
-      break;
+        {
+          name: "Users & Therapists",
+          icon: <FaUserGroup size={20} />,
+          path: "/dashboard/client_info",
+        },
+        {
+          name: "Bookings & Payments",
+          icon: <CalendarDays size={20} />,
+          path: "/dashboard/booking_info",
+        },
+        {
+          name: "Roles & Permissions",
+          icon: <RiUserSettingsLine size={20} />,
+          path: "/dashboard/roles",
+        },
+        {
+          name: "Analytics",
+          icon: <BsFillBarChartFill size={20} />,
+          path: "/dashboard/analytics",
+        },
+        {
+          name: "Promotions",
+          icon: <BadgePercent size={20} />,
+          path: "/dashboard/promotions",
+        },
+        {
+          name: "Dispute Management",
+          icon: <MessagesSquare size={20} />,
+          path: "/dashboard/dispute_management",
+        },
 
-    case userRole.FINANCE:
-      menuItems = [
-       {
-        items: [
-           //Finance Admin Dashboard routes
+        //Finance Admin Dashboard routes
         {
           name: "Dashboard",
           icon: <LuLayoutDashboard size={20} />,
@@ -167,16 +83,8 @@ export default function Dashboard() {
           icon: <MessagesSquare size={20} />,
           path: "/dashboard/dispute_management",
         },
-        ]
-       }
-      ];
-      break;
 
-    case userRole.BOOKING:
-      menuItems = [
-       {
-        items : [
-           //Booking Admin Dashboard routes
+        //Booking Admin Dashboard routes
         {
           name: "Dashboard",
           icon: <LuLayoutDashboard size={20} />,
@@ -192,14 +100,114 @@ export default function Dashboard() {
           icon: <CalendarDays size={20} />,
           path: "/dashboard/booking_info",
         },
-        ]
-       }
-      ];
-      break;
+      ],
+    },
+  ];
 
-    default:
-      break;
-  }
+  // const user = useSelector(selectCurrentUser);
+  // let menuItems = [];
+
+  // // const role = user.role;
+  // const role = 'booking';
+
+  // switch (role) {
+  //   case userRole.ADMIN:
+  //     menuItems = [
+  //       {
+  //         items: [
+  //           {
+  //             name: "Dashboard",
+  //             icon: <LuLayoutDashboard size={20} />,
+  //             path: "/dashboard/home",
+  //           },
+  //           {
+  //             name: "Users & Therapists",
+  //             icon: <FaUserGroup size={20} />,
+  //             path: "/dashboard/client_info",
+  //           },
+  //           {
+  //             name: "Bookings & Payments",
+  //             icon: <CalendarDays size={20} />,
+  //             path: "/dashboard/booking_info",
+  //           },
+  //           {
+  //             name: "Roles & Permissions",
+  //             icon: <RiUserSettingsLine size={20} />,
+  //             path: "/dashboard/roles",
+  //           },
+  //           {
+  //             name: "Analytics",
+  //             icon: <BsFillBarChartFill size={20} />,
+  //             path: "/dashboard/analytics",
+  //           },
+  //           {
+  //             name: "Promotions",
+  //             icon: <BadgePercent size={20} />,
+  //             path: "/dashboard/promotions",
+  //           },
+  //           {
+  //             name: "Dispute Management",
+  //             icon: <MessagesSquare size={20} />,
+  //             path: "/dashboard/dispute_management",
+  //           },
+  //         ],
+  //       },
+  //     ];
+  //     break;
+
+  //   case userRole.FINANCE:
+  //     menuItems = [
+  //      {
+  //       items: [
+  //          //Finance Admin Dashboard routes
+  //       {
+  //         name: "Dashboard",
+  //         icon: <LuLayoutDashboard size={20} />,
+  //         path: "/dashboard/finance_admin_home",
+  //       },
+  //       {
+  //         name: "Dispute Management",
+  //         icon: <MessagesSquare size={20} />,
+  //         path: "/dashboard/dispute_management",
+  //       },
+  //       ]
+  //      }
+  //     ];
+  //     break;
+
+  //   case userRole.BOOKING:
+  //     menuItems = [
+  //      {
+  //       items : [
+  //          //Booking Admin Dashboard routes
+  //       {
+  //         name: "Dashboard",
+  //         icon: <LuLayoutDashboard size={20} />,
+  //         path: "/dashboard/booking_admin_home",
+  //       },
+  //       {
+  //         name: "Booking History",
+  //         icon: <FaHistory size={20} />,
+  //         path: "/dashboard/booking_history",
+  //       },
+  //       {
+  //         name: "Users & Therapists",
+  //         icon: <FaUserGroup size={20} />,
+  //         path: "/dashboard/client_info",
+  //       },
+  //       {
+  //         name: "Bookings & Payments",
+  //         icon: <CalendarDays size={20} />,
+  //         path: "/dashboard/booking_info",
+  //       },
+  //       ]
+  //      }
+  //     ];
+  //     break;
+
+  //   default:
+  //     break;
+  // }
 
   // //logout function
   // const handleLogOut =( )=>{
