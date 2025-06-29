@@ -150,21 +150,18 @@ export const baseApi = createApi({
         method: "PUT",
         body: formData,
       }),
-       invalidatesTags: ["get-massage-types"],
+      invalidatesTags: ["get-massage-types"],
     }),
 
     //ADD MESSAGE
-  addMassageType: builder.mutation({
-  query: (formData) => ({
-    url: "api/massage-types/",
-    method: "POST",
-    body: formData,
-  }),
-  invalidatesTags: ["get-massage-types"],
-}),
-
-
-    
+    addMassageType: builder.mutation({
+      query: (formData) => ({
+        url: "api/massage-types/",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["get-massage-types"],
+    }),
 
     rejectTherapist: builder.mutation({
       query: (profileId) => ({
@@ -260,15 +257,24 @@ export const baseApi = createApi({
       providesTags: ["admin-request"],
     }),
 
-    // UPDATE REQUEST ADMIN ROLE
-    updateToAdminRequest: builder.mutation({
-      query: ({ id, role, approved }) => ({
-        url: `api/admin-requests/`,
+    // ASSIGN ROLE
+    assignRoleInAdminRequest: builder.mutation({
+      query: ({ body, id }) => ({
+        url: `api/admin-requests/${id}/approve/`,
         method: "POST",
-        body: { role, approved },
+        body: { ...body },
       }),
       invalidatesTags: ["admin-request"],
     }),
+    // // UPDATE REQUEST ADMIN ROLE
+    // updateToAdminRequest: builder.mutation({
+    //   query: ({ id, role, approved }) => ({
+    //     url: `api/admin-requests/`,
+    //     method: "POST",
+    //     body: { role, approved },
+    //   }),
+    //   invalidatesTags: ["admin-request"],
+    // }),
 
     //Therapist Background Check
 
@@ -277,6 +283,36 @@ export const baseApi = createApi({
       query: () => "api/admin/therapists-background/",
       providesTags: ["therapists-background"],
     }),
+
+
+    //ADD ONE
+    //ADD ONE request
+    getAddOneData: builder.query({
+      query: () => "api/massage-add-ons/",
+      providesTags: ["massage-add-ons"],
+    }),
+     // UPDATE add one request
+    updateAddOneData: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `api/massage-add-ons/${id}`,
+        method: "PATCH",
+        body: formData,
+      }),
+      invalidatesTags: ["massage-add-ons"],
+    }),
+
+
+    //post ADD one data
+    postAddOneData: builder.mutation({
+      query: (formData) => ({
+        url: "api/massage-add-ons/",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["massage-add-ons"],
+    }),
+
+
   }),
 });
 
@@ -339,8 +375,13 @@ export const {
 
   // ROLES AND PERMISSION
   useGetNewAdminRequestQuery,
-  useUpdateToAdminRequestMutation,
+  useAssignRoleInAdminRequestMutation,
 
   //THERAPIST
   useGetTherapistDataQuery,
+
+  //ADD ONE
+  useGetAddOneDataQuery,
+  useUpdateAddOneDataMutation,
+  usePostAddOneDataMutation
 } = baseApi;

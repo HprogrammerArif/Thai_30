@@ -18,7 +18,7 @@ const MassageTypes = () => {
   const [updateMassageType, { isLoading: isUpdating }] =
     useUpdateMassageTypeMutation();
   const [addMassageType] = useAddMassageTypeMutation();
-
+ 
   const [newMassage, setNewMassage] = useState({
     name: "",
     massage_fee: "",
@@ -44,7 +44,7 @@ const MassageTypes = () => {
 
     try {
       const res = await addMassageType(formData).unwrap();
-      console.log({res})
+      console.log({ res });
       toast.success("Massage type added successfully!");
 
       setNewMassage({
@@ -63,7 +63,6 @@ const MassageTypes = () => {
     }
   };
 
-
   const massageTypes = massageTypesData || [];
   console.log({ massageTypes });
 
@@ -73,10 +72,18 @@ const MassageTypes = () => {
 
   // Pagination calculations
   const totalItems = massageTypes.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  // const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentItems = massageTypes.slice(startIndex, endIndex);
+  // const currentItems = massageTypes.slice(startIndex, endIndex);
+  //  const itemsPerPage = 5;
+  // const massageTypes = massageTypesData || [];
+
+  const totalPages = Math.ceil(massageTypes.length / itemsPerPage);
+  const currentItems = massageTypes.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -188,7 +195,7 @@ const MassageTypes = () => {
   return (
     <section>
       {/* Massage Type */}
-      <div className="bg-white rounded-[15px] shadow-md p-6 col-span-1 basis-7/12">
+      <div className="bg-white rounded-[15px] shadow-md p-6 col-span-1 basis-7/12 mt-6 md:mt-12">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">
           Massage Type
         </h2>
@@ -204,7 +211,7 @@ const MassageTypes = () => {
               </tr>
             </thead>
             <tbody>
-              {massageTypes?.map((check, index) => (
+              {currentItems?.map((check, index) => (
                 <tr
                   key={index}
                   className="border-b hover:bg-gray-50 cursor-pointer"

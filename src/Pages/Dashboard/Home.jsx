@@ -15,6 +15,7 @@ import {
 import ApproveTherapist from './ApproveTherapist';
 import PayoutLayout from './PayoutLayout';
 import MassageTypes from '../../Layout/components/MassageTypes';
+import AddOns from '../../Layout/components/AddOns';
 
 const AdminHome = () => {
   const [selectedBookingId, setSelectedBookingId] = useState(null);
@@ -302,7 +303,9 @@ const AdminHome = () => {
 
   return (
     <section className="min-h-screen">
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
         <div
           className="col-span-2 relative p-8 rounded-2xl text-white h-full flex flex-col justify-center shadow-lg"
           style={{
@@ -431,6 +434,7 @@ const AdminHome = () => {
           )}
         </div>
 
+
         <div className="bg-white rounded-2xl shadow-lg p-6">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-bold text-gray-800">Earnings Summary</h3>
@@ -535,6 +539,7 @@ const AdminHome = () => {
       </div>
 
       <MassageTypes/>
+      <AddOns/>
     </section>
   );
 };

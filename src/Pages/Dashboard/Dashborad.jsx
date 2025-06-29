@@ -228,7 +228,7 @@ export default function Dashboard() {
   };
 
   const user = useSelector(selectCurrentUser)
-console.log({user})
+// console.log({user})
   // Derive selectedItem for header display
   const selectedItem =
     menuItems[0]?.items?.find((item) => item.path === location.pathname)

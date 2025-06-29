@@ -195,12 +195,17 @@ import {
   FaFileAlt,
   FaEnvelope,
 } from "react-icons/fa";
+
 import {
+  useAssignRoleInAdminRequestMutation,
   useGetNewAdminRequestQuery,
   useGetTherapistDataQuery,
-  useUpdateToAdminRequestMutation,
 } from "../redux/features/baseAPI/baseApi";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 const Roles = () => {
   // State to manage selected user for modals
@@ -222,12 +227,12 @@ const Roles = () => {
   // console.log({ therapistBackgroundChecks });
 
   const [
-    respondToRequest,
+    assignRoleAdminRequest,
     {
       isLoading: isAdminUpdateAdminRequestLoading,
       error: isAdminUpdateAdminRequestError,
     },
-  ] = useUpdateToAdminRequestMutation();
+  ] = useAssignRoleInAdminRequestMutation();
 
   const roles = [
     {
@@ -322,6 +327,7 @@ const Roles = () => {
 
   // Functions to open modals
   const openAdminRequestModal = (request) => {
+
     setSelectedAdminRequest(request);
     document.getElementById("admin_request_modal").showModal();
   };
@@ -333,33 +339,38 @@ const Roles = () => {
 
   // Function for handleAdmin role
 
-  const handleAssignRole = async () => {
+  const handleAssignRole = async (data) => {
 
-     
-    // if (approved === false) {
-    //   //rejected functionality
-    //   toast.error("Will be rejected functionality!");
-    //   return;
-    // }
+     try {
+    const assignRole = {
+    body: {
+      assign_role: role, 
+    },
+    id: data.user_id, 
+  };
 
-    // if (!selectedAdminRequest || !role) return;
+    const res =  await assignRoleAdminRequest(assignRole).unwrap()
 
-    // const approveData = {
-    //   id: selectedAdminRequest.id,
-    //   role,
-    //   approved,
-    // };
+    toast.success("Role assigned successfully!");
+    
 
-    // try {
-    //   await respondToRequest(approveData).unwrap();
+    console.log("Assigned Role:", { res});
 
-    //   toast.success("Role assign successfully!");
+    // Make API request or state update here
+    // await someApi.assignRole(assignRole);
 
-    //   document.getElementById("admin_request_modal")?.close();
-    // } catch (err) {
-    //   toast.error("Something went wrong!");
-    //   console.error("Error responding to request", err);
-    // }
+    // Close the modal properly
+    // const modal = document.getElementById("admin_request_modal");
+    // if (modal?.close) {
+    //   modal.close();
+    // } 
+    document.getElementById("admin_request_modal").close();
+  } catch (error) {
+    toast.error("Something went wrong!")
+    console.error("Error assigning role:", error);
+  }
+
+
   };
 
   // Handle loading and error states
@@ -382,7 +393,6 @@ const Roles = () => {
       <div className="text-red-500">
         Error loading data:{" "}
         {isAdminRequestError?.message ||
-          isTherapistBackgroundError?.message ||
           isAdminUpdateAdminRequestError?.message}
       </div>
     );
@@ -615,14 +625,14 @@ const Roles = () => {
               <div className="flex justify-end gap-3 mt-6">
                 <button
                   className="px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors flex items-center gap-2"
-                  onClick={() => handleRespond(true)}
+                  onClick={ () => handleAssignRole(selectedAdminRequest)}
                   disabled={isAdminUpdateAdminRequestLoading || !role}
                 >
                   <FaCheckCircle size={16} /> Approve
                 </button>
                 <button
                   className="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors flex items-center gap-2"
-                  onClick={() => handleRespond(false)}
+                  // onClick={() => handleRespond(false)}
                   disabled={isAdminUpdateAdminRequestLoading}
                 >
                   <FaExclamationTriangle size={16} /> Reject
@@ -731,7 +741,7 @@ const Roles = () => {
         </div>
       </dialog>
 
-      {/* Toast container for showing notifications */}
+     {/* Toast container for showing notifications */}
       <ToastContainer
         position="top-right" // ← changed from "top-center"
         autoClose={3000}
