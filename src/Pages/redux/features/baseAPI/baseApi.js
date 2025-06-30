@@ -312,6 +312,17 @@ export const baseApi = createApi({
       invalidatesTags: ["massage-add-ons"],
     }),
 
+    //PROFILE UPDATE
+    // UPDATE PROFILE
+    // updateUserProfile: builder.mutation({
+    //   query: ({ id, formData }) => ({
+    //     url: `api/massage-add-ons/${id}`,
+    //     method: "PATCH",
+    //     body: formData,
+    //   }),
+    //   invalidatesTags: ["massage-add-ons"],
+    // }),
+
 
   }),
 });
@@ -322,6 +333,9 @@ export const {
   useRequestPasswordResetMutation,
   useVerifyOtpMutation,
   useResetPasswordMutation,
+
+  //PROFILE
+
 
   //login user
   useLoginUserMutation,

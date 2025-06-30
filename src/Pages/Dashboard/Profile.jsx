@@ -306,8 +306,13 @@ const Profile = () => {
 
   const handleEditProfile = () => {
     if (isEditingProfile) {
+
+     const updateProfile = {
+      ...editableUser,
+      profileImage: profileImage,
+    }
       // Save changes
-      setUser(editableUser)
+      setUser(updateProfile)
       setIsEditingProfile(false)
       console.log("Profile saved:", editableUser)
     } else {

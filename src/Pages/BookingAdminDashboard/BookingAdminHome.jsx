@@ -8,6 +8,7 @@ import { LuTrash2 } from "react-icons/lu";
 import { useAdminInfoQuery, useDeleteBookingMutation, useGetAllBookingsQuery, useGetAnalyticsDataQuery, useGetBookingDetailsQuery } from "../redux/features/baseAPI/baseApi";
 import TransactionHistory from "../Dashboard/TransactionHistory";
 import MassageTypes from "../../Layout/components/MassageTypes";
+import AddOns from "../../Layout/components/AddOns";
 
 
 const BookingAdminHome = () => {
@@ -448,6 +449,9 @@ const BookingAdminHome = () => {
 
       {/* MassageTypes Component */}
       <MassageTypes />
+
+      {/* ADD ONS */}
+      <AddOns/>
 
       {/* Safety Alerts */}
        {/* Customer Insights */}

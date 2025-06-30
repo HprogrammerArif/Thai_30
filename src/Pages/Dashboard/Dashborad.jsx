@@ -10,7 +10,6 @@ import {
   ChevronsLeft,
   ChevronsRight,
   MessagesSquare,
-  
 } from "lucide-react";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { BsFillBarChartFill } from "react-icons/bs";
@@ -28,8 +27,10 @@ const userRole = {
 export default function Dashboard() {
   const dispatch = useDispatch();
   const { data: adminData } = useGetAdminQuery();
+  // const { data: financeData } = useGetFinanceQuery();
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  let profileData;
 
   const baseURL = "http://192.168.10.16:3333/";
 
@@ -227,8 +228,24 @@ export default function Dashboard() {
     }, 500);
   };
 
-  const user = useSelector(selectCurrentUser)
-// console.log({user})
+  const user = useSelector(selectCurrentUser);
+
+  // if(user?.role){}
+
+  switch (user?.role) {
+    case "admin":
+      profileData = adminData;
+      break;
+
+    // case "finance_admin":
+    //   profileData = financeData;
+    //   break;
+
+    default:
+      break;
+  }
+
+  console.log({ user, adminData });
   // Derive selectedItem for header display
   const selectedItem =
     menuItems[0]?.items?.find((item) => item.path === location.pathname)
@@ -331,7 +348,9 @@ export default function Dashboard() {
                 </span>
                 <h1>
                   Hi, Welcome{" "}
-                  <span className="text-[#B28D28] font-bold">{user?.role}</span>
+                  <span className="text-[#B28D28] font-bold">
+                    {adminData?.full_name}
+                  </span>
                 </h1>
               </div>
             </div>
@@ -348,7 +367,7 @@ export default function Dashboard() {
                   />
                 </div>
                 <div>
-                  <h2 className="font-bold">{adminData?.full_name}</h2>
+                  <h2 className="font-bold">{adminData?.role}</h2>
                   <p className="text-gray-900">{adminData?.email}</p>
                 </div>
                 <div className="dropdown dropdown-end">
@@ -381,7 +400,6 @@ export default function Dashboard() {
             </div>
           </div>
         </header>
-
 
         {/* Main Content */}
         <main className="flex-1 overflow-auto p-12 bg-[#F5F5F6]">

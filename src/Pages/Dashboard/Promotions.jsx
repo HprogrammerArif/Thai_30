@@ -42,6 +42,7 @@ const Promotions = () => {
 
   return (
     <section>
+
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
@@ -195,7 +196,7 @@ const Promotions = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
                 required
               >
-                <option value="" disabled selected>Select promotion type</option>
+                <option value="" disabled >Select promotion type</option>
                 <option value="discount">Discount</option>
                 <option value="referral">Referral</option>
                 <option value="loyalty">Loyalty</option>
@@ -237,19 +238,21 @@ const Promotions = () => {
             </div>
 
             {/* Buttons */}
-            <div className="flex justify-end gap-3 pt-8">
-              <form method="dialog">
-                <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
-                  Cancel
-                </button>
-              </form>
-              <button
-                type="submit"
-                className="px-6 py-2 bg-[#B28D28] text-white rounded-lg hover:bg-[#9a7b23] transition-colors"
-              >
-                Save
-              </button>
-            </div>
+             <div className="flex justify-end gap-3 pt-8">
+    <button
+      type="button"
+      onClick={() => document.getElementById("new_promotion_modal")?.close()} // or any close logic
+      className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+    >
+      Cancel
+    </button>
+    <button
+      type="submit"
+      className="px-6 py-2 bg-[#B28D28] text-white rounded-lg hover:bg-[#9a7b23] transition-colors"
+    >
+      Save
+    </button>
+  </div>
           </form>
         </div>
       </dialog>

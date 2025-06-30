@@ -8,15 +8,16 @@ const Analytics = () => {
 
   // Dynamic revenue data from infoData
   const revenueData = infoData?.revenue_overview || [];
-
+  
   // Dynamic top services data from infoData
   const servicesData = infoData?.top_services || [];
-
+  
   // Colors for PieChart
   const COLORS = ['#8B5A2B', '#D2B48C', '#F5DEB3', '#A67B5B'];
-
+  
   // Dynamic top therapists data from infoData
   const therapists = infoData?.top_therapists || [];
+  console.log({revenueData, therapists, servicesData})
 
   // Dynamic customer insights from infoData
   const customerInsights = {

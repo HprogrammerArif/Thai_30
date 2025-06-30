@@ -614,7 +614,7 @@ const Roles = () => {
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Select role
                   </option>
                   <option value="super_admin">Super Admin</option>
