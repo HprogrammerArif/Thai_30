@@ -1,26 +1,34 @@
-
-
-import { useState } from 'react';
-import { Mail, Lock, ArrowLeft } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { useLoginUserMutation } from '../redux/features/baseAPI/baseApi';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from 'react-redux';
-import { verifyToken } from '../../utils/verifyToken';
-import { setUser } from '../redux/features/auth/authSlice';
+import { useEffect, useState } from "react";
+import { Mail, Lock, ArrowLeft } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import {
+  baseApi,
+  useGetAdminQuery,
+  useLoginUserMutation,
+} from "../redux/features/baseAPI/baseApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { verifyToken } from "../../utils/verifyToken";
+import { setUser } from "../redux/features/auth/authSlice";
 
 const Login = () => {
-
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { data: adminData, refetch: refetchAdmin } = useGetAdminQuery(undefined, {
+    skip: true,
+  });
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      email: '',
-      password: ''
-    }
+      email: "",
+      password: "",
+    },
   });
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
@@ -30,17 +38,29 @@ const Login = () => {
       const response = await loginUser(userData).unwrap();
 
       console.log({ response });
-     // const user = verifyToken(response.access);
-      //console.log({user})
-      dispatch(setUser({ user: response.user_profile, token: response.access }));
+
+      dispatch(
+        setUser({ user: response.user_profile, token: response.access })
+      );
       toast.success("Logged in");
 
-      // localStorage.setItem("access_token", response?.access);
-      // localStorage.setItem("refresh_token", response?.refresh);
+      dispatch(baseApi.util.resetApiState());
 
-      navigate('/dashboard/home');
+
+      // ✅ Trigger the getAdmin query manually
+    const result = await dispatch(baseApi.endpoints.getAdmin.initiate());
+
+    const role = result?.data?.role;
+
+    if (role === "super_admin") {
+      navigate("/dashboard/home");
+    } else if (role === "finance_admin") {
+      navigate("/dashboard/finance_admin_home");
+    } else {
+      navigate("/dashboard/booking_admin_home");
+    }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
       const errorMessage =
         error?.data?.message ||
         error?.error ||
@@ -59,10 +79,11 @@ const Login = () => {
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Left Image Panel */}
       <div className="w-full md:w-1/2 h-[30vh] md:h-screen relative">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://content3.jdmagicbox.com/v2/comp/pathanamthitta/h8/9999px468.x468.241026170405.s9h8/catalogue/luxe-luminary-wellness-thiruvalla-market-junction-thiruvalla-body-massage-centres-7ga6cf7vi9.jpg')"
+            backgroundImage:
+              "url('https://content3.jdmagicbox.com/v2/comp/pathanamthitta/h8/9999px468.x468.241026170405.s9h8/catalogue/luxe-luminary-wellness-thiruvalla-market-junction-thiruvalla-body-massage-centres-7ga6cf7vi9.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
@@ -74,73 +95,90 @@ const Login = () => {
 
       {/* Right Form Panel */}
       <div className="w-full md:w-1/2 min-h-[100vh] md:h-screen relative">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center opacity-40"
           style={{
-            backgroundImage: "url('https://i.ibb.co/cctYrsKY/Group-1686551056.png')"
+            backgroundImage:
+              "url('https://i.ibb.co/cctYrsKY/Group-1686551056.png')",
           }}
         />
-        
+
         <div className="relative z-10 flex flex-col items-center justify-center min-h-[70vh] md:h-screen p-8">
           <div className="w-full max-w-xl space-y-8">
             <div className="text-center">
-              <img 
-                src="https://i.ibb.co/sp5JLnkF/Whats-App-Image-2025-02-22-at-9-25-22-AM-3.png" 
-                alt="Logo" 
-                className="mx-auto mb-16 w-3/4" 
+              <img
+                src="https://i.ibb.co/sp5JLnkF/Whats-App-Image-2025-02-22-at-9-25-22-AM-3.png"
+                alt="Logo"
+                className="mx-auto mb-16 w-3/4"
               />
             </div>
 
-            <form 
+            <form
               onSubmit={handleSubmit(onSubmit)}
               className="backdrop-blur-sm bg-white/10 p-10 mb-10 rounded-lg border border-gray-200 shadow-lg"
             >
-              <h2 className="text-3xl font-bold text-[#B28D28] mb-10 text-center">Login</h2>
-              
+              <h2 className="text-3xl font-bold text-[#B28D28] mb-10 text-center">
+                Login
+              </h2>
+
               <div className="form-control w-full mb-6">
                 <div className="relative">
-                  <input 
-                    type="email" 
-                    placeholder="Enter your email" 
-                    className={`input input-bordered border-[#B28D2866]/40 w-full pl-10 bg-white/20 text-black placeholder-gray-300 ${errors.email ? 'border-red-500' : ''}`}
-                    {...register('email', {
-                      required: 'Email is required',
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className={`input input-bordered border-[#B28D2866]/40 w-full pl-10 bg-white/20 text-black placeholder-gray-300 ${
+                      errors.email ? "border-red-500" : ""
+                    }`}
+                    {...register("email", {
+                      required: "Email is required",
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: 'Invalid email address'
-                      }
+                        message: "Invalid email address",
+                      },
                     })}
                   />
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <Mail
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                    size={18}
+                  />
                 </div>
                 {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
 
               <div className="form-control w-full mb-6">
                 <div className="relative">
-                  <input 
-                    type="password" 
-                    placeholder="Enter your password" 
-                    className={`input input-bordered w-full pl-10 bg-white/20 border-[#B28D2866]/40 text-black placeholder-gray-300 ${errors.password ? 'border-red-500' : ''}`}
-                    {...register('password', {
-                      required: 'Password is required',
+                  <input
+                    type="password"
+                    placeholder="Enter your password"
+                    className={`input input-bordered w-full pl-10 bg-white/20 border-[#B28D2866]/40 text-black placeholder-gray-300 ${
+                      errors.password ? "border-red-500" : ""
+                    }`}
+                    {...register("password", {
+                      required: "Password is required",
                       minLength: {
                         value: 5,
-                        message: 'Password must be at least 6 characters'
-                      }
+                        message: "Password must be at least 6 characters",
+                      },
                     })}
                   />
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <Lock
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                    size={18}
+                  />
                 </div>
                 {errors.password && (
-                  <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
-              
+
               <div className="flex justify-end mb-10">
-                <Link 
+                <Link
                   to="/email_varification"
                   className="text-[#8F5E0A] font-semibold cursor-pointer hover:underline pt-2"
                 >
@@ -152,19 +190,28 @@ const Login = () => {
                 type="submit"
                 disabled={isSubmitting || isLoading}
                 className={`rounded-full w-full text-base text-white
-                  ${isLoading ? 'bg-yellow-500 cursor-not-allowed' : 'bg-[#B28D28] hover:bg-[#be892d]'}
+                  ${
+                    isLoading
+                      ? "bg-yellow-500 cursor-not-allowed"
+                      : "bg-[#B28D28] hover:bg-[#be892d]"
+                  }
                   px-4 py-2 font-semibold shadow-md`}
               >
                 {isLoading ? (
                   <span className="loading loading-bars loading-sm"></span>
                 ) : (
-                  'Login'
+                  "Login"
                 )}
               </button>
 
               <p className="text-center text-gray-900 mt-4">
-                Don't have an account? 
-                <Link to="/sign_up" className="text-[#8F5E0A] font-semibold ml-1 hover:underline">Sign Up</Link>
+                Don't have an account?
+                <Link
+                  to="/sign_up"
+                  className="text-[#8F5E0A] font-semibold ml-1 hover:underline"
+                >
+                  Sign Up
+                </Link>
               </p>
             </form>
           </div>
@@ -173,17 +220,16 @@ const Login = () => {
 
       {/* Toast container for showing notifications */}
       <ToastContainer
-  position="top-right"  // ← changed from "top-center"
-  autoClose={3000}
-  hideProgressBar={false}
-  newestOnTop={false}
-  closeOnClick
-  pauseOnFocusLoss
-  draggable
-  pauseOnHover
-  theme="light"
-/>
-
+        position="top-right" // ← changed from "top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

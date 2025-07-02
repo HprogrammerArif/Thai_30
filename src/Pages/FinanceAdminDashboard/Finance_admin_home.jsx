@@ -30,14 +30,16 @@ const formatNumber = (num) => {
 const Finance_admin_home = () => {
   const { data: infoData, isLoading, isError } = useGetAnalyticsDataQuery();
   const revenueData = infoData?.revenue_overview || [];
+  const totalRevenue = revenueData.reduce((sum, item) => sum + item.value, 0);
+  console.log({revenueData})
 
   return (
     <div className="space-y-8">
 
       {/* Top Stat Cards */}
       <div className="flex flex-wrap gap-4">
-        <StatCard label="Total Bookings" value={formatNumber(545)} />
-        <StatCard label="Total Revenue" value={`$${formatNumber(8574857)}`} />
+        <StatCard label="Total Bookings" value={formatNumber(revenueData?.length)} />
+        <StatCard label="Total Revenue" value={`$${formatNumber(totalRevenue)}`} />
       </div>
 
       {/* Revenue Overview */}

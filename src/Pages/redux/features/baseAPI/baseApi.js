@@ -31,6 +31,13 @@ export const baseApi = createApi({
     "Customer",
     "PendingPayout",
     "Transaction",
+    "get-massage-types",
+    "massage-add-ons",
+    "admin-request",
+    "dispute-settings",
+    "profile",
+    "admin"
+
   ],
   endpoints: (builder) => ({
     //authentication
@@ -50,6 +57,8 @@ export const baseApi = createApi({
         method: "POST",
         body: userData,
         providesTags: ["User"],
+        
+        
       }),
     }),
 
@@ -82,16 +91,19 @@ export const baseApi = createApi({
     //getadmin
     getAdmin: builder.query({
       query: () => "api/admin/profile/",
+      providesTags:["admin"]
     }),
 
     //admin_home
     adminInfo: builder.query({
       query: () => "/api/admin/dashboard/summary/",
+      invalidatesTags: ["admin"]
     }),
 
     //recent bookings
     recentBookings: builder.query({
       query: () => "api/recent-booking/",
+      invalidatesTags: ["admin"]
     }),
 
     getEarningSummary: builder.query({
@@ -101,6 +113,7 @@ export const baseApi = createApi({
     //pending therapist
     pendingTherapist: builder.query({
       query: () => "/api/pending-therapist-approvals/",
+      providesTags: ["PendingTherapists"]
     }),
 
     // approveTherapist: builder.mutation({
@@ -147,7 +160,7 @@ export const baseApi = createApi({
     updateMassageType: builder.mutation({
       query: ({ id, formData }) => ({
         url: `api/massage-types/${id}`,
-        method: "PUT",
+        method: "PATCH",
         body: formData,
       }),
       invalidatesTags: ["get-massage-types"],
@@ -279,11 +292,11 @@ export const baseApi = createApi({
     //Therapist Background Check
 
     //Get Therapist Background
+   
     getTherapistData: builder.query({
       query: () => "api/admin/therapists-background/",
       providesTags: ["therapists-background"],
     }),
-
 
     //ADD ONE
     //ADD ONE request
@@ -291,7 +304,7 @@ export const baseApi = createApi({
       query: () => "api/massage-add-ons/",
       providesTags: ["massage-add-ons"],
     }),
-     // UPDATE add one request
+    // UPDATE add one request
     updateAddOneData: builder.mutation({
       query: ({ id, formData }) => ({
         url: `api/massage-add-ons/${id}`,
@@ -300,7 +313,6 @@ export const baseApi = createApi({
       }),
       invalidatesTags: ["massage-add-ons"],
     }),
-
 
     //post ADD one data
     postAddOneData: builder.mutation({
@@ -323,6 +335,40 @@ export const baseApi = createApi({
     //   invalidatesTags: ["massage-add-ons"],
     // }),
 
+    //DISPUTE
+    //ADD ONE request
+    getDisputeData: builder.query({
+      query: () => "dispute/dispute-settings/",
+      providesTags: ["dispute-settings"],
+    }),
+
+ //post ADD one data
+    createDisputeSetting: builder.mutation({
+      query: (formData) => ({
+        url: "dispute/create-dispute-settings/",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["dispute-settings"],
+    }),
+
+
+    //PROFILE
+
+    //GET PROFILE
+ getUserProfile: builder.query({
+      query: () => "auth/get_user_profile/",
+      providesTags: ["profile"],
+    }),
+  updateUserProfile: builder.mutation({
+  query: ({ data }) => ({
+    url: "auth/update_user_profile/",
+    method: "PATCH",
+    body: data,
+  }),
+  invalidatesTags: ["profile", "admin"],
+}),
+
 
   }),
 });
@@ -335,7 +381,8 @@ export const {
   useResetPasswordMutation,
 
   //PROFILE
-
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
 
   //login user
   useLoginUserMutation,
@@ -397,5 +444,10 @@ export const {
   //ADD ONE
   useGetAddOneDataQuery,
   useUpdateAddOneDataMutation,
-  usePostAddOneDataMutation
+  usePostAddOneDataMutation,
+
+  //DISPUTE
+  useGetDisputeDataQuery,
+  useCreateDisputeSettingMutation,
+
 } = baseApi;

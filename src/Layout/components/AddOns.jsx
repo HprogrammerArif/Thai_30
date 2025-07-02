@@ -57,7 +57,7 @@ const AddOns = () => {
         
       });
 
-      document.getElementById("add_ons_modal").close()
+      // document.getElementById("add_ons_modal").close()
     } catch (err) {
       console.error(err);
       toast.error("Failed to add Ons Data.");
@@ -172,7 +172,7 @@ const AddOns = () => {
                   }).unwrap();
 
                   toast.success("Add Ons updated successfully!");
-                  document.getElementById("add_ones_modal").close();
+                  // document.getElementById("add_ones_modal").close();
                 } catch (err) {
                   console.error("Update failed:", err);
                   toast.error("Failed to update Add Ons.");

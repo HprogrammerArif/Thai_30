@@ -4,11 +4,64 @@
 import React, { useState } from "react";
 import { FaEnvelope, FaPlus } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
+import { useCreateDisputeSettingMutation, useGetDisputeDataQuery } from "../redux/features/baseAPI/baseApi";
+import { toast, Toaster } from "sonner";
+
+
+  const disputeTypeMap = {
+    "no-show": "Therapist Not Show",
+    "service-quality": "Service Quality",
+    "payment": "Payment Issue",
+  };
+
+  const resolutionMap = {
+    "auto-refunded": "Auto Refund",
+    "suggest-compensation": "Suggest Compensation",
+  };
+
 
 const DisputeManagement = () => {
   // State for selected dispute and modals
   const [selectedDispute, setSelectedDispute] = useState(null);
   const [compensationAmount, setCompensationAmount] = useState("");
+  const { data: disputeSettingData, isLoading } = useGetDisputeDataQuery({});
+  const [createDisputeSettingData] = useCreateDisputeSettingMutation();
+
+console.log({disputeSettingData})
+
+const [disputeType, setDisputeType] = useState("");
+const [resolution, setResolution] = useState("");
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!disputeType || !resolution) {
+   toast.error("Please select both dispute type and resolution.");
+    return;
+  }
+
+  
+
+  try {
+   const payload = {
+    dispute_type: disputeTypeMap[disputeType],
+    resolution_type: resolutionMap[resolution],
+  };
+
+    const res = await createDisputeSettingData(payload).unwrap();
+    console.log("Saved dispute setting data:", res);
+    toast.success("Dispute setting dat6a saved successfully!.");
+
+    // Close modal and optionally reset form
+    document.getElementById("dispute_settings_modal").close();
+    setDisputeType("");
+    setResolution("");
+  } catch (error) {
+    console.error("Error creating dispute setting:", error);
+    toast.error("Something went wrong.", error);
+  }
+};
+
 
   // Data for Open Disputes
   const disputes = [
@@ -69,6 +122,7 @@ const DisputeManagement = () => {
 
   return (
     <section>
+      <Toaster/>
       {/* Open Disputes */}
       <div className="bg-white rounded-[15px] shadow-md p-6 mb-8">
         <div className="flex justify-between items-center mb-4">
@@ -365,52 +419,33 @@ const DisputeManagement = () => {
               </button>
             </form>
           </div>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            
+            
             <div>
               <p className="text-sm text-gray-600">Dispute Type</p>
-              <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent">
-                <option value="" disabled>
-                  Select dispute type
-                </option>
-                <option value="no-show">Therapist No-Show</option>
-                <option value="service-quality">Service Quality</option>
-                <option value="payment">Payment Issue</option>
-              </select>
+              <select
+  value={disputeType}
+  onChange={(e) => setDisputeType(e.target.value)}
+  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
+>
+  <option value="" disabled>Select dispute type</option>
+  <option value="no-show">Therapist No-Show</option>
+  <option value="service-quality">Service Quality</option>
+  <option value="payment">Payment Issue</option>
+</select>
             </div>
             <div>
               <p className="text-sm text-gray-600">Resolution</p>
-              <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent">
-                <option value="" disabled>
-                  Select resolution
-                </option>
-                <option value="auto-refunded">Auto Refunded</option>
-                <option value="suggest-compensation">
-                  Suggest Compensation
-                </option>
-              </select>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Dispute Type</p>
-              <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent">
-                <option value="" disabled>
-                  Select dispute type
-                </option>
-                <option value="no-show">Therapist No-Show</option>
-                <option value="service-quality">Service Quality</option>
-                <option value="payment">Payment Issue</option>
-              </select>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">Resolution</p>
-              <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent">
-                <option value="" disabled>
-                  Select resolution
-                </option>
-                <option value="auto-refunded">Auto Refunded</option>
-                <option value="suggest-compensation">
-                  Suggest Compensation
-                </option>
-              </select>
+              <select
+  value={resolution}
+  onChange={(e) => setResolution(e.target.value)}
+  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
+>
+  <option value="" disabled>Select resolution</option>
+  <option value="auto-refunded">Auto Refunded</option>
+  <option value="suggest-compensation">Suggest Compensation</option>
+</select>
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button
@@ -432,6 +467,7 @@ const DisputeManagement = () => {
           </form>
         </div>
       </dialog>
+
     </section>
   );
 };
