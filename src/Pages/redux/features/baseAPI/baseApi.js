@@ -14,7 +14,7 @@ export const baseApi = createApi({
     // },
 
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token;
+      const token = getState().auth.userData?.token;
 
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
@@ -133,6 +133,16 @@ export const baseApi = createApi({
       }),
       invalidatesTags: ["PendingTherapists"],
     }),
+    
+ //reject therapist
+    rejectTherapist: builder.mutation({
+      query: (profileId) => ({
+        url: `api/admin/therapist/documents/${profileId}/reject/`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["PendingTherapists"],
+    }),
+
 
     //pending payout section
     getPendingPayout: builder.query({
@@ -176,14 +186,7 @@ export const baseApi = createApi({
       invalidatesTags: ["get-massage-types"],
     }),
 
-    rejectTherapist: builder.mutation({
-      query: (profileId) => ({
-        url: `api/admin/therapist/documents/${profileId}/reject/`,
-        method: "PATCH",
-      }),
-      invalidatesTags: ["PendingTherapists"],
-    }),
-
+    
     //get Therapist details
     getTherapistDetails: builder.query({
       query: (query) =>
@@ -279,17 +282,7 @@ export const baseApi = createApi({
       }),
       invalidatesTags: ["admin-request"],
     }),
-    // // UPDATE REQUEST ADMIN ROLE
-    // updateToAdminRequest: builder.mutation({
-    //   query: ({ id, role, approved }) => ({
-    //     url: `api/admin-requests/`,
-    //     method: "POST",
-    //     body: { role, approved },
-    //   }),
-    //   invalidatesTags: ["admin-request"],
-    // }),
 
-    //Therapist Background Check
 
     //Get Therapist Background
    
@@ -307,7 +300,7 @@ export const baseApi = createApi({
     // UPDATE add one request
     updateAddOneData: builder.mutation({
       query: ({ id, formData }) => ({
-        url: `api/massage-add-ons/${id}`,
+        url: `api/massage-add-ons/${id}/`,
         method: "PATCH",
         body: formData,
       }),

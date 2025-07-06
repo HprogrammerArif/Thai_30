@@ -1,195 +1,7 @@
-// import React from 'react';
 
-// import { FaCheckCircle, FaUser, FaShieldAlt, FaExclamationTriangle } from 'react-icons/fa';
-
-// const Roles = () => {
-//   // Data for Roles & Permissions
-//   const roles = [
-//     {
-//       title: 'Super Admin',
-//       permissions: ['All system access', 'Manage other admins', 'System configuration'],
-//     },
-//     {
-//       title: 'Finance Admin',
-//       permissions: ['Approve refunds', 'Manage payments', 'Financial reports'],
-//     },
-//     {
-//       title: 'Booking Admin',
-//       permissions: ['Edit bookings', 'Booking reports', 'Schedule bookings'],
-//     },
-//   ];
-
-//   // Data for New Admin Requests
-//   const newAdminRequests = [
-//     { name: 'Esthera Jackson', email: 'esthera@email.com', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop' },
-//     { name: 'Esthera Jackson', email: 'esthera@email.com', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop' },
-//     { name: 'Esthera Jackson', email: 'esthera@email.com', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&h=150&fit=crop' },
-//   ];
-
-//   // Data for Therapist Background Check
-//   const therapistBackgroundChecks = [
-//     { name: 'Esthera Jackson', documentType: 'License', status: 'Verified', expiryDate: '14-March-2025', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop' },
-//     { name: 'Esthera Jackson', documentType: 'ID Verification', status: 'Expiring', expiryDate: '14-March-2025', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop' },
-//     { name: 'Esthera Jackson', documentType: 'License', status: 'Expired', expiryDate: '14-March-2025', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&h=150&fit=crop' },
-//   ];
-
-//   // Data for Suspicious Activity Alerts
-//   const suspiciousActivities = [
-//     { title: 'Multiple failed login attempts', description: '5 failed attempts from IP: 192.168.1.0', color: 'red' },
-//     { title: 'Excessive booking cancellations', description: 'Therapist ID: TH12345 - 3 cancellations today', color: 'yellow' },
-//   ];
-
-//   return (
-//     <section className="p-5">
-//       {/* Roles & Permissions */}
-//       <div className="mb-8">
-//         <h2 className="text-lg font-semibold text-gray-800 mb-4">Roles & Permissions</h2>
-//         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//           {roles.map((role, index) => (
-//             <div key={index} className="bg-white rounded-[15px] shadow-md p-6">
-//               <div className="flex items-center justify-between mb-4">
-//                 <h3 className="text-lg font-semibold text-gray-800">{role.title}</h3>
-//                 <FaShieldAlt className="text-[#B28D28]" size={20} />
-//               </div>
-//               <ul className="space-y-2">
-//                 {role.permissions.map((permission, idx) => (
-//                   <li key={idx} className="flex items-center gap-2">
-//                     <FaCheckCircle className="text-green-500" size={16} />
-//                     <span className="text-gray-600">{permission}</span>
-//                   </li>
-//                 ))}
-//               </ul>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-
-//       {/* New Admin Requests and Therapist Background Check */}
-//       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-//         {/* New Admin Requests */}
-//         <div className="bg-white rounded-[15px] shadow-md p-6">
-//           <h2 className="text-lg font-semibold text-gray-800 mb-4">New Admin Requests</h2>
-//           <div className="space-y-4">
-//             {newAdminRequests.map((request, index) => (
-//               <div key={index} className="flex items-center justify-between">
-//                 <div className="flex items-center gap-3">
-//                   <img
-//                     src={request.image}
-//                     alt={request.name}
-//                     className="w-10 h-10 rounded-full object-cover"
-//                   />
-//                   <div>
-//                     <p className="font-medium text-gray-900">{request.name}</p>
-//                     <p className="text-sm text-gray-500">{request.email}</p>
-//                   </div>
-//                 </div>
-//                 <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors font-medium">
-//                   View
-//                 </button>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-
-//         {/* Therapist Background Check */}
-//         <div className="bg-white rounded-[15px] shadow-md p-6">
-//           <h2 className="text-lg font-semibold text-gray-800 mb-4">Therapist Background Check</h2>
-//           <div className="overflow-x-auto">
-//             <table className="w-full text-left">
-//               <thead>
-//                 <tr className="text-gray-600 border-b">
-//                   <th className="p-4">Name</th>
-//                   <th className="p-4">Document Type</th>
-//                   <th className="p-4">Status</th>
-//                   <th className="p-4">Expiry Date</th>
-//                   <th className="p-4">Action</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 {therapistBackgroundChecks.map((check, index) => (
-//                   <tr key={index} className="border-b hover:bg-gray-50">
-//                     <td className="p-4">
-//                       <div className="flex items-center gap-3">
-//                         <img
-//                           src={check.image}
-//                           alt={check.name}
-//                           className="w-8 h-8 rounded-full object-cover"
-//                         />
-//                         <span className="font-medium text-gray-900">{check.name}</span>
-//                       </div>
-//                     </td>
-//                     <td className="p-4 text-gray-600">{check.documentType}</td>
-//                     <td className="p-4">
-//                       <span
-//                         className={`px-3 py-1 rounded-full text-sm font-medium ${
-//                           check.status === 'Verified'
-//                             ? 'bg-green-100 text-green-700'
-//                             : check.status === 'Expiring'
-//                             ? 'bg-yellow-100 text-yellow-700'
-//                             : 'bg-red-100 text-red-700'
-//                         }`}
-//                       >
-//                         {check.status}
-//                       </span>
-//                     </td>
-//                     <td className="p-4 text-gray-600">{check.expiryDate}</td>
-//                     <td className="p-4">
-//                       <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors font-medium">
-//                         View
-//                       </button>
-//                     </td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Suspicious Activity Alerts */}
-//       <div className="bg-white rounded-[15px] shadow-md p-6">
-//         <h2 className="text-lg font-semibold text-gray-800 mb-4">Suspicious Activity Alerts</h2>
-//         <div className="space-y-4">
-//           {suspiciousActivities.map((activity, index) => (
-//             <div
-//               key={index}
-//               className={`flex items-center justify-between p-4 rounded-[10px] border-l-4 ${
-//                 activity.color === 'red' ? 'border-red-500 bg-red-50' : 'border-yellow-500 bg-yellow-50'
-//               }`}
-//             >
-//               <div className="flex items-center gap-3">
-//                 <FaExclamationTriangle
-//                   size={24}
-//                   className={activity.color === 'red' ? 'text-red-500' : 'text-yellow-500'}
-//                 />
-//                 <div>
-//                   <p className={`font-medium ${activity.color === 'red' ? 'text-red-700' : 'text-yellow-700'}`}>
-//                     {activity.title}
-//                   </p>
-//                   <p className="text-sm text-gray-600">{activity.description}</p>
-//                 </div>
-//               </div>
-//               <button
-//                 className={`px-4 py-2 rounded-full text-white font-medium ${
-//                   activity.color === 'red' ? 'bg-red-500 hover:bg-red-600' : 'bg-yellow-500 hover:bg-yellow-600'
-//                 }`}
-//               >
-//                 Review
-//               </button>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Roles;
-
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   FaCheckCircle,
-  FaUser,
   FaShieldAlt,
   FaExclamationTriangle,
   FaFileAlt,
@@ -199,7 +11,6 @@ import {
 import {
   useAssignRoleInAdminRequestMutation,
   useGetNewAdminRequestQuery,
-  useGetTherapistDataQuery,
 } from "../redux/features/baseAPI/baseApi";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
@@ -208,6 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 const Roles = () => {
+  const baseURL = "http://192.168.10.16:3333/";
   // State to manage selected user for modals
   const [selectedAdminRequest, setSelectedAdminRequest] = useState(null);
   const [selectedTherapistCheck, setSelectedTherapistCheck] = useState(null);
@@ -442,7 +254,8 @@ const Roles = () => {
               >
                 <div className="flex items-center gap-3">
                   <img
-                    src={request.image}
+                  src={`${baseURL}api${request?.image}`}
+                    // src={request.image}
                     alt={request.name}
                     className="w-14 h-14 rounded-full object-cover"
                   />
