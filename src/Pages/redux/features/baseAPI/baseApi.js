@@ -159,13 +159,13 @@ export const baseApi = createApi({
     // UPDATE MESSAGE TYPE
     updateMassageType: builder.mutation({
       query: ({ id, formData }) => ({
-        url: `api/massage-types/${id}`,
+        url: `api/massage-types/${id}/`,
         method: "PATCH",
         body: formData,
       }),
       invalidatesTags: ["get-massage-types"],
     }),
-
+// api/massage-add-ons/<int:id>/</int:id>
     //ADD MESSAGE
     addMassageType: builder.mutation({
       query: (formData) => ({
