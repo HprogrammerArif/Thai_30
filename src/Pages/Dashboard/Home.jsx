@@ -488,6 +488,9 @@ const AdminHome = () => {
           </div>
         </div>
 
+
+        {/* Pending Therapist Approvals */}
+
         <div className="bg-white rounded-2xl shadow-lg p-6 col-span-2 mt-5">
           <h3 className="text-xl font-bold text-gray-800 mb-6">Pending Therapist Approvals</h3>
           <div className="grid grid-cols-2 gap-4 text-sm font-medium text-gray-700 mb-4">
@@ -522,6 +525,8 @@ const AdminHome = () => {
             <p className="text-gray-500">No pending approvals</p>
           )}
         </div>
+
+        
       </div>
 
       <BookingModal

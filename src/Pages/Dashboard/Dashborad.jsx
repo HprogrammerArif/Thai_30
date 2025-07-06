@@ -108,8 +108,8 @@ export default function Dashboard() {
   const user = useSelector(selectCurrentUser);
   let menuItems = [];
 
-  const role = adminData?.role;
-  console.log({role, adminData})
+  const role = user?.admin_type;
+  // console.log({role, adminData})
   // const role = 'booking_admin';
 
   switch (role) {

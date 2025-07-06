@@ -17,8 +17,9 @@ const Bookings = () => {
 
    const { data: adminData } = useAdminInfoQuery();
    console.log("adminData", adminData)
-  const { data: bookingsInfo } = useGetAllBookingsQuery();
-  const { data: bookingDetails } = useGetBookingDetailsQuery(selectedBookingId);
+  const { data: bookingsInfo, isLoading: isLoadingBookings, isFetching: isFetchingBookings } = useGetAllBookingsQuery();
+  
+  const { data: bookingDetails, isLoading: isLoadingBookingDetails } = useGetBookingDetailsQuery(selectedBookingId, { skip: selectedBookingId === null });
   console.log("bookingDetails", bookingDetails)
   const [deleteBooking, {isLoading}] = useDeleteBookingMutation()
 
@@ -115,6 +116,10 @@ const Bookings = () => {
       console.error("Error deleting booking:", error);
       
     }
+  }
+
+  if (isLoadingBookingDetails | isLoadingBookings | isFetchingBookings) {
+    return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
 
   return (

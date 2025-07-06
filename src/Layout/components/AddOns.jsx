@@ -1,15 +1,10 @@
 import { useState } from "react";
-import { FaEdit, FaEnvelope, FaFileAlt } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { ToastContainer } from "react-toastify";
 import {
-  useAddMassageTypeMutation,
   useGetAddOneDataQuery,
-  useGetMassageTypeQuery,
-  useGetTransactionHistoryDetailsQuery,
-  useGetTransactionHistoryQuery,
   usePostAddOneDataMutation,
   useUpdateAddOneDataMutation,
-  useUpdateMassageTypeMutation,
 } from "../../Pages/redux/features/baseAPI/baseApi";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "react-toastify";
@@ -18,14 +13,13 @@ import "react-toastify/dist/ReactToastify.css";
 const AddOns = () => {
   const { data: addOneData, isLoading } = useGetAddOneDataQuery({});
   const [selectedAddOnes, setSelectedAddOnes] = useState(null);
-    console.log({selectedAddOnes})
+  console.log({ selectedAddOnes });
   const [updateAddOneData, { isLoading: isUpdating }] =
     useUpdateAddOneDataMutation();
-//   const [updateMassageType, { isLoading: isUpdating }] =
-//     useUpdateAddOneDataMutation();
+  
 
   const [postAddOneData] = usePostAddOneDataMutation();
-//   const [addMassageType] = useAddMassageTypeMutation();
+  
 
   const [newMassage, setNewMassage] = useState({
     name: "",
@@ -41,9 +35,7 @@ const AddOns = () => {
     formData.append("duration", newMassage.duration);
     formData.append("fee", newMassage.fee);
 
-    console.log({formData})
-    
-
+    console.log({ formData });
 
     try {
       const res = await postAddOneData(formData).unwrap();
@@ -54,7 +46,6 @@ const AddOns = () => {
         name: "",
         duration: "",
         fee: "",
-        
       });
 
       // document.getElementById("add_ons_modal").close()
@@ -64,16 +55,12 @@ const AddOns = () => {
     }
   };
 
+  
+  // Pagination calculations
   const addOnesData = addOneData || [];
-//   const massageTypes = addOneData || [];
-  console.log({ addOnesData });
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const maxPageButtons = 5;
-
-  // Pagination calculations
-  const startIndex = (currentPage - 1) * itemsPerPage;
   const totalPages = Math.ceil(addOnesData.length / itemsPerPage);
   const currentItems = addOnesData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -150,42 +137,32 @@ const AddOns = () => {
     document.getElementById("add_ones_modal").showModal();
   };
 
-
   const handleUpdate = async (e) => {
-                e.preventDefault();
+    e.preventDefault();
 
-                const formData = new FormData();
-                formData.append(
-                  "fee",
-                  selectedAddOnes.fee
-                );
-                formData.append(
-                  "duration",
-                  selectedAddOnes.duration
-                );
-                
+    const formData = new FormData();
+    formData.append("fee", selectedAddOnes.fee);
+    formData.append("duration", selectedAddOnes.duration);
 
-                try {
-                  await updateAddOneData({
-                    id: selectedAddOnes.id, // make sure `id` exists
-                    formData,
-                  }).unwrap();
+    try {
+      await updateAddOneData({
+        id: selectedAddOnes.id, // make sure `id` exists
+        formData,
+      }).unwrap();
 
-                  toast.success("Add Ons updated successfully!");
-                  // document.getElementById("add_ones_modal").close();
-                } catch (err) {
-                  console.error("Update failed:", err);
-                  toast.error("Failed to update Add Ons.");
-                }
-              }
+      toast.success("Add Ons updated successfully!");
+      // document.getElementById("add_ones_modal").close();
+    } catch (err) {
+      console.error("Update failed:", err);
+      toast.error("Failed to update Add Ons.");
+    }
+  };
 
   return (
     <section>
       {/* Add Ons */}
       <div className="bg-white rounded-[15px] shadow-md p-6 col-span-1 basis-7/12 mt-6 md:mt-12">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">
-          Add Ons
-        </h2>
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">Add Ons</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -202,7 +179,6 @@ const AddOns = () => {
                   key={index}
                   className="border-b hover:bg-gray-50 cursor-pointer"
                 >
-                 
                   <td className="p-4 text-gray-600">{check.name}</td>
                   <td className="p-4 text-gray-600">{check.duration}</td>
                   <td className="p-4 text-gray-600">{check.fee}</td>
@@ -256,9 +232,6 @@ const AddOns = () => {
         </div>
       </div>
 
-
-
-
       {/* DaisyUI Modal for MassageTypesData  update*/}
       <dialog id="add_ones_modal" className="modal">
         <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
@@ -272,10 +245,7 @@ const AddOns = () => {
           </div>
 
           {selectedAddOnes && (
-            <form
-              onSubmit={handleUpdate}
-              className="space-y-4"
-            >
+            <form onSubmit={handleUpdate} className="space-y-4">
               {/* Fees Fields */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -308,8 +278,6 @@ const AddOns = () => {
                 </div>
               </div>
 
-            
-
               {/* Action Buttons */}
               <div className="flex justify-end gap-3 mt-6">
                 <button
@@ -321,7 +289,7 @@ const AddOns = () => {
                 >
                   Cancel
                 </button>
-                
+
                 <button
                   type="submit"
                   className="px-6 py-2 bg-[#B28D28] text-white rounded-lg hover:bg-[#9a7b23] transition-colors"
@@ -333,7 +301,6 @@ const AddOns = () => {
           )}
         </div>
       </dialog>
-
 
       {/* add message using modal */}
       <dialog id="add_ons_modal" className="modal">
@@ -371,7 +338,7 @@ const AddOns = () => {
                   onChange={(e) =>
                     setNewMassage({
                       ...newMassage,
-                     duration: e.target.value,
+                      duration: e.target.value,
                     })
                   }
                   required
@@ -393,18 +360,13 @@ const AddOns = () => {
                   required
                 />
               </div>
-
-            
-            
             </div>
 
             <div className="flex justify-end gap-3 mt-6">
               <button
                 type="button"
                 className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
-                onClick={() =>
-                  document.getElementById("add_ons_modal").close()
-                }
+                onClick={() => document.getElementById("add_ons_modal").close()}
               >
                 Cancel
               </button>
