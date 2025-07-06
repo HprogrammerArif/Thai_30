@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Mail, Lock, ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -10,14 +10,16 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import { verifyToken } from "../../utils/verifyToken";
 import { setUser } from "../redux/features/auth/authSlice";
 
 const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { data: adminData, refetch: refetchAdmin } = useGetAdminQuery(undefined, {
-    skip: true,
-  });
+  // const { data: adminData, refetch: refetchAdmin } = useGetAdminQuery(
+  //   undefined,
+  //   {
+  //     skip: true,
+  //   }
+  // );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -40,25 +42,31 @@ const Login = () => {
       console.log({ response });
 
       dispatch(
-        setUser({ user: response.user_profile, token: response.access })
+        setUser({
+          user: response.user_profile,
+          token: response.access,
+          email: response?.email,
+          admin_type: response?.admin_type,
+        })
       );
       toast.success("Logged in");
 
       dispatch(baseApi.util.resetApiState());
 
+      // Trigger the getAdmin query manually
+      const result = await dispatch(baseApi.endpoints.getAdmin.initiate());
+      console.log({result})
 
-      // ✅ Trigger the getAdmin query manually
-    const result = await dispatch(baseApi.endpoints.getAdmin.initiate());
+      const role = response?.admin_type;
+      console.log({role})
 
-    const role = result?.data?.role;
-
-    if (role === "super_admin") {
-      navigate("/dashboard/home");
-    } else if (role === "finance_admin") {
-      navigate("/dashboard/finance_admin_home");
-    } else {
-      navigate("/dashboard/booking_admin_home");
-    }
+      if (role === "super_admin") {
+        navigate("/dashboard/home");
+      } else if (role === "finance_admin") {
+        navigate("/dashboard/finance_admin_home");
+      } else {
+        navigate("/dashboard/booking_admin_home");
+      }
     } catch (error) {
       console.error("Login error:", error);
       const errorMessage =
