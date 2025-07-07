@@ -137,10 +137,18 @@ export const baseApi = createApi({
  //reject therapist
     rejectTherapist: builder.mutation({
       query: (profileId) => ({
-        url: `api/admin/therapist/documents/${profileId}/reject/`,
-        method: "PATCH",
+        url: `api/admin/therapist/documents/${profileId}/`,
+        method: "DELETE",
       }),
       invalidatesTags: ["PendingTherapists"],
+    }),
+
+     deleteTherapist: builder.mutation({
+      query: (therapistId) => ({
+        url: `api/admin/therapists/${therapistId}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Therapist"],
     }),
 
 
@@ -160,6 +168,7 @@ export const baseApi = createApi({
       invalidatesTags: ["PendingPayout"],
     }),
 
+    
     //getMassageType
     getMassageType: builder.query({
       query: () => "api/massage-types/",
@@ -252,14 +261,7 @@ export const baseApi = createApi({
       invalidatesTags: ["Customer"],
     }),
 
-    deleteTherapist: builder.mutation({
-      query: (therapistId) => ({
-        url: `api/admin/therapists/${therapistId}/`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Therapist"],
-    }),
-
+   
     //analytics data
     getAnalyticsData: builder.query({
       query: () => "api/admin_dashboard_analytics_view/",
@@ -279,6 +281,15 @@ export const baseApi = createApi({
         url: `api/admin-requests/${id}/approve/`,
         method: "POST",
         body: { ...body },
+      }),
+      invalidatesTags: ["admin-request"],
+    }),
+
+    //reject ADMIN REQUEST
+    rejectAdminRequest: builder.mutation({
+      query: (id) => ({
+        url: `api/admin-requests/${id}/reject/`,
+        method: "POST",
       }),
       invalidatesTags: ["admin-request"],
     }),
@@ -430,6 +441,7 @@ export const {
   // ROLES AND PERMISSION
   useGetNewAdminRequestQuery,
   useAssignRoleInAdminRequestMutation,
+  useRejectAdminRequestMutation,
 
   //THERAPIST
   useGetTherapistDataQuery,
