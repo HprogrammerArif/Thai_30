@@ -110,67 +110,7 @@ const TherapistDetails = () => {
             </div>
           </div>
 
-          {/* Performance Metrics */}
-          {/* <div className="bg-white rounded-[20px] p-6">
-            <h2 className="text-lg font-semibold mb-6">Performance Metrics</h2>
-            <div className="relative w-48 h-48 mx-auto">
-              <svg className="w-full h-full" viewBox="0 0 100 100">
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  fill="none"
-                  stroke="#FFF5D6"
-                  strokeWidth="20"
-                />
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  fill="none"
-                  stroke="#FFEAAF"
-                  strokeWidth="20"
-                  strokeDasharray={`${2 * Math.PI * 40 * 0.02} ${
-                    2 * Math.PI * 40 * 0.98
-                  }`}
-                  transform="rotate(-90 50 50)"
-                />
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  fill="none"
-                  stroke="#B28D28"
-                  strokeWidth="20"
-                  strokeDasharray={`${2 * Math.PI * 40 * 0.96} ${
-                    2 * Math.PI * 40 * 0.04
-                  }`}
-                  transform="rotate(-90 50 50)"
-                />
-              </svg>
-            </div>
-            <div className="space-y-2 mt-6">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#B28D28]"></div>
-                <span className="text-sm text-gray-600">
-                  No-Show Rate: {therapist.performanceMetrics.noShowRate}%
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#FFEAAF]"></div>
-                <span className="text-sm text-gray-600">
-                  Cancellation Rate:{" "}
-                  {therapist.performanceMetrics.cancellationRate}%
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#FFF5D6]"></div>
-                <span className="text-sm text-gray-600">
-                  On-Time Rate: {therapist.performanceMetrics.onTimeRate}%
-                </span>
-              </div>
-            </div>
-          </div> */}
+          
         </div>
 
         {/* Right Column */}

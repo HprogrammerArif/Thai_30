@@ -10,7 +10,6 @@ import {
 } from "../redux/features/baseAPI/baseApi";
 import { toast } from "sonner";
 
-
 const Profile = () => {
   const baseURL = "http://192.168.10.16:3333/";
   const [user, setUser] = useState({
@@ -24,8 +23,6 @@ const Profile = () => {
   const [updateProfileChange, { data, isLoading: isUpdating }] =
     useUpdateUserProfileMutation();
 
-
-
   const [profileImage, setProfileImage] = useState(null); // file to upload
   const [previewUrl, setPreviewUrl] = useState(null);
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -34,7 +31,7 @@ const Profile = () => {
     full_name: "",
     phone_number: "",
     image: "",
-     email: "",
+    email: "",
   });
 
   const {
@@ -88,7 +85,7 @@ const Profile = () => {
 
         const res = await updateProfileChange({ data: formData });
 
-        console.log({loggedInUser, res})
+        console.log({ loggedInUser, res });
 
         if (res?.data) {
           toast.success("Profile updated successfully!");
@@ -126,15 +123,15 @@ const Profile = () => {
   };
 
   useEffect(() => {
-  if (loggedInUser) {
-    setEditableUser({
-      full_name: loggedInUser.full_name || "",
-      phone_number: loggedInUser.phone_number || "",
-      image: loggedInUser.image || "",
-      email: loggedInUser.email || "NA",
-    });
-  }
-}, [loggedInUser]);
+    if (loggedInUser) {
+      setEditableUser({
+        full_name: loggedInUser.full_name || "",
+        phone_number: loggedInUser.phone_number || "",
+        image: loggedInUser.image || "",
+        email: loggedInUser.email || "NA",
+      });
+    }
+  }, [loggedInUser]);
 
   return (
     <div className="w-full">
@@ -146,39 +143,42 @@ const Profile = () => {
         <div className="flex justify-between items-center">
           <div className="space-y-4 basis-6/12">
             <div className="space-y-5 py-10">
-             <div className="flex items-center justify-between">
-  <p className="font-medium text-gray-500">Name</p>
-  {isEditingProfile ? (
-    <input
-      type="text"
-      value={editableUser.full_name}
-      onChange={(e) =>
-        setEditableUser({ ...editableUser, full_name: e.target.value })
-      }
-      className="font-medium text-gray-800 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#B28D28] cursor-pointer"
-    />
-  ) : (
-    <p className="font-medium text-gray-800">
-      {editableUser.full_name || "N/A"}
-    </p>
-  )}
-</div>
+              <div className="flex items-center justify-between">
+                <p className="font-medium text-gray-500">Name</p>
+                {isEditingProfile ? (
+                  <input
+                    type="text"
+                    value={editableUser.full_name}
+                    onChange={(e) =>
+                      setEditableUser({
+                        ...editableUser,
+                        full_name: e.target.value,
+                      })
+                    }
+                    className="font-medium text-gray-800 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#B28D28] cursor-pointer"
+                  />
+                ) : (
+                  <p className="font-medium text-gray-800">
+                    {editableUser.full_name || "N/A"}
+                  </p>
+                )}
+              </div>
 
               <div className="flex items-center justify-between">
-  <p className="font-medium text-gray-500">Email</p>
-  {isEditingProfile ? (
-    <input
-      type="email"
-      disabled
-      value={editableUser.email || "N/A"}
-      className="font-medium text-gray-500 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#B28D28]"
-    />
-  ) : (
-    <p className="font-medium text-gray-800">
-      {editableUser.email || "N/A"}
-    </p>
-  )}
-</div>
+                <p className="font-medium text-gray-500">Email</p>
+                {isEditingProfile ? (
+                  <input
+                    type="email"
+                    disabled
+                    value={editableUser.email || "N/A"}
+                    className="font-medium text-gray-500 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#B28D28]"
+                  />
+                ) : (
+                  <p className="font-medium text-gray-800">
+                    {editableUser.email || "N/A"}
+                  </p>
+                )}
+              </div>
               <div className="flex items-center justify-beanatween">
                 <p className="font-medium text-gray-500">Contact number</p>
                 {isEditingProfile ? (
@@ -223,17 +223,16 @@ const Profile = () => {
             <div className="relative group">
               <div className="w-32 h-32 rounded-full flex items-center justify-center overflow-hidden relative mb-10">
                 <img
-  src={
-    previewUrl ||
-    `${baseURL}api${loggedInUser?.image}` ||
-    "/placeholder.svg"
-  }
-  alt="Profile"
-  className="w-full h-full object-cover"
-/>
+                  src={
+                    previewUrl ||
+                    `${baseURL}api${loggedInUser?.image}` ||
+                    "/placeholder.svg"
+                  }
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
 
-{/* src={`${baseURL}api${adminData?.image}`} */}
-
+                {/* src={`${baseURL}api${adminData?.image}`} */}
 
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div>

@@ -5,6 +5,7 @@ import { useGetAnalyticsDataQuery } from '../redux/features/baseAPI/baseApi';
 
 const Analytics = () => {
   const { data: infoData } = useGetAnalyticsDataQuery();
+  const paseURL = "http://192.168.10.16:3333/";
 
   // Dynamic revenue data from infoData
   const revenueData = infoData?.revenue_overview || [];
@@ -124,7 +125,8 @@ const Analytics = () => {
                 <div key={index} className="flex items-center justify-between p-5 bg-[#f1f3f3] rounded-[15px]">
                   <div className="flex items-center gap-3">
                     <img
-                      src={therapist.image}
+                    src={`${paseURL}api${therapist.image}`}
+                      // src={therapist.image}
                       alt={therapist.name}
                       className="w-14 h-14 rounded-full object-cover"
                     />

@@ -4,6 +4,7 @@ import { User } from 'lucide-react';
 import { FaCheck, FaTimes, FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { LiaUserClockSolid } from 'react-icons/lia';
+import { toast, Toaster } from "sonner";
 import {
   useAdminInfoQuery,
   useGetEarningSummaryQuery,
@@ -133,9 +134,12 @@ const AdminHome = () => {
 
   const handleReject = async (profileId) => {
     try {
-      await rejectTherapist(profileId).unwrap();
+      const response = await rejectTherapist(profileId).unwrap();
+      console.log(response, "reject req");
+      toast.success("Therapist rejected successfully");
       closeTherapistModal();
     } catch (error) {
+      toast.error("Error rejecting therapist, please try again.");
       console.error('Error rejecting therapist:', error);
     }
   };
@@ -211,6 +215,7 @@ const AdminHome = () => {
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <Toaster/>
         <div className="bg-white rounded-xl p-6 w-full max-w-5xl">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-bold text-gray-800">Therapist Request</h3>

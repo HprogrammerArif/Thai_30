@@ -11,6 +11,7 @@ import {
 import {
   useAssignRoleInAdminRequestMutation,
   useGetNewAdminRequestQuery,
+  useRejectAdminRequestMutation,
 } from "../redux/features/baseAPI/baseApi";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
@@ -29,6 +30,10 @@ const Roles = () => {
     isLoading: isAdminRequestLoading,
     error: isAdminRequestError,
   } = useGetNewAdminRequestQuery();
+
+  console.log({newAdminRequests})
+
+  const [rejectAdminRequest, { isLoading: redjectAdminRequestLoading }] = useRejectAdminRequestMutation();
 
   // const {
   //   data: therapistBackgroundChecks,
@@ -181,9 +186,21 @@ const Roles = () => {
     toast.error("Something went wrong!")
     console.error("Error assigning role:", error);
   }
-
-
   };
+
+
+  const handleRejectAdminRequest = async (user_id) => {
+    try {
+      const response = await rejectAdminRequest(user_id).unwrap();
+      console.log(response, "reject req");
+      toast.success("Admin request rejected successfully");
+     // closeTherapistModal();
+    } catch (error) {
+      toast.error("Error admin request rejected, please try again.");
+      console.error('Error rejecting admin request:', error);
+    }
+  };
+
 
   // Handle loading and error states
   if (
@@ -446,6 +463,7 @@ const Roles = () => {
                 <button
                   className="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors flex items-center gap-2"
                   // onClick={() => handleRespond(false)}
+                  onClick={() => handleRejectAdminRequest(selectedAdminRequest?.user_id)}
                   disabled={isAdminUpdateAdminRequestLoading}
                 >
                   <FaExclamationTriangle size={16} /> Reject
