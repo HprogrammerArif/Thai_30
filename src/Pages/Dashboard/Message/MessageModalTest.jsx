@@ -3,36 +3,19 @@ import { PiPaperPlaneRightDuotone } from "react-icons/pi";
 import useChatSocket from "./useChatSocket";
 import axios from "axios";
 
+const BASE_HTTP = "http://192.168.10.16:3333"; // for REST
+const BASE_WS = "ws://192.168.10.16:3333"; // for WebSocket
+
 export default function MessageModalTest({ isOpen, onClose }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [isTyping, setIsTyping] = useState(false);  
-  const ws= useRef(null)
+  const [isTyping, setIsTyping] = useState(false);
+  const [roomId, setRoomId] = useState(null);
+  const ws = useRef(null);
 
-   const roomId = 1; // 
+  //  const roomId = 1; //
   const userId = 8; // current user
   const receiverId = 18; // recipient user
-  
-   // Always call the hook — logic inside it can check conditions
-  useEffect(() => {
-    ws.current = new WebSocket(`ws://192.168.20.201:1235/ws/chat/1/`);
-    ws.current.onopen = () => {
-      console.log("WebSocket connected");
-    };
-    ws.current.onmessage = (event) => {
-      console.log("Received message:", event.data);
-    };
-    ws.current.onerror = (err) => {
-      console.error("WebSocket error:", err);
-    };
-    ws.current.onclose = () => {
-      console.log("WebSocket closed");
-    };
-
-    return () => {
-      ws.current?.close();
-    };
-  }, []); // always run once
 
   // Load room/messages when modal is opened
   useEffect(() => {
@@ -40,9 +23,19 @@ export default function MessageModalTest({ isOpen, onClose }) {
 
     const fetchRoomAndMessages = async () => {
       try {
-        await axios.get(`http://192.168.20.201:8000/api/chat/get-or-create-room/${userId}/${receiverId}/`);
-        const res = await axios.get(`http://192.168.20.201:8000/api/chat/messages/${roomId}/`);
-        setMessages(res.data);
+        const roomRes = await axios.get(
+          `${BASE_HTTP}/api/chat/get-or-create-room/${userId}/${receiverId}/`
+        );
+
+        
+
+        const dynamicRoomId = roomRes.data.room_id || roomRes.data.id;
+        setRoomId(dynamicRoomId); // store dynamic room ID
+
+        const msgRes = await axios.get(
+          `${BASE_HTTP}/api/chat/messages/${dynamicRoomId}/`
+        );
+        setMessages(msgRes.data);
       } catch (error) {
         console.error("Chat init failed:", error);
       }
@@ -53,7 +46,12 @@ export default function MessageModalTest({ isOpen, onClose }) {
 
   const { sendMessage } = useChatSocket({
     roomId,
-    onMessageReceived: (msg) => setMessages((prev) => [...prev, msg]),
+    onMessageReceived: (msg) => {
+      setMessages((prev) => [...prev, msg]);
+    },
+    onSocketOpen: () => {
+      console.log("Socket opened successfully");
+    },
   });
 
   const handleSendMessage = (e) => {
@@ -71,100 +69,93 @@ export default function MessageModalTest({ isOpen, onClose }) {
 
   if (!isOpen) return null; // ❗Don't render if modal is not open
 
-
-
-
-
   const formatTime = (date) =>
     date.toLocaleTimeString("en-US", {
-      hour: "numeric", 
+      hour: "numeric",
       minute: "2-digit",
       hour12: true,
     });
 
   return (
-   <div className="flex flex-col h-[60vh] w-[400px] bg-[#fffaf0] border border-yellow-200 shadow-2xl rounded-xl overflow-hidden fixed bottom-24 right-24 z-50">
-  {/* Header */}
-  <div className="navbar bg-gradient-to-r from-[#F6C90E] to-[#E3B505] text-black shadow-md px-4 py-3">
-    <div className="flex-1">
-      <div className="flex items-center gap-3">
-        <div className="avatar">
-          <div className="w-10 h-10 rounded-full bg-white/30 ring-2 ring-white ring-opacity-30"></div>
-        </div>
-        <div>
-          <h2 className="font-bold text-lg text-gray-900">Chat</h2>
-          <p className="text-sm font-medium text-green-700">Online</p>
-        </div>
-      </div>
-    </div>
-    <button
-      onClick={onClose}
-      className="text-black font-bold text-xl hover:text-red-600 transition"
-    >
-      ✕
-    </button>
-  </div>
-
-  {/* Messages */}
-  <div className="flex-1 overflow-y-auto p-4 bg-[#fffbe6] space-y-4 scroll-smooth">
-    {messages.length === 0 ? (
-      <div className="flex flex-col items-center justify-center h-full text-gray-400">
-        <p className="text-center text-lg">Start the conversation!</p>
-      </div>
-    ) : (
-     messages.map((msg) => (
-  <div
-    key={msg.id}
-    className={`chat ${msg.sender === userId ? "chat-end" : "chat-start"}`}
-  >
-    <div className="chat-bubble bg-yellow-200">
-      {msg.message}
-    </div>
-  </div>
-))
-    )}
-
-    {isTyping && (
-      <div className="chat chat-start animate-pulse">
-        <div className="chat-image avatar">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600"></div>
-        </div>
-        <div className="chat-bubble bg-yellow-200">
-          <div className="flex space-x-1">
-            <div className="w-2 h-2 rounded-full bg-white animate-bounce"></div>
-            <div className="w-2 h-2 rounded-full bg-white animate-bounce delay-100"></div>
-            <div className="w-2 h-2 rounded-full bg-white animate-bounce delay-200"></div>
+    <div className="flex flex-col h-[60vh] w-[400px] bg-[#fffaf0] border border-yellow-200 shadow-2xl rounded-xl overflow-hidden fixed bottom-24 right-24 z-50">
+      {/* Header */}
+      <div className="navbar bg-gradient-to-r from-[#F6C90E] to-[#E3B505] text-black shadow-md px-4 py-3">
+        <div className="flex-1">
+          <div className="flex items-center gap-3">
+            <div className="avatar">
+              <div className="w-10 h-10 rounded-full bg-white/30 ring-2 ring-white ring-opacity-30"></div>
+            </div>
+            <div>
+              <h2 className="font-bold text-lg text-gray-900">Chat</h2>
+              <p className="text-sm font-medium text-green-700">Online</p>
+            </div>
           </div>
         </div>
+        <button
+          onClick={onClose}
+          className="text-black font-bold text-xl hover:text-red-600 transition"
+        >
+          ✕
+        </button>
       </div>
-    )}
-  </div>
 
-  {/* Input */}
-  <div className="p-4 bg-[#fff8d6] border-t border-yellow-300">
-    <form onSubmit={handleSendMessage} className="flex gap-3 items-center">
-      <input
-        type="text"
-        value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)}
-        placeholder="Type something..."
-        className="input input-bordered flex-1 rounded-full border-yellow-300 bg-white focus:ring-yellow-400"
-      />
-      <button
-        type="submit"
-        disabled={!newMessage.trim()}
-        className={`btn btn-circle text-white ${
-          newMessage.trim()
-            ? "bg-yellow-400 hover:bg-yellow-500 hover:scale-110 shadow-lg"
-            : "btn-disabled opacity-50"
-        }`}
-      >
-        <PiPaperPlaneRightDuotone className="text-black" size={22} />
-      </button>
-    </form>
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-4 bg-[#fffbe6] space-y-4 scroll-smooth">
+        {messages.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full text-gray-400">
+            <p className="text-center text-lg">Start the conversation!</p>
+          </div>
+        ) : (
+         messages.map((msg) => (
+  <div
+    key={msg.id || index}
+    className={`chat ${msg.sender === userId ? "chat-end" : "chat-start"}`}
+  >
+    <div className="chat-bubble bg-yellow-200">{msg.message}</div>
   </div>
-</div>
+))
+        )}
 
+        {isTyping && (
+          <div className="chat chat-start animate-pulse">
+            <div className="chat-image avatar">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600"></div>
+            </div>
+            <div className="chat-bubble bg-yellow-200">
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 rounded-full bg-white animate-bounce"></div>
+                <div className="w-2 h-2 rounded-full bg-white animate-bounce delay-100"></div>
+                <div className="w-2 h-2 rounded-full bg-white animate-bounce delay-200"></div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Input */}
+      <div className="p-4 bg-[#fff8d6] border-t border-yellow-300">
+        <form onSubmit={handleSendMessage} className="flex gap-3 items-center">
+          <input
+            type="text"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            placeholder="Type something..."
+            className="input input-bordered flex-1 rounded-full border-yellow-300 bg-white focus:ring-yellow-400"
+          />
+          <button
+            type="submit"
+            disabled={!newMessage.trim()}
+            className={`btn btn-circle text-white ${
+              newMessage.trim()
+                ? "bg-yellow-400 hover:bg-yellow-500 hover:scale-110 shadow-lg"
+                : "btn-disabled opacity-50"
+            }`}
+          >
+            <PiPaperPlaneRightDuotone className="text-black" size={22} />
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
 
