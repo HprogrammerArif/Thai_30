@@ -36,10 +36,41 @@ export const baseApi = createApi({
     "admin-request",
     "dispute-settings",
     "profile",
-    "admin"
-
+    "admin",
+    "referrals",
+    "discount-program",
+    "promotions",
+    "transaction-history",
+    ,
+    "massage-add-ons",
+    ,
+    "massage-types",
+    "customers",
+    "therapists",
+    "bookings",
+    "pending-payout",
+    "pending-therapists",
+    "Messages",
   ],
   endpoints: (builder) => ({
+    
+    getMessages: builder.query({
+      query: (roomId) => `api/chat/messages/${roomId}/`,
+      providesTags: (result, error, roomId) => [
+        { type: "Messages", id: roomId },
+      ],
+    }),
+    sendMessage: builder.mutation({
+      query: (message) => ({
+        url: `api/chat/send/`,
+        method: "POST",
+        body: message,
+      }),
+      invalidatesTags: (result, error, message) => [
+        { type: "Messages", id: message.roomId },
+      ],
+    }),
+
     //authentication
     createUser: builder.mutation({
       query: (payload) => ({
@@ -57,8 +88,6 @@ export const baseApi = createApi({
         method: "POST",
         body: userData,
         providesTags: ["User"],
-        
-        
       }),
     }),
 
@@ -91,19 +120,19 @@ export const baseApi = createApi({
     //getadmin
     getAdmin: builder.query({
       query: () => "api/admin/profile/",
-      providesTags:["admin"]
+      providesTags: ["admin"],
     }),
 
     //admin_home
     adminInfo: builder.query({
       query: () => "/api/admin/dashboard/summary/",
-      invalidatesTags: ["admin"]
+      invalidatesTags: ["admin"],
     }),
 
     //recent bookings
     recentBookings: builder.query({
       query: () => "api/recent-booking/",
-      invalidatesTags: ["admin"]
+      invalidatesTags: ["admin"],
     }),
 
     getEarningSummary: builder.query({
@@ -113,7 +142,7 @@ export const baseApi = createApi({
     //pending therapist
     pendingTherapist: builder.query({
       query: () => "/api/pending-therapist-approvals/",
-      providesTags: ["PendingTherapists"]
+      providesTags: ["PendingTherapists"],
     }),
 
     // approveTherapist: builder.mutation({
@@ -133,8 +162,8 @@ export const baseApi = createApi({
       }),
       invalidatesTags: ["PendingTherapists"],
     }),
-    
- //reject therapist
+
+    //reject therapist
     rejectTherapist: builder.mutation({
       query: (profileId) => ({
         url: `api/admin/therapist/documents/${profileId}/`,
@@ -143,14 +172,13 @@ export const baseApi = createApi({
       invalidatesTags: ["PendingTherapists"],
     }),
 
-     deleteTherapist: builder.mutation({
+    deleteTherapist: builder.mutation({
       query: (therapistId) => ({
         url: `api/admin/therapists/${therapistId}/`,
         method: "DELETE",
       }),
       invalidatesTags: ["Therapist"],
     }),
-
 
     //pending payout section
     getPendingPayout: builder.query({
@@ -168,7 +196,6 @@ export const baseApi = createApi({
       invalidatesTags: ["PendingPayout"],
     }),
 
-    
     //getMassageType
     getMassageType: builder.query({
       query: () => "api/massage-types/",
@@ -184,7 +211,7 @@ export const baseApi = createApi({
       }),
       invalidatesTags: ["get-massage-types"],
     }),
-// api/massage-add-ons/<int:id>/</int:id>
+    // api/massage-add-ons/<int:id>/</int:id>
     //ADD MESSAGE
     addMassageType: builder.mutation({
       query: (formData) => ({
@@ -195,7 +222,6 @@ export const baseApi = createApi({
       invalidatesTags: ["get-massage-types"],
     }),
 
-    
     //get Therapist details
     getTherapistDetails: builder.query({
       query: (query) =>
@@ -261,7 +287,6 @@ export const baseApi = createApi({
       invalidatesTags: ["Customer"],
     }),
 
-   
     //analytics data
     getAnalyticsData: builder.query({
       query: () => "api/admin_dashboard_analytics_view/",
@@ -294,9 +319,8 @@ export const baseApi = createApi({
       invalidatesTags: ["admin-request"],
     }),
 
-
     //Get Therapist Background
-   
+
     getTherapistData: builder.query({
       query: () => "api/admin/therapists-background/",
       providesTags: ["therapists-background"],
@@ -346,7 +370,7 @@ export const baseApi = createApi({
       providesTags: ["dispute-settings"],
     }),
 
- //post ADD one data
+    //post ADD one data
     createDisputeSetting: builder.mutation({
       query: (formData) => ({
         url: "dispute/create-dispute-settings/",
@@ -356,28 +380,69 @@ export const baseApi = createApi({
       invalidatesTags: ["dispute-settings"],
     }),
 
-
     //PROFILE
 
     //GET PROFILE
- getUserProfile: builder.query({
+    getUserProfile: builder.query({
       query: () => "auth/get_user_profile/",
       providesTags: ["profile"],
     }),
-  updateUserProfile: builder.mutation({
-  query: ({ data }) => ({
-    url: "auth/update_user_profile/",
-    method: "PATCH",
-    body: data,
-  }),
-  invalidatesTags: ["profile", "admin"],
-}),
+    updateUserProfile: builder.mutation({
+      query: ({ data }) => ({
+        url: "auth/update_user_profile/",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["profile", "admin"],
+    }),
 
+    // PROMOTIONS
+    getPromotionsData: builder.query({
+      query: () => "api/discount-program/summary/",
+      providesTags: ["discount-program"],
+    }),
 
+    //ADD promotion
+    addPromotion: builder.mutation({
+      query: (payload) => ({
+        url: `api/discount-program/manage/`,
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["discount-program"],
+    }),
+
+    // referrals/summary/
+
+    getReferralSummary: builder.query({
+      query: () => "api/referrals/summary/",
+      providesTags: ["referrals"],
+    }),
+
+    // //ADD promotion
+    //    addPromotion: builder.mutation({
+    //   query: (payload) => ({
+    //     url: `api/discount-program/manage/`,
+    //     method: "POST",
+    //     body: payload,
+    //   }),
+    //   invalidatesTags: ["discount-program"],
+    // }),
   }),
 });
 
 export const {
+  //MESSAGES
+  useGetMessagesQuery,
+  useSendMessageMutation,
+
+  // PROMOTIONS
+  useGetPromotionsDataQuery,
+  useAddPromotionMutation,
+
+  //referrals
+  useGetReferralSummaryQuery,
+
   //authentication
   useCreateUserMutation,
   useRequestPasswordResetMutation,
@@ -454,5 +519,4 @@ export const {
   //DISPUTE
   useGetDisputeDataQuery,
   useCreateDisputeSettingMutation,
-
 } = baseApi;
