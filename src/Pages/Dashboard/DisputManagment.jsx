@@ -9,6 +9,8 @@ import {
 import { toast, Toaster } from "sonner";
 import MessageModal from "./Message/MessageModal";
 import MessageModalTest from "./Message/MessageModalTest";
+import MessageSidebar from "./Message/MessageSidebar";
+import ChatHome from "./NewChat/ChatHome";
 
 const disputeTypeMap = {
   "no-show": "Therapist Not Show",
@@ -31,7 +33,7 @@ const DisputeManagement = () => {
   const { data: disputeSettingData, isLoading } = useGetDisputeDataQuery({});
   const [createDisputeSettingData] = useCreateDisputeSettingMutation();
 
-  console.log({ disputeSettingData });
+  // console.log({ disputeSettingData });
 
   const [disputeType, setDisputeType] = useState("");
   const [resolution, setResolution] = useState("");
@@ -244,7 +246,9 @@ const DisputeManagement = () => {
       </div>
 
       {/* Message Modal */}
-      <MessageModalTest isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      {/* <MessageModalTest isOpen={isOpen} onClose={() => setIsOpen(false)} /> */}
+      {isOpen && <ChatHome isOpen={isOpen} onClose={() => setIsOpen(false)} />}
+      {/* <MessageSidebar isOpen={isOpen} onClose={() => setIsOpen(false)} /> */}
 
       {/* DaisyUI Modal for Dispute Details */}
       <dialog id="dispute_details_modal" className="modal">

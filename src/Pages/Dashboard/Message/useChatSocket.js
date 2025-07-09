@@ -12,7 +12,7 @@ export default function useChatSocket({
   useEffect(() => {
   if (!roomId) return;
 
-  const socket = new WebSocket(`${BASE_WS}/ws/chat/${roomId}/`);
+  const socket = new WebSocket(`${BASE_WS}/ws/chat/$1/`);
   socketRef.current = socket;
 
   socket.onopen = () => {

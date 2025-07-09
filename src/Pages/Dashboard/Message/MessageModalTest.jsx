@@ -1,21 +1,38 @@
 import { useEffect, useRef, useState } from "react";
-import { PiPaperPlaneRightDuotone } from "react-icons/pi";
-import useChatSocket from "./useChatSocket";
 import axios from "axios";
-
-const BASE_HTTP = "http://192.168.10.16:3333"; // for REST
-const BASE_WS = "ws://192.168.10.16:3333"; // for WebSocket
+import { PiPaperPlaneRightDuotone } from "react-icons/pi";
+import useChatSocket from "./useChatSocket"; // assuming you have this hook
 
 export default function MessageModalTest({ isOpen, onClose }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [roomId, setRoomId] = useState(null);
   const ws = useRef(null);
 
-  //  const roomId = 1; //
-  const userId = 8; // current user
-  const receiverId = 18; // recipient user
+  const roomId = 1;
+  const userId = 2;
+  const receiverId = 18;
+
+  // Always call the hook — logic inside it can check conditions
+  useEffect(() => {
+    ws.current = new WebSocket(`ws://192.168.20.201:1235/ws/chat/1/`);
+    ws.current.onopen = () => {
+      console.log("WebSocket connected");
+    };
+    ws.current.onmessage = (event) => {
+      console.log("Received message:", event.data);
+    };
+    ws.current.onerror = (err) => {
+      console.error("WebSocket error:", err);
+    };
+    ws.current.onclose = () => {
+      console.log("WebSocket closed");
+    };
+
+    return () => {
+      ws.current?.close();
+    };
+  }, []); // always run once
 
   // Load room/messages when modal is opened
   useEffect(() => {
@@ -23,19 +40,9 @@ export default function MessageModalTest({ isOpen, onClose }) {
 
     const fetchRoomAndMessages = async () => {
       try {
-        const roomRes = await axios.get(
-          `${BASE_HTTP}/api/chat/get-or-create-room/${userId}/${receiverId}/`
-        );
-
-        
-
-        const dynamicRoomId = roomRes.data.room_id || roomRes.data.id;
-        setRoomId(dynamicRoomId); // store dynamic room ID
-
-        const msgRes = await axios.get(
-          `${BASE_HTTP}/api/chat/messages/${dynamicRoomId}/`
-        );
-        setMessages(msgRes.data);
+        await axios.get(`http://192.168.20.201:8000/api/chat/get-or-create-room/${userId}/${receiverId}/`);
+        const res = await axios.get(`http://192.168.20.201:8000/api/chat/messages/${roomId}/`);
+        setMessages(res.data);
       } catch (error) {
         console.error("Chat init failed:", error);
       }
@@ -44,15 +51,10 @@ export default function MessageModalTest({ isOpen, onClose }) {
     fetchRoomAndMessages();
   }, [isOpen]);
 
-  const { sendMessage } = useChatSocket({
-    roomId,
-    onMessageReceived: (msg) => {
-      setMessages((prev) => [...prev, msg]);
-    },
-    onSocketOpen: () => {
-      console.log("Socket opened successfully");
-    },
-  });
+  // const { sendMessage } = useChatSocket({
+  //   roomId,
+  //   onMessageReceived: (msg) => setMessages((prev) => [...prev, msg]),
+  // });
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -68,13 +70,6 @@ export default function MessageModalTest({ isOpen, onClose }) {
   };
 
   if (!isOpen) return null; // ❗Don't render if modal is not open
-
-  const formatTime = (date) =>
-    date.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    });
 
   return (
     <div className="flex flex-col h-[60vh] w-[400px] bg-[#fffaf0] border border-yellow-200 shadow-2xl rounded-xl overflow-hidden fixed bottom-24 right-24 z-50">
@@ -106,14 +101,11 @@ export default function MessageModalTest({ isOpen, onClose }) {
             <p className="text-center text-lg">Start the conversation!</p>
           </div>
         ) : (
-         messages.map((msg) => (
-  <div
-    key={msg.id || index}
-    className={`chat ${msg.sender === userId ? "chat-end" : "chat-start"}`}
-  >
-    <div className="chat-bubble bg-yellow-200">{msg.message}</div>
-  </div>
-))
+          messages.map((msg) => (
+            <div key={msg.id} className={`chat ${msg.sender === userId ? "chat-end" : "chat-start"}`}>
+              <div className="chat-bubble bg-yellow-200">{msg.message}</div>
+            </div>
+          ))
         )}
 
         {isTyping && (

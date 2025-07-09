@@ -29,5 +29,5 @@ export const { setUser, logout } = authSlice.actions;
 
 export default authSlice.reducer;
 
-export const useCurrentToken = (state) => state.auth.userData?.token;
+export const useCurrentToken = (state) => state?.auth?.userData?.token;
 export const selectCurrentUser = (state) => state.auth.userData;

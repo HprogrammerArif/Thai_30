@@ -238,7 +238,7 @@ export default function Dashboard() {
   //     break;
   // }
 
-  console.log({ user, adminData });
+  // console.log({ user, adminData });
   // Derive selectedItem for header display
   const selectedItem =
     menuItems[0]?.items?.find((item) => item.path === location.pathname)
