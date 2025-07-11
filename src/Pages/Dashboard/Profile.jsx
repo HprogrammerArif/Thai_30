@@ -11,7 +11,7 @@ import {
 import { toast } from "sonner";
 
 const Profile = () => {
-  const baseURL = "http://192.168.10.16:3333/";
+  const baseURL = "http://10.10.13.75:3333/";
   const [user, setUser] = useState({
     full_name: "",
     phone_number: "",

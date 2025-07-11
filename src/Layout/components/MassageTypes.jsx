@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const MassageTypes = () => {
   const [profileImage, setProfileImage] = useState(null); // file to upload
-  const baseURL = "http://192.168.10.16:3333/";
+  const baseURL = "http://10.10.13.75:3333/";
   const [previewUrl, setPreviewUrl] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const { data: massageTypesData, isLoading } = useGetMassageTypeQuery({});

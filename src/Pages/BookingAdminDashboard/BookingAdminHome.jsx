@@ -26,7 +26,7 @@ const BookingAdminHome = () => {
   console.log("bookingDetails", bookingDetails)
   const [deleteBooking, {isLoading}] = useDeleteBookingMutation()
 
-  const baseURL = "http://192.168.10.16:3333/";
+  const baseURL = "http://10.10.13.75:3333/";
 
   const filteredBookings = bookingsInfo?.filter((booking) =>
     booking.booking_status.toLowerCase().includes(searchStatus.toLowerCase())

@@ -5,7 +5,7 @@ import { useGetAnalyticsDataQuery } from '../redux/features/baseAPI/baseApi';
 
 const Analytics = () => {
   const { data: infoData } = useGetAnalyticsDataQuery();
-  const paseURL = "http://192.168.10.16:3333/";
+  const paseURL = "http://10.10.13.75:3333/";
 
   // Dynamic revenue data from infoData
   const revenueData = infoData?.revenue_overview || [];

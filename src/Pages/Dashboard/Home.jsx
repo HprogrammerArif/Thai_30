@@ -27,7 +27,7 @@ const AdminHome = () => {
   const bookingsPerPage = 4;
   const [timePeriod, setTimePeriod] = useState('last_week');
 
-  const paseURL = "http://192.168.10.16:3333/";
+  const paseURL = "http://10.10.13.75:3333/";
 
   const { data: adminData, isLoading: adminLoading, error: adminError } = useAdminInfoQuery();
   const { data: recentBookings, isLoading: bookingsLoading, error: bookingsError } = useRecentBookingsQuery();
