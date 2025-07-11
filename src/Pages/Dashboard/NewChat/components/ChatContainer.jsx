@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 import { formatMessageTime } from "../lib/utils";
 import { useCurrentToken } from "../../../redux/features/auth/authSlice";
 
-const baseURL = "http://192.168.10.16:3333/";
-const SOCKET_URL = "ws://192.168.10.16:3333/ws/chat";
+const baseURL = "http://10.10.13.75:3333/";
+const SOCKET_URL = "ws://10.10.13.75:3333/ws/chat";
+// const SOCKET_URL = "ws://192.168.10.16:3333/ws/chat";
+// http://10.10.13.75:3333/
 
 const ChatContainer = ({ selectedUser }) => {
   const [messages, setMessages] = useState([]);
@@ -29,7 +31,15 @@ const ChatContainer = ({ selectedUser }) => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        setMessages(res.data || []);
+        // Map each message object: rename `content` → `message`
+const mappedMessages = (res.data || []).map((msg) => ({
+  ...msg,
+  message: msg.content, // new key
+  // Optionally remove original key:
+  // content: undefined,
+}));
+
+setMessages(mappedMessages);
       } catch (err) {
         console.error("Fetch messages error", err);
       }
@@ -45,6 +55,8 @@ const ChatContainer = ({ selectedUser }) => {
   // No trailing slash here
   const ws = new WebSocket(`${SOCKET_URL}/${selectedUser.chat_room_id}/`);
   socketRef.current = ws;
+
+  console.log({selectedUser})
 
   ws.onopen = () => console.log("✅ WebSocket connected");
   ws.onclose = () => console.log("🔌 WebSocket closed");
@@ -79,6 +91,8 @@ const ChatContainer = ({ selectedUser }) => {
       console.warn("WebSocket is not open");
     }
   };
+
+  console.log({messages})
 
   return (
     <div className="flex-1 flex flex-col overflow-auto">
@@ -115,7 +129,7 @@ const ChatContainer = ({ selectedUser }) => {
                   {formatMessageTime(msg.timestamp)}
                 </time>
               </div>
-              <div className="chat-bubble">{msg.content}</div>
+              <div className="chat-bubble">{msg.message}</div>
             </div>
           );
         })}
@@ -149,7 +163,7 @@ export default ChatContainer;
 // import { formatMessageTime } from "../lib/utils";
 // import { useSelector } from "react-redux";
 // import { useCurrentToken } from "../../../redux/features/auth/authSlice";
-// const baseURL = "http://192.168.10.16:3333/";
+// const baseURL = "http://10.10.13.75:3333/";
 
 // const ChatContainer = ({ selectedUser }) => {
 //   const [messages, setMessages] = useState([]);
@@ -165,7 +179,7 @@ export default ChatContainer;
 //     const fetchMessages = async () => {
 //       try {
 //         const response = await axios.get(
-//           `http://192.168.10.16:3333/api/chat/messages/${selectedUser.chat_room_id}/`,
+//           `http://10.10.13.75:3333/api/chat/messages/${selectedUser.chat_room_id}/`,
 //           {
 //             headers: {
 //               Authorization: `Bearer ${token}`,
@@ -260,10 +274,10 @@ export default ChatContainer;
 // //     const fetchMessages = async () => {
 // //       try {
 // //         // const response = await axios.get(
-// //         //   `http://192.168.10.16:3333/api/chat/messages/${selectedUser.chat_room_id}/`
+// //         //   `http://10.10.13.75:3333/api/chat/messages/${selectedUser.chat_room_id}/`
 // //         // );
 // //         const response = await axios.get(
-// //           `http://192.168.10.16:3333/api/chat/messages/${selectedUser.chat_room_id}/`,
+// //           `http://10.10.13.75:3333/api/chat/messages/${selectedUser.chat_room_id}/`,
 // //           {
 // //             headers: {
 // //               Authorization: `Bearer ${token}`,

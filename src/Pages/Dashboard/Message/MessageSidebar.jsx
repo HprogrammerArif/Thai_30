@@ -5,7 +5,7 @@ const MessageSidebar = ({ onUserClick }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get("ws://192.168.10.16:3333/api/chat/inbox/")
+    axios.get("ws://10.10.13.75:3333/api/chat/inbox/")
       .then((res) => setUsers(res.data))
       .catch((err) => console.error("Failed to fetch users", err));
   }, []);

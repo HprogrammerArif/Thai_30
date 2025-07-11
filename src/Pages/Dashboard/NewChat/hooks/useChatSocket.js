@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const SOCKET_BASE_URL = "ws://192.168.10.16:3333/ws/chat";
+const SOCKET_BASE_URL = "ws://10.10.13.75:3333/ws/chat";
 
 export const useChatSocket = (roomId, onMessage) => {
   const socketRef = useRef(null);
@@ -62,7 +62,7 @@ export const useChatSocket = (roomId, onMessage) => {
 
 // import { useEffect, useRef, useState } from "react";
 
-// const SOCKET_BASE_URL = "ws://192.168.10.16:3333/ws/chat";
+// const SOCKET_BASE_URL = "ws://10.10.13.75:3333/ws/chat";
 
 // export const useChatSocket = (roomId, onMessage) => {
 //   const socketRef = useRef(null);
@@ -79,7 +79,7 @@ export const useChatSocket = (roomId, onMessage) => {
 
     
 //     const ws = new WebSocket(
-//       `ws://192.168.10.16:3333/ws/chat/${roomId?.id || roomId}/`
+//       `ws://10.10.13.75:3333/ws/chat/${roomId?.id || roomId}/`
 //     );
 
 //     socketRef.current = ws;
@@ -137,7 +137,7 @@ export const useChatSocket = (roomId, onMessage) => {
 //   useEffect(() => {
 //     if (!roomId) return;
 
-//     const ws = new WebSocket(`ws://192.168.10.16:3333/ws/chat/${roomId}/`);
+//     const ws = new WebSocket(`ws://10.10.13.75:3333/ws/chat/${roomId}/`);
 //     socketRef.current = ws;
 
 //     ws.onopen = () => {

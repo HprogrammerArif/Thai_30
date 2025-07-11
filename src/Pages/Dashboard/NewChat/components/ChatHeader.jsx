@@ -1,9 +1,10 @@
 import { X } from "lucide-react";
 // import { useAuthStore } from "../store/useAuthStore";
 // import { useChatStore } from "../store/useChatStore";
+const baseURL = "http://10.10.13.75:3333/";
 import { useState } from "react";
 
-const ChatHeader = () => {
+const ChatHeader = ({selectedUser}) => {
   // const { selectedUser, setSelectedUser } = useChatStore();
   // const { onlineUsers } = useAuthStore();
   const [User, setSelectedUser] = useState(null);
@@ -16,12 +17,14 @@ const ChatHeader = () => {
   //   profilePic: "/avatar.png",
   // };
   const onlineUsers = ["1", "2"]; // Example online users
-  const selectedUser = {
-    _id: "1",
-    name: "John Doe",
-    fullName: "John Doe",
-    profilePic: "/avatar.png",
-  };
+  // const selectedUser = {
+  //   _id: "1",
+  //   name: "John Doe",
+  //   fullName: "John Doe",
+  //   profilePic: "/avatar.png",
+  // };
+
+  console.log({selectedUser})
 
 
   return (
@@ -32,25 +35,27 @@ const ChatHeader = () => {
           <div className="avatar">
             <div className="size-10 rounded-full relative">
               <img 
-              src={selectedUser.profilePic || "/avatar.png"} 
-              alt={selectedUser.fullName} 
+              src={`${baseURL}api${selectedUser?.profile_image}` || "/avatar.png"} 
+              alt={selectedUser.name} 
               />
             </div>
+
+            
           </div>
 
           {/* User info */}
           <div>
-            <h3 className="font-medium">{selectedUser.fullName}</h3>
+            <h3 className="font-medium">{selectedUser.name}</h3>
             <p className="text-sm text-base-content/70">
               {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
             </p>
           </div>
         </div>
 
-        {/* Close button */}
+        {/* Close button
         <button onClick={() => setSelectedUser(null)}>
           <X />
-        </button>
+        </button> */}
       </div>
     </div>
   );
