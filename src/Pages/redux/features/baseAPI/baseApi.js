@@ -51,9 +51,11 @@ export const baseApi = createApi({
     "pending-payout",
     "pending-therapists",
     "Messages",
+    "referrals-manage",
+    "therapists-background",
+    "loyalty-program",
   ],
   endpoints: (builder) => ({
-    
     getMessages: builder.query({
       query: (roomId) => `api/chat/messages/${roomId}/`,
       providesTags: (result, error, roomId) => [
@@ -418,6 +420,66 @@ export const baseApi = createApi({
       query: () => "api/referrals/summary/",
       providesTags: ["referrals"],
     }),
+    getReferralProgramManage: builder.query({
+      query: () => "api/referral-program/manage/",
+      providesTags: ["referrals-manage"],
+    }),
+    updateReferralProgramManage: builder.mutation({
+      query: (data) => ({
+        url: "api/referral-program/manage/",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["referrals-manage"],
+    }),
+
+    //loyality program
+
+    getLoyaltyProgram: builder.query({
+      query: () => "api/loyalty/program/",
+      providesTags: ["loyalty-program"],
+    }),
+
+    getLoyaltyActions: builder.query({
+      query: () => "api/loyalty/action/",
+      providesTags: ["loyalty-actions"],
+    }),
+
+    updateLoyaltyProgram: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `api/loyalty/program/`, // <-- use backticks
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["loyalty-program"],
+    }),
+
+    deleteLoyaltyProgram: builder.mutation({
+      query: () => ({
+        url: "api/loyalty-program/manage/",
+        method: "DELETE",
+      }),
+      invalidatesTags: ["loyalty-program"],
+    }),
+
+    // PATCH - update discount
+    updatePromotion: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `api/discount-code/${id}/`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["discount-program"],
+    }),
+
+    // DELETE - delete discount
+    deletePromotion: builder.mutation({
+      query: (id) => ({
+        url: `api/discount-code/${id}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["discount-program"],
+    }),
 
     // //ADD promotion
     //    addPromotion: builder.mutation({
@@ -432,6 +494,11 @@ export const baseApi = createApi({
 });
 
 export const {
+  //Loyalty Program
+  useGetLoyaltyProgramQuery,
+  useGetLoyaltyActionsQuery,
+  useUpdateLoyaltyProgramMutation,
+  useDeleteLoyaltyProgramMutation,
   //MESSAGES
   useGetMessagesQuery,
   useSendMessageMutation,
@@ -439,9 +506,13 @@ export const {
   // PROMOTIONS
   useGetPromotionsDataQuery,
   useAddPromotionMutation,
+  useUpdatePromotionMutation,
+  useDeletePromotionMutation,
 
   //referrals
   useGetReferralSummaryQuery,
+  useGetReferralProgramManageQuery,
+  useUpdateReferralProgramManageMutation,
 
   //authentication
   useCreateUserMutation,

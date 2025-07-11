@@ -13,29 +13,51 @@ import { TbReceiptDollar } from "react-icons/tb";
 import { MdDiscount } from "react-icons/md";
 import {
   useAddPromotionMutation,
+  useDeletePromotionMutation,
+  useGetLoyaltyActionsQuery,
+  useGetLoyaltyProgramQuery,
   useGetPromotionsDataQuery,
+  useGetReferralProgramManageQuery,
   useGetReferralSummaryQuery,
+  useUpdatePromotionMutation,
+  useUpdateReferralProgramManageMutation,
 } from "../redux/features/baseAPI/baseApi";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import { format } from "date-fns";
+import ReferralProgramModal from "./ReferralProgramModal";
+import LoyaltyProgramModal from "./LoyaltyProgramModal";
+import DiscountModal from "./DiscountModal";
 
 const Promotions = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoyaltyModalOpen, setIsLoyaltyModalOpen] = useState(false);
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedCode, setSelectedCode] = useState(null);
+  const [isDsicountModalOpen, setIsDiscountModalOpen] = useState(false);
+  const [editPromo, setEditPromo] = useState(null);
 
   const { data: promotionsData, isLoading } = useGetPromotionsDataQuery();
   const [addPromotion, { isLoading: isLoadingAddPromotion }] =
     useAddPromotionMutation();
 
-    const { data: referralSummaryData, isLoading: isLoadingReferralSummary } = useGetReferralSummaryQuery();
+  console.log({ promotionsData });
 
-  // const discountCodes = [
-  //   { code: 'SUMMER25', discount: '25% OFF', expiry: 'Apr 30, 2025' },
-  //   { code: 'WELCOME10', discount: '10% OFF', expiry: 'Never expires' },
-  // ];
+  const { data: referralSummaryData, isLoading: isLoadingReferralSummary } =
+    useGetReferralSummaryQuery();
+
+  const { data: referralProgramManage, isLoading: isLoadingReferralProgram } =
+    useGetReferralProgramManageQuery();
+
+  const { data: loyaltyProgramData, isLoading: loyaltyProgramLoading } =
+    useGetLoyaltyProgramQuery();
+
+  const { data: loyaltyActionData, isLoading: loyaltyActionLoading } =
+    useGetLoyaltyActionsQuery();
+
   const openModal = () => {
     setIsModalOpen(true);
     document.getElementById("new_promotion_modal").showModal();
@@ -45,44 +67,55 @@ const Promotions = () => {
     setIsModalOpen(false);
   };
 
-const onSubmitPromotion = async (data) => {
-  const { title, discountValue, validity } = data;
+  const onSubmitPromotion = async (data) => {
+    const { title, discountValue, validity } = data;
 
-  const payload = {
-  code: title.trim(),  // remove spaces
-  discount_percentage: Number(discountValue),
-  valid_until: validity,
-};
+    const payload = {
+      code: title.trim(), // remove spaces
+      discount_percentage: Number(discountValue),
+      valid_until: validity,
+    };
 
-  try {
-    const res = await addPromotion(payload).unwrap(); // ✅ directly call the mutation
-    console.log("Promotion added:", res);
-    toast.success("Promotion saved successfully!");
-    reset();
-    closeModal();
-  } catch (error) {
-    console.error("Error adding promotion:", error);
-    toast.error("Something went wrong!");
+    try {
+      const res = await addPromotion(payload).unwrap(); // ✅ directly call the mutation
+      console.log("Promotion added:", res);
+      toast.success("Promotion saved successfully!");
+      reset();
+      closeModal();
+    } catch (error) {
+      console.error("Error adding promotion:", error);
+      toast.error("Something went wrong!");
+    }
+  };
+
+  console.log({ loyaltyActionData });
+
+  // RTK Query hooks
+  const [deletePromotion] = useDeletePromotionMutation(); // <-- replace with your actual hook
+  const [updatePromotion] = useUpdatePromotionMutation(); // optional if you're editing in modal
+
+  const handleEdit = (code) => {
+    setSelectedCode(code);
+    setIsModalOpen(true);
+  };
+
+  const handleDeletePromo = async (id) => {
+    try {
+      await deletePromotion(id).unwrap();
+      toast.success("Discount code deleted.");
+    } catch (err) {
+      toast.error("Failed to delete code.");
+    }
+  };
+
+  if (
+    isLoadingReferralSummary |
+    isLoadingReferralProgram |
+    loyaltyProgramLoading |
+    loyaltyActionLoading
+  ) {
+    return "Loading....";
   }
-};
-
-
-  const referralProgram = {
-    totalReferrals: 1234,
-    activeRewards: 456,
-    currentReward: "$20 referral, $10 referee",
-  };
-
-  console.log({referralSummaryData})
-
-
-
-  const loyaltyProgram = {
-    activeMembers: 3456,
-    currentReward: "100 points = $5 discount",
-  };
-
-
 
   return (
     <section>
@@ -164,8 +197,11 @@ const onSubmitPromotion = async (data) => {
               </h3>
             </div>
             <div className="space-y-4">
-              {promotionsData?.map((code, index) => (
-                <div key={index} className="bg-gray-100 rounded-[10px] p-4 gap-4">
+              {promotionsData?.map((code) => (
+                <div
+                  key={code.id}
+                  className="bg-gray-100 rounded-[10px] p-4 gap-4"
+                >
                   <div className="flex justify-between items-center mb-4">
                     <p className="font-medium text-gray-900">{code.code}</p>
                     <p className="font-medium text-green-500">
@@ -174,13 +210,24 @@ const onSubmitPromotion = async (data) => {
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-gray-500">{code.valid_until}</p>
-                  <div className="flex gap-4">
-                    <p className="text-sm text-gray-500 cursor-pointer"><Edit size={18} /></p>
-                    <p className="text-sm text-gray-500 cursor-pointer"><Trash size={18} /></p>
-                  </div>
+                    <div className="flex gap-4">
+                      <Edit
+                        size={18}
+                        className="cursor-pointer text-blue-500"
+                        onClick={() => {
+                          setEditPromo(code);
+                          setIsDiscountModalOpen(true);
+                        }}
+                      />
+                      <Trash
+                        size={18}
+                        className="cursor-pointer text-red-500"
+                        onClick={() => handleDeletePromo(code.id)}
+                      />
+                    </div>
                   </div>
                 </div>
-              ))} 
+              ))}
             </div>
             <button
               onClick={openModal}
@@ -203,23 +250,29 @@ const onSubmitPromotion = async (data) => {
               <div className="flex justify-between items-center">
                 <p className="text-gray-600">Total Referrals</p>
                 <p className="font-medium text-gray-900">
-                  {referralProgram.totalReferrals}
+                  {referralSummaryData?.total_referrals}
                 </p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-gray-600">Active Rewards</p>
                 <p className="font-medium text-gray-900">
-                  {referralProgram.activeRewards}
+                  {referralSummaryData?.active_rewards}
                 </p>
               </div>
               <div className="bg-[#B28D28]/20 rounded-[10px] p-4">
                 <p className="text-[#B28D28] font-semibold">Current Reward</p>
                 <p className="font-medium text-gray-900">
-                  {referralProgram.currentReward}
+                  Referee: {referralProgramManage?.referee_reward} $
+                </p>
+                <p className="font-medium text-gray-900">
+                  Referrer: {referralProgramManage?.referrer_reward} $
                 </p>
               </div>
             </div>
-            <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4">
+            <button
+              className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4"
+              onClick={() => setIsOpen(true)}
+            >
               Configure rules
             </button>
           </div>
@@ -233,27 +286,73 @@ const onSubmitPromotion = async (data) => {
               </h3>
             </div>
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <p className="text-gray-600">Active Members</p>
-                <p className="font-medium text-gray-900">
-                  {loyaltyProgram.activeMembers}
-                </p>
-              </div>
               <div className="bg-[#FAE08C]/20 rounded-[10px] p-4">
                 <p className="text-[#FFA71A] font-semibold">Current Reward</p>
+
                 <p className="font-medium text-gray-900">
-                  {loyaltyProgram.currentReward}
+                  1 point = ${loyaltyProgramData?.spent_per_point} spent
                 </p>
+                <p className="font-medium text-gray-900">
+                  100 Points = ${loyaltyProgramData?.discount_per_100_points}{" "}
+                  discount
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setIsLoyaltyModalOpen(true)} // Make sure this sets modal open state
+                  className="mt-4 px-4 py-2 bg-[#B28D28] text-white rounded-md hover:bg-[#e89d16] transition-colors shadow"
+                >
+                  Manage Program
+                </button>
+              </div>
+
+              <div className="bg-[#FAE08C]/20 rounded-[10px] p-4">
+                <p className="text-[#FFA71A] font-semibold">Current Actions</p>
+
+                {loyaltyActionData?.map((actionData) => (
+                  <div key={actionData.id} className="mb-4">
+                    <p className="font-medium text-gray-900">
+                      Title: {actionData?.title}
+                    </p>
+                    <p className="font-medium text-gray-900">
+                      Status: {actionData?.action_type}
+                    </p>
+                    <p className="font-medium text-gray-900">
+                      Points: {actionData?.points}
+                    </p>
+                    <button className="text-[#FFA719] hover:text-[#9a7b23] transition-colors mt-2">
+                      Manage program
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
-            <button className="text-[#FFA719] hover:text-[#9a7b23] transition-colors mt-4">
-              Manage program
-            </button>
           </div>
         </div>
       </div>
 
-      
+      {isDsicountModalOpen && (
+        <DiscountModal
+          isOpen={isDsicountModalOpen}
+          setIsOpen={setIsDiscountModalOpen}
+          editPromo={editPromo}
+        />
+      )}
+
+      {isLoyaltyModalOpen && (
+        <LoyaltyProgramModal
+          isOpen={isLoyaltyModalOpen}
+          setIsOpen={setIsLoyaltyModalOpen}
+          loyaltyProgramData={loyaltyProgramData}
+        />
+      )}
+
+      {/* Modal for reffrall */}
+
+      <ReferralProgramModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        referralProgramManage={referralProgramManage}
+      />
 
       {/* DaisyUI Modal for New Promotion */}
       <dialog id="new_promotion_modal" className="modal">
@@ -268,7 +367,10 @@ const onSubmitPromotion = async (data) => {
           </div>
 
           {/* Form start */}
-          <form onSubmit={handleSubmit(onSubmitPromotion)} className="space-y-4">
+          <form
+            onSubmit={handleSubmit(onSubmitPromotion)}
+            className="space-y-4"
+          >
             {/* Promotion Title */}
             <div>
               <label className="block text-gray-600 mb-1">
@@ -363,8 +465,6 @@ const onSubmitPromotion = async (data) => {
           </form>
         </div>
       </dialog>
-
-
     </section>
   );
 };
