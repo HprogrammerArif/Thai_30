@@ -5,6 +5,14 @@
   font-family: "Space Grotesk", serif;
 }
 
+.react-confirm-alert-overlay {
+  @apply fixed inset-0 bg-black/50 z-[1050];
+}
+
+.react-confirm-alert-body {
+  @apply absolute top-5 left-1/2 -translate-x-1/2 transform bg-white p-6 rounded-lg shadow-xl w-[90%] max-w-md z-[1051];
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

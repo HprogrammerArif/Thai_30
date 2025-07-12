@@ -54,6 +54,7 @@ export const baseApi = createApi({
     "referrals-manage",
     "therapists-background",
     "loyalty-program",
+    "therapists-background-checks",
   ],
   endpoints: (builder) => ({
     getMessages: builder.query({
@@ -481,6 +482,26 @@ export const baseApi = createApi({
       invalidatesTags: ["discount-program"],
     }),
 
+    //therapist
+    getTherapistBackgroundData: builder.query({
+      query: () => "api/therapists/background-checks/",
+      providesTags: ["therapists-background-checks"],
+    }),
+
+    //reject ADMIN REQUEST
+    getSingleTherapistBackgroundData: builder.query({
+      query: (id) => `api/admin/therapists/${id}/`,
+    }),
+
+    // in your baseAPI or api slice
+    deactivateTherapist: builder.mutation({
+      query: (therapistId) => ({
+        url: `api/admin/deactivate_therapist/${therapistId}/`,
+        method: "PATCH", // or PATCH/PUT depending on your backend
+      }),
+      invalidatesTags: ["therapists-background-checks"],
+    }),
+
     // //ADD promotion
     //    addPromotion: builder.mutation({
     //   query: (payload) => ({
@@ -494,6 +515,10 @@ export const baseApi = createApi({
 });
 
 export const {
+  //thereapist background checks
+  useGetTherapistBackgroundDataQuery,
+  useGetSingleTherapistBackgroundDataQuery,
+  useDeactivateTherapistMutation,
   //Loyalty Program
   useGetLoyaltyProgramQuery,
   useGetLoyaltyActionsQuery,
