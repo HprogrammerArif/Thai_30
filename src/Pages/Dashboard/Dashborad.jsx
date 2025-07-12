@@ -159,59 +159,53 @@ export default function Dashboard() {
 
     case userRole.FINANCE:
       menuItems = [
-       {
-        items: [
-           //Finance Admin Dashboard routes
         {
-          name: "Dashboard",
-          icon: <LuLayoutDashboard size={20} />,
-          path: "/dashboard/finance_admin_home",
+          items: [
+            //Finance Admin Dashboard routes
+            {
+              name: "Dashboard",
+              icon: <LuLayoutDashboard size={20} />,
+              path: "/dashboard/finance_admin_home",
+            },
+            {
+              name: "Dispute Management",
+              icon: <MessagesSquare size={20} />,
+              path: "/dashboard/dispute_management",
+            },
+          ],
         },
-        {
-          name: "Dispute Management",
-          icon: <MessagesSquare size={20} />,
-          path: "/dashboard/dispute_management",
-        },
-        ]
-       }
       ];
       break;
 
     case userRole.BOOKING:
       menuItems = [
-       {
-        items : [
-           //Booking Admin Dashboard routes
         {
-          name: "Dashboard",
-          icon: <LuLayoutDashboard size={20} />,
-          path: "/dashboard/booking_admin_home",
+          items: [
+            //Booking Admin Dashboard routes
+            {
+              name: "Dashboard",
+              icon: <LuLayoutDashboard size={20} />,
+              path: "/dashboard/booking_admin_home",
+            },
+
+            {
+              name: "Users & Therapists",
+              icon: <FaUserGroup size={20} />,
+              path: "/dashboard/client_info",
+            },
+            {
+              name: "Bookings & Payments",
+              icon: <CalendarDays size={20} />,
+              path: "/dashboard/booking_info",
+            },
+          ],
         },
-        {
-          name: "Booking History",
-          icon: <FaHistory size={20} />,
-          path: "/dashboard/booking_history",
-        },
-        {
-          name: "Users & Therapists",
-          icon: <FaUserGroup size={20} />,
-          path: "/dashboard/client_info",
-        },
-        {
-          name: "Bookings & Payments",
-          icon: <CalendarDays size={20} />,
-          path: "/dashboard/booking_info",
-        },
-        ]
-       }
       ];
       break;
 
     default:
       break;
   }
-
-
 
   const handleLogOut = () => {
     dispatch(logout());

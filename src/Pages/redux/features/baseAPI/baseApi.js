@@ -55,6 +55,11 @@ export const baseApi = createApi({
     "therapists-background",
     "loyalty-program",
     "therapists-background-checks",
+    "dispute-settings-delete",
+    "support-ticket",
+    "loyalty-actions",
+    "dispute-settings-data",
+    "dispute-settings-delete",
   ],
   endpoints: (builder) => ({
     getMessages: builder.query({
@@ -374,14 +379,6 @@ export const baseApi = createApi({
     }),
 
     //post ADD one data
-    createDisputeSetting: builder.mutation({
-      query: (formData) => ({
-        url: "dispute/create-dispute-settings/",
-        method: "POST",
-        body: formData,
-      }),
-      invalidatesTags: ["dispute-settings"],
-    }),
 
     //PROFILE
 
@@ -523,6 +520,61 @@ export const baseApi = createApi({
       providesTags: ["support-ticket"],
     }),
 
+    // getDisputeSettings
+    getDisputeSettings: builder.query({
+      query: () => "dispute/dispute-settings/",
+      providesTags: ["dispute-settings-data"],
+    }),
+
+    // deleteDisputeSetting
+    deleteDisputeSetting: builder.mutation({
+      query: (id) => ({
+        url: `dispute/dispute-settings/${id}/delete/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [
+        "dispute-settings-delete",
+        "dispute-settings-data",
+        "dispute-settings",
+      ],
+    }),
+
+    createDisputeSetting: builder.mutation({
+      query: (formData) => ({
+        url: "dispute/dispute-settings/create/",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["dispute-settings", "dispute-settings-data"],
+    }),
+
+    // get dispute settings
+    // getDisputes: builder.query({
+    //   query: (status = "pending") => `dispute/admin/disputes/?status=${status}`,
+    //   providesTags: ["Disputes"],
+    // }),
+
+    getDisputesHomeData: builder.query({
+      query: (status = "") =>
+        status
+          ? `dispute/admin/disputes/?status=${status}`
+          : "dispute/admin/disputes/",
+      providesTags: ["Disputes"],
+    }),
+
+    getDisputeDetails: builder.query({
+      query: (id) => `dispute/admin/disputes/${id}/`,
+      providesTags: (result, error, id) => [{ type: "Disputes", id }],
+    }),
+
+    suggestCompensation: builder.mutation({
+      query: ({ disputeId, data }) => ({
+        url: `disputes/${disputeId}/suggest-compensation/`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     // //ADD promotion
     //    addPromotion: builder.mutation({
     //   query: (payload) => ({
@@ -536,6 +588,10 @@ export const baseApi = createApi({
 });
 
 export const {
+  //dispute
+  useGetDisputesHomeDataQuery,
+  useGetDisputeDetailsQuery,
+  useSuggestCompensationMutation,
   //thereapist background checks
   useGetTherapistBackgroundDataQuery,
   useGetSingleTherapistBackgroundDataQuery,
@@ -639,4 +695,6 @@ export const {
   useCreateDisputeSettingMutation,
   useGetSupportTicketQuery,
   useGetSupportTicketDetailsQuery,
+  useGetDisputeSettingsQuery,
+  useDeleteDisputeSettingMutation,
 } = baseApi;

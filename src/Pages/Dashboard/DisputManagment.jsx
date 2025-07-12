@@ -4,8 +4,13 @@ import { IoSettings } from "react-icons/io5";
 import { formatDistanceToNow } from "date-fns";
 import {
   useCreateDisputeSettingMutation,
+  useDeleteDisputeSettingMutation,
   useGetDisputeDataQuery,
+  useGetDisputeDetailsQuery,
+  useGetDisputeSettingsQuery,
+  useGetDisputesHomeDataQuery,
   useGetSupportTicketQuery,
+  useSuggestCompensationMutation,
 } from "../redux/features/baseAPI/baseApi";
 import { toast, Toaster } from "sonner";
 import ChatHome from "./NewChat/ChatHome";
@@ -30,13 +35,17 @@ const DisputeManagement = () => {
   // State for selected dispute and modals
   const [selectedDispute, setSelectedDispute] = useState(null);
   const [compensationAmount, setCompensationAmount] = useState("");
-  const { data: disputeSettingData, isLoading: isDisputeSettingLoading } =
-    useGetDisputeDataQuery({});
+
   const [createDisputeSettingData] = useCreateDisputeSettingMutation();
   const { data: supportTickets, isLoading: isSupportTicketLoading } =
     useGetSupportTicketQuery([]);
+  const { data: disputeSettings, isLoading: disputeLoading } =
+    useGetDisputeSettingsQuery({});
+  console.log({ disputeSettings });
+  const [deleteDisputeSetting] = useDeleteDisputeSettingMutation();
 
-  // console.log({ disputeSettingData });
+  const { data: disputeData, isLoading: isDisputeLoading } =
+    useGetDisputesHomeDataQuery();
 
   const [disputeType, setDisputeType] = useState("");
   const [resolution, setResolution] = useState("");
@@ -103,17 +112,85 @@ const DisputeManagement = () => {
   //   { title: "Appointment Issue", time: "4 hours ago", person: "Customer" },
   // ];
 
-  console.log({ supportTickets });
+  const [disputeId, setDisputeId] = useState(null);
+  const { data: selectedDisputeDetails, isLoading: isDisputeDetailLoading } =
+    useGetDisputeDetailsQuery(disputeId, {
+      skip: !disputeId,
+    });
 
-  // Functions to open modals
+  const [suggestCompensation] = useSuggestCompensationMutation();
+
+  console.log({ disputeId, selectedDisputeDetails });
+
+  // // Functions to open modals
+  // const openDisputeModal = (dispute) => {
+  //   console.log({ dispute });
+  //   setSelectedDispute(dispute);
+  //   document.getElementById("dispute_details_modal").showModal();
+  // };
+
   const openDisputeModal = (dispute) => {
-    setSelectedDispute(dispute);
+    setDisputeId(dispute.id); // triggers the query
     document.getElementById("dispute_details_modal").showModal();
   };
 
+  const closeDisputeModal = () => {
+    setDisputeId(null); // stops the query
+    document.getElementById("dispute_details_modal").close();
+  };
+
+  // const openCompensationModal = (dispute) => {
+  //   console.log({ dispute });
+  //   setSelectedDispute(dispute);
+  //   document.getElementById("suggest_compensation_modal").showModal();
+  // };
+
   const openCompensationModal = (dispute) => {
-    setSelectedDispute(dispute);
+    setDisputeId(dispute.id); // Triggers fetch
     document.getElementById("suggest_compensation_modal").showModal();
+  };
+
+  // const handleCompensationSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     await suggestCompensation({
+  //       disputeId: selectedDispute.id, // or selectedDispute.dispute_id
+  //       data: { amount: parseFloat(compensationAmount) },
+  //     }).unwrap();
+
+  //     toast.success("Compensation suggested.");
+  //     document.getElementById("suggest_compensation_modal").close();
+  //     setCompensationAmount("");
+  //   } catch (err) {
+  //     console.error(err);
+  //     toast.error("Failed to suggest compensation.");
+  //   }
+  // };
+
+  const handleCompensationSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log({ disputeId });
+
+    if (!disputeId) {
+      toast.error("Dispute details not loaded.");
+      return;
+    }
+
+    try {
+      await suggestCompensation({
+        disputeId: disputeId,
+        data: { amount: parseFloat(compensationAmount) },
+      }).unwrap();
+
+      toast.success("Compensation suggested.");
+      document.getElementById("suggest_compensation_modal").close();
+      setCompensationAmount("");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to suggest compensation.");
+    }
   };
 
   const openSettingsModal = () => {
@@ -121,18 +198,53 @@ const DisputeManagement = () => {
   };
 
   // Handle compensation form submission
-  const handleCompensationSubmit = (e) => {
-    e.preventDefault();
-    console.log("Compensation Amount:", compensationAmount);
-    // Add logic to save compensation amount
-    document.getElementById("suggest_compensation_modal").close();
+  // const handleCompensationSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("Compensation Amount:", compensationAmount);
+  //   // Add logic to save compensation amount
+  //   document.getElementById("suggest_compensation_modal").close();
+  // };
+
+  const deleteDisputeSettingData = (item) => {
+    console.log({ item });
+    toast.custom((t) => (
+      <div className="bg-white border shadow-md rounded-lg px-6 py-4 flex flex-col items-start space-y-4 w-[300px]">
+        <p className="text-sm text-gray-800">
+          Are you sure you want to delete this dispute setting?
+        </p>
+
+        <div className="flex gap-3 self-end">
+          <button
+            onClick={async () => {
+              toast.dismiss(t.id); // close toast
+              try {
+                await deleteDisputeSetting(item.id).unwrap();
+                toast.success("Dispute setting deleted successfully.");
+              } catch (err) {
+                console.error(err);
+                toast.error("Failed to delete.");
+              }
+            }}
+            className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+          >
+            Yes
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="px-3 py-1 text-sm bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ));
   };
 
   return (
     <section className="relative">
       <Toaster />
       {/* Open Disputes */}
-      <div className="bg-white rounded-[15px] shadow-md p-6 mb-8">
+      {/* <div className="bg-white rounded-[15px] shadow-md p-6 mb-8">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold text-gray-800">Open Disputes</h2>
           <div className="flex gap-2">
@@ -155,13 +267,16 @@ const DisputeManagement = () => {
           </div>
         </div>
         <div className="space-y-4">
-          {disputes.map((dispute, index) => (
+          {disputeData?.map((dispute, index) => (
             <div key={index} className="border-b pb-4 last:border-b-0">
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="font-medium text-gray-900">{dispute.title}</p>
+                  <p className="font-medium text-gray-900">
+                    {dispute.dispute_type}
+                  </p>
                   <p className="text-sm text-gray-500">
-                    Client {dispute.clientId} • Appointment Date: {dispute.date}
+                    Client {dispute.client_id} • Appointment Date:{" "}
+                    {dispute.appointment_date}
                   </p>
                 </div>
                 <div className="flex gap-2">
@@ -203,6 +318,116 @@ const DisputeManagement = () => {
         <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4">
           Load more
         </button>
+      </div> */}
+
+      <div className="bg-white rounded-[15px] shadow-md p-6 mb-8">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-semibold text-gray-800">Open Disputes</h2>
+          <div className="flex gap-2">
+            <button className="px-5 py-2 bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300 transition-colors">
+              All
+            </button>
+            <button className="px-3 py-2 bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300 transition-colors">
+              Pending
+            </button>
+            <button className="px-3 py-2 bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300 transition-colors">
+              Resolved
+            </button>
+            <button
+              onClick={openSettingsModal}
+              className="px-3 py-2 bg-[#B28D28] text-white rounded-full hover:bg-[#9a7b23] transition-colors flex items-center gap-2"
+            >
+              <IoSettings size={20} />
+              Dispute Settings
+            </button>
+          </div>
+        </div>
+        <div className="space-y-4">
+          {disputeData?.map((dispute, index) => (
+            <div key={index} className="border-b pb-4 last:border-b-0">
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="font-medium text-gray-900">
+                    {dispute.dispute_type}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Client {dispute.client_id} • Appointment Date:{" "}
+                    {dispute.appointment_date}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  {dispute.status === "resolved" ? (
+                    <button className="px-4 py-2 bg-green-500 text-white rounded-full text-sm hover:bg-green-600 transition-colors">
+                      Auto Refund
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => openCompensationModal(dispute)}
+                      className="px-4 py-2 bg-[#B28D28] text-white rounded-full text-sm hover:bg-[#9a7b23] transition-colors"
+                    >
+                      Suggest Compensation
+                    </button>
+                  )}
+                  <button
+                    onClick={() => openDisputeModal(dispute)}
+                    className="px-4 py-2 border border-gray-300 rounded-full text-gray-600 text-sm hover:bg-gray-100 transition-colors"
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+              <p className="text-sm text-gray-500 mt-2">
+                Status:{" "}
+                <span
+                  className={
+                    dispute.status === "resolved"
+                      ? "text-green-500"
+                      : "text-yellow-500"
+                  }
+                >
+                  {dispute.status}
+                </span>
+              </p>
+            </div>
+          ))}
+        </div>
+        <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4">
+          Load more
+        </button>
+      </div>
+
+      {/* New Dispute setting */}
+      <div className="bg-white rounded-[15px] shadow-md p-6 mb-8">
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">
+          New Dispute Setting
+        </h2>
+        <div className="space-y-4">
+          {disputeSettings?.map((item) => (
+            <div
+              key={item.id}
+              className="border-b pb-4 last:border-b-0 flex justify-between items-center hover:bg-gray-50 cursor-pointer p-4 rounded-lg transition"
+            >
+              <div className="space-y-1">
+                <span className="bg-[#FFEAAF]/60 text-[#B28D28] px-4 py-1 text-xs rounded-full border border-[#B28D28]/30 inline-block">
+                  {item.resolution_type}
+                </span>
+                <p className="font-medium text-gray-900 text-sm mt-1">
+                  {item.dispute_type}
+                </p>
+              </div>
+
+              <button
+                onClick={() => deleteDisputeSettingData(item)}
+                className="px-4 py-2 bg-red-600 text-white rounded-full text-sm hover:bg-red-700 transition-colors"
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
+        {/* <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4 hover:underline">
+          Load previous
+        </button> */}
       </div>
 
       {/* New Support Ticket */}
@@ -285,69 +510,163 @@ const DisputeManagement = () => {
               </button>
             </form>
           </div>
-          {selectedDispute && (
+
+          {isDisputeDetailLoading ? (
+            <p className="text-gray-500">Loading...</p>
+          ) : selectedDisputeDetails ? (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-600">Therapist Name</p>
                   <p className="font-medium text-gray-900">
-                    {selectedDispute.therapistName}
+                    {selectedDisputeDetails.therapist_name || "N/A"}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Booking Date/Time</p>
                   <p className="font-medium text-gray-900">
-                    {selectedDispute.date}
+                    {selectedDisputeDetails.booking_date_time || "N/A"}
                   </p>
                 </div>
               </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-600">Customer</p>
                   <p className="font-medium text-gray-900">
-                    {selectedDispute.customer}
+                    {selectedDisputeDetails.customer || "N/A"}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Service</p>
                   <p className="font-medium text-gray-900">
-                    {selectedDispute.service || "N/A"}
+                    {selectedDisputeDetails.service || "N/A"}
                   </p>
                 </div>
               </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-600">Payment Method</p>
                   <p className="font-medium text-gray-900">
-                    {selectedDispute.paymentMethod}
+                    {selectedDisputeDetails.payment_method || "N/A"}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Location</p>
                   <p className="font-medium text-gray-900">
-                    {selectedDispute.location || "N/A"}
+                    {selectedDisputeDetails.location || "N/A"}
                   </p>
                 </div>
               </div>
+
               <div>
                 <p className="text-sm text-gray-600">Complaint</p>
-                <p className="font-medium text-gray-900">
-                  {selectedDispute.complaint || "N/A"}
+                <p className="font-medium text-gray-900 whitespace-pre-wrap">
+                  {selectedDisputeDetails.complain || "N/A"}
                 </p>
               </div>
+
               <div>
                 <p className="text-sm text-gray-600">Total</p>
                 <p className="font-medium text-gray-900">
-                  ${selectedDispute.total.toFixed(2)}
+                  {selectedDisputeDetails.total !== null
+                    ? `$${Number(selectedDisputeDetails.total).toFixed(2)}`
+                    : "N/A"}
                 </p>
               </div>
+
               <div className="flex justify-end gap-3 mt-6">
                 <form method="dialog">
                   <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
                     Cancel
                   </button>
                 </form>
-                {selectedDispute.status === "Pending" && (
+              </div>
+            </div>
+          ) : (
+            <p className="text-red-500">No details found.</p>
+          )}
+        </div>
+      </dialog>
+
+      {/* 
+        <dialog id="dispute_details_modal" className="modal">
+        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="font-bold text-xl">Dispute Details</h3>
+            <form method="dialog">
+              <button className="text-gray-500 hover:text-gray-700 text-2xl">
+                ×
+              </button>
+            </form>
+          </div>
+
+          {selectedDispute && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-600">Dispute Type</p>
+                  <p className="font-medium text-gray-900">
+                    {selectedDispute.dispute_type}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Status</p>
+                  <p className="font-medium text-gray-900 capitalize">
+                    {selectedDispute.status}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-600">Client ID</p>
+                  <p className="font-medium text-gray-900">
+                    {selectedDispute.client_id}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Appointment Date</p>
+                  <p className="font-medium text-gray-900">
+                    {new Date(
+                      selectedDispute.appointment_date
+                    ).toLocaleString()}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-600">Booking ID</p>
+                  <p className="font-medium text-gray-900">
+                    {selectedDispute.booking}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Refund Issued</p>
+                  <p className="font-medium text-gray-900">
+                    {selectedDispute.refund_issued ? "Yes" : "No"}
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-600">Compensation Amount</p>
+                <p className="font-medium text-gray-900">
+                  $
+                  {Number(selectedDispute?.compensation_amount || 0).toFixed(2)}
+                </p>
+              </div>
+
+              <div className="flex justify-end gap-3 mt-6">
+                <form method="dialog">
+                  <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
+                    Cancel
+                  </button>
+                </form>
+
+                {selectedDispute.status === "pending" && (
                   <button
                     onClick={() => openCompensationModal(selectedDispute)}
                     className="px-6 py-2 bg-[#B28D28] text-white rounded-lg hover:bg-[#9a7b23] transition-colors"
@@ -359,9 +678,9 @@ const DisputeManagement = () => {
             </div>
           )}
         </div>
-      </dialog>
+      </dialog> */}
 
-      {/* DaisyUI Modal for Suggest Compensation */}
+      {/* DaisyUI Modal for Suggest Compensation
       <dialog id="suggest_compensation_modal" className="modal">
         <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
           <div className="flex justify-between items-center mb-6">
@@ -372,52 +691,60 @@ const DisputeManagement = () => {
               </button>
             </form>
           </div>
+
           {selectedDispute && (
             <form onSubmit={handleCompensationSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-600">Therapist Name</p>
                   <p className="font-medium text-gray-900">
-                    {selectedDispute.therapistName}
+                    {selectedDispute.therapist_name || "N/A"}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Booking Date/Time</p>
                   <p className="font-medium text-gray-900">
-                    {selectedDispute.date}
+                    {selectedDispute.booking_date_time || "N/A"}
                   </p>
                 </div>
               </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-600">Customer</p>
                   <p className="font-medium text-gray-900">
-                    {selectedDispute.customer}
+                    {selectedDispute.customer || "N/A"}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Service</p>
                   <p className="font-medium text-gray-900">
-                    {selectedDispute.service}
+                    {selectedDispute.service || "N/A"}
                   </p>
                 </div>
               </div>
+
               <div>
                 <p className="text-sm text-gray-600">Payment Method</p>
                 <p className="font-medium text-gray-900">
-                  {selectedDispute.paymentMethod}
+                  {selectedDispute.payment_method || "N/A"}
                 </p>
               </div>
+
               <div>
                 <p className="text-sm text-gray-600">Total</p>
                 <p className="font-medium text-gray-900">
-                  ${selectedDispute.total.toFixed(2)}
+                  {selectedDispute.total !== null
+                    ? `$${Number(selectedDispute.total).toFixed(2)}`
+                    : "N/A"}
                 </p>
               </div>
+
               <div>
                 <p className="text-sm text-gray-600">Compensation Amount</p>
                 <input
                   type="number"
+                  min={1}
                   placeholder="Enter compensation amount"
                   value={compensationAmount}
                   onChange={(e) => setCompensationAmount(e.target.value)}
@@ -425,6 +752,7 @@ const DisputeManagement = () => {
                   required
                 />
               </div>
+
               <div className="flex justify-end gap-3 mt-6">
                 <form method="dialog">
                   <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
@@ -439,6 +767,100 @@ const DisputeManagement = () => {
                 </button>
               </div>
             </form>
+          )}
+        </div>
+      </dialog> */}
+
+      <dialog id="suggest_compensation_modal" className="modal">
+        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="font-bold text-xl">Suggest Compensation</h3>
+            <form method="dialog">
+              <button className="text-gray-500 hover:text-gray-700 text-2xl">
+                ×
+              </button>
+            </form>
+          </div>
+
+          {isDisputeDetailLoading ? (
+            <p className="text-gray-500">Loading...</p>
+          ) : selectedDisputeDetails ? (
+            <form onSubmit={handleCompensationSubmit} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-600">Therapist Name</p>
+                  <p className="font-medium text-gray-900">
+                    {selectedDisputeDetails.therapist_name || "N/A"}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Booking Date/Time</p>
+                  <p className="font-medium text-gray-900">
+                    {selectedDisputeDetails.booking_date_time || "N/A"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-600">Customer</p>
+                  <p className="font-medium text-gray-900">
+                    {selectedDisputeDetails.customer || "N/A"}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Service</p>
+                  <p className="font-medium text-gray-900">
+                    {selectedDisputeDetails.service || "N/A"}
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-600">Payment Method</p>
+                <p className="font-medium text-gray-900">
+                  {selectedDisputeDetails.payment_method || "N/A"}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-600">Total</p>
+                <p className="font-medium text-gray-900">
+                  {selectedDisputeDetails.total !== null
+                    ? `$${Number(selectedDisputeDetails.total).toFixed(2)}`
+                    : "N/A"}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-600">Compensation Amount</p>
+                <input
+                  type="number"
+                  min={1}
+                  placeholder="Enter compensation amount"
+                  value={compensationAmount}
+                  onChange={(e) => setCompensationAmount(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
+                  required
+                />
+              </div>
+
+              <div className="flex justify-end gap-3 mt-6">
+                <form method="dialog">
+                  <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
+                    Cancel
+                  </button>
+                </form>
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-[#B28D28] text-white rounded-lg hover:bg-[#9a7b23] transition-colors"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          ) : (
+            <p className="text-red-500">No dispute details found.</p>
           )}
         </div>
       </dialog>
