@@ -463,6 +463,15 @@ export const baseApi = createApi({
       invalidatesTags: ["loyalty-program"],
     }),
 
+    updateLoyaltyAction: builder.mutation({
+      query: ({ id, ...data }) => ({
+        url: `api/loyalty/action/${id}/`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["loyalty-actions", "loyalty-program"],
+    }),
+
     // PATCH - update discount
     updatePromotion: builder.mutation({
       query: ({ id, data }) => ({
@@ -524,6 +533,7 @@ export const {
   useGetLoyaltyActionsQuery,
   useUpdateLoyaltyProgramMutation,
   useDeleteLoyaltyProgramMutation,
+  useUpdateLoyaltyActionMutation,
   //MESSAGES
   useGetMessagesQuery,
   useSendMessageMutation,
