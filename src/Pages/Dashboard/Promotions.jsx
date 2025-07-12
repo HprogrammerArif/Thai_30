@@ -29,10 +29,13 @@ import { format } from "date-fns";
 import ReferralProgramModal from "./ReferralProgramModal";
 import LoyaltyProgramModal from "./LoyaltyProgramModal";
 import DiscountModal from "./DiscountModal";
+import LoyaltyActionModal from "./LoyaltyActionModal";
 
 const Promotions = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoyaltyOpen, setIsLoyaltyOpen] = useState(false);
   const [isLoyaltyModalOpen, setIsLoyaltyModalOpen] = useState(false);
+  const [selectedAction, setSelectedAction] = useState(null);
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm();
   const [isOpen, setIsOpen] = useState(false);
@@ -93,11 +96,6 @@ const Promotions = () => {
   // RTK Query hooks
   const [deletePromotion] = useDeletePromotionMutation(); // <-- replace with your actual hook
   const [updatePromotion] = useUpdatePromotionMutation(); // optional if you're editing in modal
-
-  const handleEdit = (code) => {
-    setSelectedCode(code);
-    setIsModalOpen(true);
-  };
 
   const handleDeletePromo = async (id) => {
     try {
@@ -319,7 +317,13 @@ const Promotions = () => {
                     <p className="font-medium text-gray-900">
                       Points: {actionData?.points}
                     </p>
-                    <button className="text-[#FFA719] hover:text-[#9a7b23] transition-colors mt-2">
+                    <button
+                      onClick={() => {
+                        setSelectedAction(actionData);
+                        setIsLoyaltyOpen(true);
+                      }}
+                      className="text-[#FFA719] hover:text-[#9a7b23] transition-colors mt-2"
+                    >
                       Manage program
                     </button>
                   </div>
@@ -329,6 +333,12 @@ const Promotions = () => {
           </div>
         </div>
       </div>
+
+      <LoyaltyActionModal
+        isOpen={isLoyaltyOpen}
+        setIsOpen={setIsLoyaltyOpen}
+        selectedAction={selectedAction}
+      />
 
       {isDsicountModalOpen && (
         <DiscountModal
