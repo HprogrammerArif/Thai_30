@@ -511,6 +511,18 @@ export const baseApi = createApi({
       invalidatesTags: ["therapists-background-checks"],
     }),
 
+    //support ticket
+    getSupportTicket: builder.query({
+      query: () => `dispute/support-tickets/`,
+      providesTags: ["support-ticket"],
+    }),
+
+    //support ticket details
+    getSupportTicketDetails: builder.query({
+      query: (ticketId) => `dispute/support-tickets/${ticketId}/`,
+      providesTags: ["support-ticket"],
+    }),
+
     // //ADD promotion
     //    addPromotion: builder.mutation({
     //   query: (payload) => ({
@@ -625,4 +637,6 @@ export const {
   //DISPUTE
   useGetDisputeDataQuery,
   useCreateDisputeSettingMutation,
+  useGetSupportTicketQuery,
+  useGetSupportTicketDetailsQuery,
 } = baseApi;
