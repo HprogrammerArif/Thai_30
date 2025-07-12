@@ -1,16 +1,15 @@
-// export default DisputeManagement;
 import React, { useState } from "react";
 import { FaEnvelope, FaPlus } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
+import { formatDistanceToNow } from "date-fns";
 import {
   useCreateDisputeSettingMutation,
   useGetDisputeDataQuery,
+  useGetSupportTicketQuery,
 } from "../redux/features/baseAPI/baseApi";
 import { toast, Toaster } from "sonner";
-import MessageModal from "./Message/MessageModal";
-import MessageModalTest from "./Message/MessageModalTest";
-import MessageSidebar from "./Message/MessageSidebar";
 import ChatHome from "./NewChat/ChatHome";
+import { TicketDetailsModal } from "./TicketDetailsModal";
 
 const disputeTypeMap = {
   "no-show": "Therapist Not Show",
@@ -23,15 +22,19 @@ const resolutionMap = {
   "suggest-compensation": "Suggest Compensation",
 };
 
-
-
 const DisputeManagement = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedTicket, setSelectedTicket] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // State for selected dispute and modals
   const [selectedDispute, setSelectedDispute] = useState(null);
   const [compensationAmount, setCompensationAmount] = useState("");
-  const { data: disputeSettingData, isLoading } = useGetDisputeDataQuery({});
+  const { data: disputeSettingData, isLoading: isDisputeSettingLoading } =
+    useGetDisputeDataQuery({});
   const [createDisputeSettingData] = useCreateDisputeSettingMutation();
+  const { data: supportTickets, isLoading: isSupportTicketLoading } =
+    useGetSupportTicketQuery([]);
 
   // console.log({ disputeSettingData });
 
@@ -95,10 +98,12 @@ const DisputeManagement = () => {
   ];
 
   // Data for New Support Tickets
-  const supportTickets = [
-    { title: "Payment Issue", time: "2 hours ago", person: "Client" },
-    { title: "Appointment Issue", time: "4 hours ago", person: "Customer" },
-  ];
+  // const supportTickets = [
+  //   { title: "Payment Issue", time: "2 hours ago", person: "Client" },
+  //   { title: "Appointment Issue", time: "4 hours ago", person: "Customer" },
+  // ];
+
+  console.log({ supportTickets });
 
   // Functions to open modals
   const openDisputeModal = (dispute) => {
@@ -206,29 +211,42 @@ const DisputeManagement = () => {
           New Support Ticket
         </h2>
         <div className="space-y-4">
-          {supportTickets.map((ticket, index) => (
+          {supportTickets?.map((ticket, index) => (
             <div
               key={index}
               className="border-b pb-4 last:border-b-0 flex justify-between items-center hover:bg-gray-100 cursor-pointer p-4"
             >
               <div className="space-y-2">
                 <button className="bg-[#FFEAAF]/60 px-5 py-1 rounded-full border border-[#B28D28]/30">
-                  {ticket.person}
+                  {ticket.user_role}
                 </button>
                 <div>
-                  <p className="font-medium text-gray-900">{ticket.title}</p>
-                  <p className="text-sm text-gray-500">Opened {ticket.time}</p>
+                  <p className="font-medium text-gray-900">
+                    {ticket.issue_type}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Opened{" "}
+                    {formatDistanceToNow(new Date(ticket.created_at), {
+                      addSuffix: true,
+                    })}
+                  </p>
                 </div>
               </div>
-              <button className="px-4 py-2 bg-[#B28D28] text-white rounded-full text-sm hover:bg-[#9a7b23] transition-colors">
+              <button
+                onClick={() => {
+                  setSelectedTicket(ticket); // ticket from map
+                  setIsModalOpen(true);
+                }}
+                className="px-4 py-2 bg-[#B28D28] text-white rounded-full text-sm hover:bg-[#9a7b23] transition-colors"
+              >
                 Review
               </button>
             </div>
           ))}
         </div>
-        <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4 hover:underline">
+        {/* <button className="text-[#B28D28] hover:text-[#9a7b23] transition-colors mt-4 hover:underline">
           Load previous
-        </button>
+        </button> */}
       </div>
 
       {/* Messages Button */}
@@ -249,6 +267,12 @@ const DisputeManagement = () => {
       {/* <MessageModalTest isOpen={isOpen} onClose={() => setIsOpen(false)} /> */}
       {isOpen && <ChatHome isOpen={isOpen} onClose={() => setIsOpen(false)} />}
       {/* <MessageSidebar isOpen={isOpen} onClose={() => setIsOpen(false)} /> */}
+
+      <TicketDetailsModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        ticket={selectedTicket}
+      />
 
       {/* DaisyUI Modal for Dispute Details */}
       <dialog id="dispute_details_modal" className="modal">

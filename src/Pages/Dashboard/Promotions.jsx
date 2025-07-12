@@ -165,7 +165,7 @@ const Promotions = () => {
 
       {/* Promotional Tools Section */}
       <div className="rounded-[15px]">
-        <div className="flex justify-between items-center mb-6 bg-white shadow-md p-6 rounded-[15px]">
+        {/* <div className="flex justify-between items-center mb-6 bg-white shadow-md p-6 rounded-[15px]">
           <div>
             <h2 className="text-lg font-semibold text-gray-800">
               Promotional Tools
@@ -183,7 +183,7 @@ const Promotions = () => {
             </span>{" "}
             New Promotion
           </button>
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Discount Codes */}
