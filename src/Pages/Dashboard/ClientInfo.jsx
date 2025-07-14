@@ -16,8 +16,6 @@ import { LuTrash2 } from "react-icons/lu";
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
-
-
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedValue(value);
@@ -46,48 +44,46 @@ const ClientInfo = () => {
     return query.toLowerCase().trim();
   };
 
-
   const customerApiQuery = mapStatusQuery(debouncedCustomerSearchQuery);
   const therapistApiQuery = mapStatusQuery(debouncedTherapistSearchQuery);
   const { data: adminData } = useAdminInfoQuery();
-  const {data: customerData,isLoading,isError, error,} = useGetCustomersDetailsQuery(debouncedCustomerSearchQuery || "");
+  const {
+    data: customerData,
+    isLoading,
+    isError,
+    error,
+  } = useGetCustomersDetailsQuery(debouncedCustomerSearchQuery || "");
 
   const { data: therapistData } = useGetTherapistDetailsQuery(
     debouncedTherapistSearchQuery || ""
   );
-  console.log("therapistData",therapistData);
+  console.log("therapistData", therapistData);
 
   const [deleteCustomer] = useDeleteCustomerMutation();
   const [deleteTherapist] = useDeleteTherapistMutation();
 
-
   //delete therapist/customers function
-const handleDeleteCustomer = (customerId) =>{
-  console.log(customerId, "customerId");
-  
-  try {
-    const response = deleteCustomer(customerId).unwrap();
-    console.log(response, "Customer deleted successfully");
-  } catch (error) {
-    console.error("Error deleting customer:", error);
-    
-  }
-};
+  const handleDeleteCustomer = (customerId) => {
+    console.log(customerId, "customerId");
 
+    try {
+      const response = deleteCustomer(customerId).unwrap();
+      console.log(response, "Customer deleted successfully");
+    } catch (error) {
+      console.error("Error deleting customer:", error);
+    }
+  };
 
-const handleDeleteTherapist = (id) => {
-  console.log(id, "therapistId");
-  
-  try {
-    const response = deleteTherapist(id).unwrap();
-    console.log(response, "Therapist deleted successfully");
-  } catch (error) {
-    console.error("Error deleting therapist:", error);
-    
-  }
-}
+  const handleDeleteTherapist = (id) => {
+    console.log(id, "therapistId");
 
-  
+    try {
+      const response = deleteTherapist(id).unwrap();
+      console.log(response, "Therapist deleted successfully");
+    } catch (error) {
+      console.error("Error deleting therapist:", error);
+    }
+  };
 
   const paseURL = "http://10.10.13.75:3333/";
 
@@ -375,11 +371,14 @@ const handleDeleteTherapist = (id) => {
                           <FaEdit size={20} />
                         </button> */}
                         <button
-                            onClick={()=>handleDeleteCustomer(customer?.user_id)}
-                             className="text-red-500 shadow-sm shadow-gray-300 p-2 rounded-full hover:text-red-700 transition-colors"
-                             title="Delete">
-                               <LuTrash2 size={20} />
-                         </button>
+                          onClick={() =>
+                            handleDeleteCustomer(customer?.user_id)
+                          }
+                          className="text-red-500 shadow-sm shadow-gray-300 p-2 rounded-full hover:text-red-700 transition-colors"
+                          title="Delete"
+                        >
+                          <LuTrash2 size={20} />
+                        </button>
                       </td>
                     </tr>
                   ))
@@ -519,13 +518,15 @@ const handleDeleteTherapist = (id) => {
                         </span>
                       </td>
                       <td className="p-3 flex space-x-2">
-                      
                         <button
-                        onClick={()=>handleDeleteTherapist(therapist?.therapist_id)}
-                             className="text-red-500 shadow-sm shadow-gray-300 p-2 rounded-full hover:text-red-700 transition-colors"
-                             title="Delete">
-                               <LuTrash2 size={20} />
-                         </button>
+                          onClick={() =>
+                            handleDeleteTherapist(therapist?.therapist_id)
+                          }
+                          className="text-red-500 shadow-sm shadow-gray-300 p-2 rounded-full hover:text-red-700 transition-colors"
+                          title="Delete"
+                        >
+                          <LuTrash2 size={20} />
+                        </button>
                       </td>
                     </tr>
                   ))

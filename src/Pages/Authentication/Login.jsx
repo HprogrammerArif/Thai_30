@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Lock, ArrowLeft } from "lucide-react";
+import { Mail, Lock, ArrowLeft, EyeOff, Eye } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
@@ -14,6 +14,7 @@ import { setUser } from "../redux/features/auth/authSlice";
 
 const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   // const { data: adminData, refetch: refetchAdmin } = useGetAdminQuery(
   //   undefined,
   //   {
@@ -55,10 +56,10 @@ const Login = () => {
 
       // Trigger the getAdmin query manually
       const result = await dispatch(baseApi.endpoints.getAdmin.initiate());
-      console.log({result})
+      console.log({ result });
 
       const role = response?.admin_type;
-      console.log({role})
+      console.log({ role });
 
       if (role === "super_admin") {
         navigate("/dashboard/home");
@@ -160,9 +161,9 @@ const Login = () => {
               <div className="form-control w-full mb-6">
                 <div className="relative">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
-                    className={`input input-bordered w-full pl-10 bg-white/20 border-[#B28D2866]/40 text-black placeholder-gray-300 ${
+                    className={`input input-bordered w-full pl-10 pr-10 bg-white/20 border-[#B28D2866]/40 text-black placeholder-gray-300 ${
                       errors.password ? "border-red-500" : ""
                     }`}
                     {...register("password", {
@@ -177,6 +178,13 @@ const Login = () => {
                     className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                     size={18}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
                 {errors.password && (
                   <p className="text-red-500 text-sm mt-1">

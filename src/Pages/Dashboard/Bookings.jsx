@@ -5,23 +5,38 @@ import { FaDollarSign } from "react-icons/fa";
 import { FaCalendarCheck } from "react-icons/fa6";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { LuTrash2 } from "react-icons/lu";
-import { useAdminInfoQuery, useDeleteBookingMutation, useGetAllBookingsQuery, useGetBookingDetailsQuery } from "../redux/features/baseAPI/baseApi";
+import {
+  useAdminInfoQuery,
+  useDeleteBookingMutation,
+  useGetAllBookingsQuery,
+  useGetBookingDetailsQuery,
+} from "../redux/features/baseAPI/baseApi";
 import TransactionHistory from "./TransactionHistory";
+import { toast, Toaster } from "sonner";
+import BookingAdminHomeFixt from "../BookingAdminDashboard/BookingAdminHomeFixt";
+import BookingWithDelete from "./BookingWithDelete";
 
 const Bookings = () => {
   const [selectedBookingId, setSelectedBookingId] = useState(null);
   const [searchStatus, setSearchStatus] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; 
-  const maxPageButtons = 5; 
+  const itemsPerPage = 5;
+  const maxPageButtons = 5;
 
-   const { data: adminData } = useAdminInfoQuery();
-   console.log("adminData", adminData)
-  const { data: bookingsInfo, isLoading: isLoadingBookings, isFetching: isFetchingBookings } = useGetAllBookingsQuery();
-  
-  const { data: bookingDetails, isLoading: isLoadingBookingDetails } = useGetBookingDetailsQuery(selectedBookingId, { skip: selectedBookingId === null });
-  console.log("bookingDetails", bookingDetails)
-  const [deleteBooking, {isLoading}] = useDeleteBookingMutation()
+  const { data: adminData } = useAdminInfoQuery();
+  console.log("adminData", adminData);
+  const {
+    data: bookingsInfo,
+    isLoading: isLoadingBookings,
+    isFetching: isFetchingBookings,
+  } = useGetAllBookingsQuery();
+
+  const { data: bookingDetails, isLoading: isLoadingBookingDetails } =
+    useGetBookingDetailsQuery(selectedBookingId, {
+      skip: selectedBookingId === null,
+    });
+  console.log("bookingDetails", bookingDetails);
+  const [deleteBooking, { isLoading }] = useDeleteBookingMutation();
 
   const baseURL = "http://10.10.13.75:3333/";
 
@@ -43,7 +58,7 @@ const Bookings = () => {
 
   const handleSearchChange = (e) => {
     setSearchStatus(e.target.value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const getPaginationButtons = () => {
@@ -68,13 +83,20 @@ const Bookings = () => {
         endPage = totalPages;
         buttons.push(1);
         buttons.push("...");
-        buttons.push(...Array.from({ length: maxPageButtons }, (_, i) => startPage + i));
+        buttons.push(
+          ...Array.from({ length: maxPageButtons }, (_, i) => startPage + i)
+        );
       } else {
         startPage = currentPage - halfMax;
         endPage = currentPage + halfMax;
         buttons.push(1);
         buttons.push("...");
-        buttons.push(...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i));
+        buttons.push(
+          ...Array.from(
+            { length: endPage - startPage + 1 },
+            (_, i) => startPage + i
+          )
+        );
         buttons.push("...");
         buttons.push(totalPages);
       }
@@ -106,30 +128,72 @@ const Bookings = () => {
     document.getElementById("bookingId").showModal();
   };
 
-  const bookingDelete = (id)=>{
-    console.log(id, "deleted id");
+  // const bookingDelete = (id)=>{
+  //   console.log(id, "deleted id");
 
-    try {
-      const response = deleteBooking(id).unwrap();
-      console.log("Booking deleted successfully:", response);
-    } catch (error) {
-      console.error("Error deleting booking:", error);
-      
-    }
-  }
+  //   try {
+  //     const response = deleteBooking(id).unwrap();
+  //     console.log("Booking deleted successfully:", response);
+  //   } catch (error) {
+  //     console.error("Error deleting booking:", error);
+
+  //   }
+  // }
+
+  const confirmDeleteBooking = (id) => {
+    toast.custom((t) => (
+      <div className="bg-white border shadow-md rounded-lg px-6 py-4 flex flex-col items-start space-y-4 w-[300px]">
+        <p className="text-sm text-gray-800">
+          Are you sure you want to delete this booking?
+        </p>
+
+        <div className="flex gap-3 self-end">
+          <button
+            onClick={async () => {
+              toast.dismiss(t.id);
+              try {
+                const response = await deleteBooking(id).unwrap();
+                console.log("Booking deleted successfully:", response);
+                toast.success("Booking deleted.");
+              } catch (error) {
+                console.error("Error deleting booking:", error);
+                toast.error("Failed to delete booking.");
+              }
+            }}
+            className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+          >
+            Yes
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="px-3 py-1 text-sm bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ));
+  };
 
   if (isLoadingBookingDetails | isLoadingBookings | isFetchingBookings) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
   }
 
   return (
     <section className="">
+      <Toaster />
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Total Bookings</h1>
-            <h1 className="font-bold text-2xl text-black">{bookingsInfo?.length || 0}</h1>
+            <h1 className="font-bold text-2xl text-black">
+              {bookingsInfo?.length || 0}
+            </h1>
           </div>
           <div className="bg-[#B28D28] p-3 rounded-xl">
             <FaCalendarCheck className="text-white" size={24} />
@@ -140,7 +204,8 @@ const Bookings = () => {
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Total Revenue</h1>
             <h1 className="font-bold text-2xl text-black">
-              $34,672 <span className="text-sm font-semibold text-green-500">+5%</span>
+              $34,672{" "}
+              <span className="text-sm font-semibold text-green-500">+5%</span>
             </h1>
           </div>
           <div className="bg-[#B28D28] p-3 rounded-xl">
@@ -175,170 +240,8 @@ const Bookings = () => {
       </div>
 
       {/* Bookings Table */}
-      <div className="bg-white rounded-[15px] shadow-md p-6 mb-8">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold text-gray-800">Bookings</h2>
-          <div className="flex gap-4">
-            <input
-              type="search"
-              placeholder="Search by status (e.g., Confirmed, Pending)"
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
-              value={searchStatus}
-              onChange={handleSearchChange}
-            />
-          
-          </div>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="text-gray-600 border-b">
-                <th className="p-4">Booking ID</th>
-                <th className="p-4">Customer</th>
-                <th className="p-4">Therapist</th>
-                <th className="p-4">Date/Time</th>
-                <th className="p-4">Status</th>
-                <th className="p-4">Amount</th>
-                <th className="p-4">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentBookings?.map((booking, index) => (
-                <tr
-                  key={index}
-                  className="border-b hover:bg-gray-50 cursor-pointer"
-                  // onClick={() => openModal(booking?.booking_id)}
-                >
-                  <td className="p-4 font-medium">{booking?.booking_id}</td>
-                  <td 
-                   onClick={() => openModal(booking?.booking_id)}
-                  className="p-4">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={`${baseURL}api${booking?.client_image}`}
-                        alt={booking?.client_name}
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                      <div>
-                        <p className="font-medium text-gray-900">
-                          {booking?.client_name}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {booking?.client_email}
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td 
-                   onClick={() => openModal(booking?.booking_id)}
-                  className="p-4">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={`${baseURL}api${booking?.therapist_image}`}
-                        alt={booking.therapist_name}
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                      <div>
-                        <p className="font-medium text-gray-900">
-                          {booking?.therapist_name}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {booking?.therapist_email}
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <h1 className="text-gray-900 font-semibold">
-                      {new Date(booking?.booking_date_time).toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: true,
-                      })}
-                    </h1>
-                  </td>
-                  <td className="p-4">
-                    <span
-                      className={`px-4 py-2 rounded-full text-sm font-medium capitalize ${
-                        booking?.booking_status === "complete"
-                          ? "bg-[#41D377] text-white"
-                          : "bg-[#B28D284D]/30 text-[#B28D28]"
-                      }`}
-                    >
-                      {booking?.booking_status}
-                    </span>
-                  </td>
-                  <td className="p-4 font-medium">{booking?.amount}</td>
-                  <td className="p-4">
-                    <div className="flex gap-3">
-                      <button
-                      onClick={()=>bookingDelete(booking?.booking_id)}
-                        className="text-red-500 shadow-lg shadow-gray-300 p-2 rounded-full hover:text-red-700 transition-colors"
-                        title="Delete"
-                      >
-                        <LuTrash2 size={20} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-              {currentBookings?.length === 0 && (
-                <tr>
-                  <td colSpan="7" className="p-4 text-center text-gray-500">
-                    No bookings found for the selected status.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        {/* Pagination */}
-     
-      <div className="flex justify-between items-center mt-6 px-4">
-  <p className="text-gray-600">
-    Showing {startIndex + 1}-
-    {Math.min(endIndex, totalItems)} of {totalItems} entries
-  </p>
-  <div className="flex items-center space-x-3">
-    <button
-      className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-orange-500 disabled:opacity-50"
-      onClick={() => handlePageChange(currentPage - 1)}
-      disabled={currentPage === 1}
-    >
-      <MdChevronLeft size={20} />
-    </button>
-    {getPaginationButtons().map((button, index) =>
-      button === "..." ? (
-        <span key={`ellipsis-${index}`} className="w-8 h-8 flex items-center justify-center text-gray-600">
-          ...
-        </span>
-      ) : (
-        <button
-          key={button}
-          className={`w-8 h-8 flex items-center justify-center rounded-md text-sm font-medium ${
-            button === currentPage
-              ? "bg-orange-500 text-white hover:bg-orange-600"
-              : "text-gray-500 hover:bg-orange-100 hover:text-orange-500"
-          }`}
-          onClick={() => handlePageChange(button)}
-        >
-          {button}
-        </button>
-      )
-    )}
-    <button
-      className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-orange-500 disabled:opacity-50"
-      onClick={() => handlePageChange(currentPage + 1)}
-      disabled={currentPage === totalPages}
-    >
-      <MdChevronRight size={20} />
-    </button>
-  </div>
-</div>
-      </div>
+
+      <BookingWithDelete />
 
       {/* DaisyUI Modal */}
       <dialog id="bookingId" className="modal">
@@ -352,81 +255,105 @@ const Bookings = () => {
             </form>
           </div>
           {bookingDetails && (
-           <div>
-             <div className="space-y-4">
-              <div className="bg-[#E8DDBF] text-[#B28D28] w-1/6 py-[6px] rounded-r-full ps-3">
-                {bookingDetails?.booking_status}
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-500">Therapist Name</p>
-                  <p className="font-medium">{bookingDetails?.therapist_name}</p>
+            <div>
+              <div className="space-y-4">
+                <div className="bg-[#E8DDBF] text-[#B28D28] w-1/6 py-[6px] rounded-r-full ps-3">
+                  {bookingDetails?.booking_status}
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">Booking Date/Time</p>
-                  <p className="font-medium">
-                    {new Date(bookingDetails?.booking_date_time).toLocaleString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: true,
-                    })}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-500">Therapist Name</p>
+                    <p className="font-medium">
+                      {bookingDetails?.therapist_name}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Booking Date/Time</p>
+                    <p className="font-medium">
+                      {new Date(
+                        bookingDetails?.booking_date_time
+                      ).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                      })}
+                    </p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-500">Customer</p>
+                    <p className="font-medium">
+                      {bookingDetails?.customer_name}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Service</p>
+                    <p className="font-medium">
+                      {bookingDetails?.service_name}
+                    </p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-500">Location</p>
+                    <p className="font-medium">
+                      {bookingDetails?.location || "N/A"}
+                    </p>
+                  </div>
+                </div>
+                <div className="border-t pt-4 space-y-5">
+                  <p className="text-sm text-gray-500 font-medium mb-2">
+                    Payment Summary
                   </p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-500">Customer</p>
-                  <p className="font-medium">{bookingDetails?.customer_name}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Service</p>
-                  <p className="font-medium">{bookingDetails?.service_name}</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-500">Location</p>
-                  <p className="font-medium">{bookingDetails?.location || 'N/A'}</p>
-                </div>
-              </div>
-              <div className="border-t pt-4 space-y-5">
-                <p className="text-sm text-gray-500 font-medium mb-2">Payment Summary</p>
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-500">Message Charges</p>
-                    <p className="font-medium">${bookingDetails?.summary?.massage_charges || 'Pending'}</p>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <p className="text-sm text-gray-500">Message Charges</p>
+                      <p className="font-medium">
+                        ${bookingDetails?.summary?.massage_charges || "Pending"}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Payment Method</p>
+                      <p className="font-medium">
+                        {bookingDetails?.payment_method || "N/A"}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Payment Method</p>
-                    <p className="font-medium">{bookingDetails?.payment_method || 'N/A'}</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-500">Commission</p>
-                    <p className="font-medium">${bookingDetails?.summary?.commission}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Booking Fee</p>
-                    <p className="font-medium">${bookingDetails?.summary?.booking_fee || 'Pending'}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Tips</p>
-                    <p className="font-medium">${bookingDetails?.summary?.tip || 'N/A'}</p>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <p className="text-sm text-gray-500">Commission</p>
+                      <p className="font-medium">
+                        ${bookingDetails?.summary?.commission}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Booking Fee</p>
+                      <p className="font-medium">
+                        ${bookingDetails?.summary?.booking_fee || "Pending"}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Tips</p>
+                      <p className="font-medium">
+                        ${bookingDetails?.summary?.tip || "N/A"}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="border-t pt-4 flex justify-end">
-                <div className="text-right">
-                  <p className="text-sm text-gray-500">Total Amount</p>
-                  <p className="font-bold text-lg">${bookingDetails?.summary?.total}</p>
+                <div className="border-t pt-4 flex justify-end">
+                  <div className="text-right">
+                    <p className="text-sm text-gray-500">Total Amount</p>
+                    <p className="font-bold text-lg">
+                      ${bookingDetails?.summary?.total}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-           </div>
           )}
         </div>
       </dialog>
@@ -482,4 +409,3 @@ const Bookings = () => {
 };
 
 export default Bookings;
-

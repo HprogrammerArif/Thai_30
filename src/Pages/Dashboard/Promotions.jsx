@@ -97,13 +97,47 @@ const Promotions = () => {
   const [deletePromotion] = useDeletePromotionMutation(); // <-- replace with your actual hook
   const [updatePromotion] = useUpdatePromotionMutation(); // optional if you're editing in modal
 
-  const handleDeletePromo = async (id) => {
-    try {
-      await deletePromotion(id).unwrap();
-      toast.success("Discount code deleted.");
-    } catch (err) {
-      toast.error("Failed to delete code.");
-    }
+  // const handleDeletePromo = async (id) => {
+  //   try {
+  //     await deletePromotion(id).unwrap();
+  //     toast.success("Discount code deleted.");
+  //   } catch (err) {
+  //     toast.error("Failed to delete code.");
+  //   }
+  // };
+
+  const confirmDeletePromo = (id) => {
+    toast.custom((t) => (
+      <div className="bg-white border shadow-md rounded-lg px-6 py-4 flex flex-col items-start space-y-4 w-[300px]">
+        <p className="text-sm text-gray-800">
+          Are you sure you want to delete this discount code?
+        </p>
+
+        <div className="flex gap-3 self-end">
+          <button
+            onClick={async () => {
+              toast.dismiss(t.id); // close toast
+              try {
+                await deletePromotion(id).unwrap();
+                toast.success("Discount code deleted.");
+              } catch (err) {
+                console.error(err);
+                toast.error("Failed to delete code.");
+              }
+            }}
+            className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+          >
+            Yes
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="px-3 py-1 text-sm bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ));
   };
 
   if (
@@ -117,6 +151,7 @@ const Promotions = () => {
 
   return (
     <section>
+      <Toaster />
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
@@ -220,7 +255,7 @@ const Promotions = () => {
                       <Trash
                         size={18}
                         className="cursor-pointer text-red-500"
-                        onClick={() => handleDeletePromo(code.id)}
+                        onClick={() => confirmDeletePromo(code.id)}
                       />
                     </div>
                   </div>

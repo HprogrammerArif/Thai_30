@@ -170,7 +170,7 @@ export default function Dashboard() {
             {
               name: "Dispute Management",
               icon: <MessagesSquare size={20} />,
-              path: "/dashboard/dispute_management",
+              path: "/dashboard/finance_disputes",
             },
           ],
         },
@@ -196,7 +196,7 @@ export default function Dashboard() {
             {
               name: "Bookings & Payments",
               icon: <CalendarDays size={20} />,
-              path: "/dashboard/booking_info",
+              path: "/dashboard/booking_admin_booking",
             },
           ],
         },

@@ -63,7 +63,7 @@
 //                 <td className="text-base">
 //                      {payout?.status === "pending" ? (
 //                  <div className="flex gap-2">
-//                     <button 
+//                     <button
 //                         onClick={()=>handlePayoutApprove(payout?.id)}
 //                         className="btn btn-xs btn-success text-[13px]">Approve</button>
 //                         <button className="btn btn-xs btn-error  text-[13px]">Reject</button>
@@ -92,10 +92,11 @@
 
 // export default PayoutLayout;
 
-
-
 import { useState } from "react";
-import { useGetPendingPayoutQuery, usePendingPayoutApprovalMutation } from "../redux/features/baseAPI/baseApi";
+import {
+  useGetPendingPayoutQuery,
+  usePendingPayoutApprovalMutation,
+} from "../redux/features/baseAPI/baseApi";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const PayoutLayout = () => {
@@ -112,13 +113,16 @@ const PayoutLayout = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   // Ensure there is data to paginate
-  const currentPayouts = getPendingPayout.slice(indexOfFirstItem, indexOfLastItem);
+  const currentPayouts = getPendingPayout.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const handlePayoutApprove = (id) => {
     console.log("Approve Id", id);
 
     const body = {
-      status: "approved"
+      status: "approved",
     };
 
     try {
@@ -163,7 +167,9 @@ const PayoutLayout = () => {
                       </div>
                     </div>
                     <div>
-                      <p className="text-black text-[16px]">{payout?.therapist_name}</p>
+                      <p className="text-black text-[16px]">
+                        {payout?.therapist_name}
+                      </p>
                       <p className="text-gray-500">{payout?.therapist_email}</p>
                     </div>
                   </div>
@@ -171,7 +177,9 @@ const PayoutLayout = () => {
 
                 <td className="text-base">{payout?.specialization}</td>
                 <td className="text-base">{payout?.date || "N/A"}</td>
-                <td className="capitalize text-base">{payout?.method || "N/A"}</td>
+                <td className="capitalize text-base">
+                  {payout?.method || "N/A"}
+                </td>
                 <td className="text-base">{payout?.amount}</td>
                 <td className="text-base">
                   {payout?.status === "pending" ? (
@@ -182,12 +190,16 @@ const PayoutLayout = () => {
                       >
                         Approve
                       </button>
-                      <button className="btn btn-xs btn-error text-[13px]">Reject</button>
+                      <button className="btn btn-xs btn-error text-[13px]">
+                        Reject
+                      </button>
                     </div>
                   ) : (
                     <span
-                      className={`text-[13px] capitalize badge ${
-                        payout?.status === "pending" ? "badge-warning" : "badge-success"
+                      className={`text-[13px] text-gray-100 capitalize badge ${
+                        payout?.status === "pending"
+                          ? "badge-warning"
+                          : "badge-success"
                       }`}
                     >
                       {payout?.status}
@@ -211,27 +223,33 @@ const PayoutLayout = () => {
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
-           className=" cursor-pointer"
+          className=" cursor-pointer"
         >
-          <ChevronLeft size={16} className="font-bold"/>
+          <ChevronLeft size={16} className="font-bold" />
         </button>
         <div className="flex gap-2">
-          {[...Array(Math.ceil(getPendingPayout.length / itemsPerPage))].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => paginate(index + 1)}
-              className={`w-7 h-7 flex items-center justify-center text-white rounded-full bg-[#B28D28] ${currentPage === index + 1 ? 'btn-active' : 'btn-outline'}`}
-            >
-              {index + 1}
-            </button>
-          ))}
+          {[...Array(Math.ceil(getPendingPayout.length / itemsPerPage))].map(
+            (_, index) => (
+              <button
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`w-7 h-7 flex items-center justify-center text-white rounded-full bg-[#B28D28] ${
+                  currentPage === index + 1 ? "btn-active" : "btn-outline"
+                }`}
+              >
+                {index + 1}
+              </button>
+            )
+          )}
         </div>
         <button
           onClick={nextPage}
-          disabled={currentPage === Math.ceil(getPendingPayout.length / itemsPerPage)}
+          disabled={
+            currentPage === Math.ceil(getPendingPayout.length / itemsPerPage)
+          }
           className=" cursor-pointer"
         >
-          <ChevronRight size={16} className="font-bold"/>
+          <ChevronRight size={16} className="font-bold" />
         </button>
       </div>
     </div>

@@ -1,12 +1,14 @@
-import { Mail, Lock, ArrowLeft } from "lucide-react";
+import { Mail, Lock, ArrowLeft, EyeOff, Eye } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useCreateUserMutation } from "../redux/features/baseAPI/baseApi";
 import { toast, ToastContainer } from "react-toastify";
+import { useState } from "react";
 
 const SignUp = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -141,9 +143,9 @@ const SignUp = () => {
               <div className="form-control w-full">
                 <div className="relative">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
-                    className={`input input-bordered w-full pl-10 bg-white/20 border-[#B28D2866]/40 text-black placeholder-gray-300 ${
+                    className={`input input-bordered w-full pl-10 pr-10 bg-white/20 border-[#B28D2866]/40 text-black placeholder-gray-300 ${
                       errors.password ? "border-red-500" : ""
                     }`}
                     {...register("password", {
@@ -154,11 +156,25 @@ const SignUp = () => {
                       },
                     })}
                   />
+
+                  {/* Lock Icon (Left) */}
                   <Lock
                     className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                     size={18}
                   />
+
+                  {/* Toggle Visibility Icon (Right) */}
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
+
+                {/* Error Message */}
                 {errors.password && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors.password.message}

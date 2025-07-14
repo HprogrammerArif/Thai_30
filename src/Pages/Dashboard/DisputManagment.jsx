@@ -10,6 +10,7 @@ import {
   useGetDisputeSettingsQuery,
   useGetDisputesHomeDataQuery,
   useGetSupportTicketQuery,
+  useRefundPaymentMutation,
   useSuggestCompensationMutation,
 } from "../redux/features/baseAPI/baseApi";
 import { toast, Toaster } from "sonner";
@@ -31,6 +32,20 @@ const DisputeManagement = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [statusFilter, setStatusFilter] = useState("");
+
+  const [refundPayment, { isLoading }] = useRefundPaymentMutation();
+
+  const handleAutoRefund = async (id) => {
+    try {
+      const res = await refundPayment(id).unwrap();
+      console.log({ res });
+      toast.success("Auto refund successful");
+    } catch (error) {
+      console.error(error);
+      toast.error("Auto refund failed");
+    }
+  };
 
   // State for selected dispute and modals
   const [selectedDispute, setSelectedDispute] = useState(null);
@@ -45,7 +60,10 @@ const DisputeManagement = () => {
   const [deleteDisputeSetting] = useDeleteDisputeSettingMutation();
 
   const { data: disputeData, isLoading: isDisputeLoading } =
-    useGetDisputesHomeDataQuery();
+    useGetDisputesHomeDataQuery(statusFilter);
+  // const { data: disputeData, isLoading } = useGetDisputesHomeDataQuery(statusFilter);
+
+  console.log({ disputeData });
 
   const [disputeType, setDisputeType] = useState("");
   const [resolution, setResolution] = useState("");
@@ -120,8 +138,6 @@ const DisputeManagement = () => {
 
   const [suggestCompensation] = useSuggestCompensationMutation();
 
-  console.log({ disputeId, selectedDisputeDetails });
-
   // // Functions to open modals
   // const openDisputeModal = (dispute) => {
   //   console.log({ dispute });
@@ -179,10 +195,11 @@ const DisputeManagement = () => {
     }
 
     try {
-      await suggestCompensation({
+      const res = await suggestCompensation({
         disputeId: disputeId,
         data: { amount: parseFloat(compensationAmount) },
       }).unwrap();
+      console.log({ res });
 
       toast.success("Compensation suggested.");
       document.getElementById("suggest_compensation_modal").close();
@@ -323,7 +340,39 @@ const DisputeManagement = () => {
       <div className="bg-white rounded-[15px] shadow-md p-6 mb-8">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold text-gray-800">Open Disputes</h2>
+
           <div className="flex gap-2">
+            {["", "pending", "resolved"].map((status) => {
+              const label =
+                status === ""
+                  ? "All"
+                  : status.charAt(0).toUpperCase() + status.slice(1);
+              const isActive = statusFilter === status;
+
+              return (
+                <button
+                  key={status}
+                  onClick={() => setStatusFilter(status)}
+                  className={`px-3 py-2 rounded-full transition-colors ${
+                    isActive
+                      ? "bg-[#B28D28] text-white hover:bg-[#9a7b23]"
+                      : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+
+            <button
+              onClick={openSettingsModal}
+              className="px-3 py-2 bg-[#B28D28] text-white rounded-full hover:bg-[#9a7b23] transition-colors flex items-center gap-2"
+            >
+              <IoSettings size={20} />
+              Dispute Settings
+            </button>
+          </div>
+          {/* <div className="flex gap-2">
             <button className="px-5 py-2 bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300 transition-colors">
               All
             </button>
@@ -340,7 +389,7 @@ const DisputeManagement = () => {
               <IoSettings size={20} />
               Dispute Settings
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="space-y-4">
           {disputeData?.map((dispute, index) => (
@@ -357,8 +406,12 @@ const DisputeManagement = () => {
                 </div>
                 <div className="flex gap-2">
                   {dispute.status === "resolved" ? (
-                    <button className="px-4 py-2 bg-green-500 text-white rounded-full text-sm hover:bg-green-600 transition-colors">
-                      Auto Refund
+                    <button
+                      onClick={() => handleAutoRefund(dispute.id)}
+                      className="px-4 py-2 bg-green-500 text-white rounded-full text-sm hover:bg-green-600 transition-colors disabled:opacity-50"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Processing..." : "Auto Refund"}
                     </button>
                   ) : (
                     <button
