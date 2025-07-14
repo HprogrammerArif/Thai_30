@@ -30,6 +30,7 @@ const Bookings = () => {
     isLoading: isLoadingBookings,
     isFetching: isFetchingBookings,
   } = useGetAllBookingsQuery();
+  console.log("bookingsInfo", bookingsInfo);
 
   const { data: bookingDetails, isLoading: isLoadingBookingDetails } =
     useGetBookingDetailsQuery(selectedBookingId, {
@@ -49,6 +50,11 @@ const Bookings = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentBookings = filteredBookings?.slice(startIndex, endIndex);
+
+  // const totalRevenue = bookingsInfo?.reduce((sum, item) => {
+  //   const amount = parseFloat(item.amount);
+  //   return sum + (isNaN(amount) ? 0 : amount);
+  // }, 0);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -192,7 +198,7 @@ const Bookings = () => {
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Total Bookings</h1>
             <h1 className="font-bold text-2xl text-black">
-              {bookingsInfo?.length || 0}
+              {adminData?.total_bookings || 0}
             </h1>
           </div>
           <div className="bg-[#B28D28] p-3 rounded-xl">
@@ -204,7 +210,7 @@ const Bookings = () => {
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Total Revenue</h1>
             <h1 className="font-bold text-2xl text-black">
-              $34,672{" "}
+              ${adminData?.total_revenue.toFixed(2)}{" "}
               <span className="text-sm font-semibold text-green-500">+5%</span>
             </h1>
           </div>
@@ -217,9 +223,9 @@ const Bookings = () => {
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Pending Payouts</h1>
             <h1 className="font-bold text-2xl text-black flex items-center gap-3">
-              $1,870{" "}
+              {adminData?.total_payout_amount.toFixed(2)}
               <span className="text-sm font-medium text-[#F1312B] bg-red-50 px-2 py-1 rounded-full">
-                12 Pending
+                {adminData?.total_payout_requests} Pending
               </span>
             </h1>
           </div>
@@ -231,7 +237,9 @@ const Bookings = () => {
         <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Commission</h1>
-            <h1 className="font-bold text-2xl text-black">$9,000</h1>
+            <h1 className="font-bold text-2xl text-black">
+              {adminData?.total_commission.toFixed(2)}{" "}
+            </h1>
           </div>
           <div className="bg-[#B28D28] p-3 rounded-xl">
             <AiFillWarning className="text-white" size={24} />

@@ -21,6 +21,8 @@ import Finance_admin_home from "../Pages/FinanceAdminDashboard/finance_admin_hom
 import BookingAdminHome from "../Pages/BookingAdminDashboard/BookingAdminHome";
 import ProtectedRoute from "../Layout/ProtectedRoute";
 import BookingHistory from "../Pages/BookingAdminDashboard/BookingHistory";
+import FinanceDispute from "../Pages/FinanceAdminDashboard/FinanceDispute";
+import BookingAdminBooking from "../Pages/BookingAdminDashboard/BookingAdminBooking";
 
 export const router = createBrowserRouter([
   {
@@ -51,7 +53,11 @@ export const router = createBrowserRouter([
   // Dashboard routes (accessed after login)
   {
     path: "/dashboard",
-    element: <ProtectedRoute><Dashborad /></ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <Dashborad />
+      </ProtectedRoute>
+    ),
     children: [
       { index: true, element: <AdminHome /> },
       { path: "home", element: <AdminHome /> },
@@ -65,16 +71,14 @@ export const router = createBrowserRouter([
       { path: "roles", element: <Roles /> },
       { path: "dispute_management", element: <DisputManagment /> },
 
-
-       // Finance Admin Dashboard routes
-      {path: "finance_admin_home", element: <Finance_admin_home/>},
+      // Finance Admin Dashboard routes
+      { path: "finance_admin_home", element: <Finance_admin_home /> },
+      { path: "finance_disputes", element: <FinanceDispute /> },
 
       //booking admin dashboard routes
-      {path: "booking_admin_home", element: <BookingAdminHome />},
+      { path: "booking_admin_home", element: <BookingAdminHome /> },
       { path: "booking_history", element: <BookingHistory /> },
-
+      { path: "booking_admin_booking", element: <BookingAdminBooking /> },
     ],
   },
-
- 
 ]);

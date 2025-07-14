@@ -8,9 +8,7 @@ import { LuTrash2 } from "react-icons/lu";
 import {
   useAdminInfoQuery,
   useDeleteBookingMutation,
-  useGetAdminDashboardAnalyticsQuery,
   useGetAllBookingsQuery,
-  useGetAnalyticsAdminDataQuery,
   useGetAnalyticsDataQuery,
   useGetBookingDetailsQuery,
 } from "../redux/features/baseAPI/baseApi";
@@ -22,8 +20,8 @@ import BookingAdminClientInfo from "./BookingAdminClientInfo";
 import BookingAdminHomeFixt from "./BookingAdminHomeFixt";
 
 const BookingAdminHome = () => {
-  // const { data: infoData } = useGetAnalyticsDataQuery([]);
-  const { data: infoData } = useGetAdminDashboardAnalyticsQuery();
+  const { data: infoData } = useGetAnalyticsDataQuery([]);
+  // const { data: infoData } = useGetAdminDashboardAnalyticsQuery();
   console.log({ infoData });
   const [selectedBookingId, setSelectedBookingId] = useState(null);
   const [searchStatus, setSearchStatus] = useState("");
@@ -143,7 +141,7 @@ const BookingAdminHome = () => {
   const customerInsights = {
     newCustomers: infoData?.customer_insights?.new_customers || 0,
     repeatBookings: infoData?.customer_insights?.repeat_rate || "0%",
-    avgBookedValue: infoData?.avg_booked_value || "$0",
+    avgBookedValue: infoData?.customer_insights?.avg_booked_value || "$0",
   };
 
   //   // Reusable Stat Card Component
@@ -229,7 +227,7 @@ const BookingAdminHome = () => {
             </div>
           </div>
 
-          {/* <div className="bg-[#f0dcba] rounded-[15px] p-4">
+          <div className="bg-[#f0dcba] rounded-[15px] p-4">
             <div className="border-2 border-[#8F5E0A] rounded-[15px] p-5">
               <p className="text-[#6B6D6D] mb-2 font-semibold text-xl">
                 Repeat Bookings
@@ -241,7 +239,7 @@ const BookingAdminHome = () => {
                 Retention rate
               </p>
             </div>
-          </div> */}
+          </div>
 
           <div className="bg-yellow-100 rounded-[15px] p-4">
             <div className="border-2 border-[#8F5E0A] rounded-[15px] p-5">

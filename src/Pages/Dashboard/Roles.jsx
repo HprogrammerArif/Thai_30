@@ -292,7 +292,7 @@ const Roles = () => {
           Roles & Permissions
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {roles.map((role, index) => (
+          {roles?.map((role, index) => (
             <div key={index} className="bg-white rounded-[15px] shadow-md p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-800">
@@ -301,7 +301,7 @@ const Roles = () => {
                 <FaShieldAlt className="text-[#B28D28]" size={20} />
               </div>
               <ul className="space-y-2">
-                {role.permissions.map((permission, idx) => (
+                {role?.permissions?.map((permission, idx) => (
                   <li key={idx} className="flex items-center gap-2">
                     <FaCheckCircle className="text-green-500" size={16} />
                     <span className="text-gray-600">{permission}</span>
@@ -368,7 +368,7 @@ const Roles = () => {
                 </tr>
               </thead>
               <tbody>
-                {therapistBackgroundChecks.map((check, index) => (
+                {therapistBackgroundChecks?.map((check, index) => (
                   <tr
                     key={index}
                     className="border-b hover:bg-gray-50 cursor-pointer"
@@ -425,7 +425,7 @@ const Roles = () => {
           Suspicious Activity Alerts
         </h2>
         <div className="space-y-4">
-          {suspiciousActivities.map((activity, index) => (
+          {suspiciousActivities?.map((activity, index) => (
             <div
               key={index}
               className={`flex items-center justify-between p-4 rounded-[10px] border-l-4 ${
@@ -587,8 +587,8 @@ const Roles = () => {
                 <p className="text-base text-gray-600 font-medium mb-2">
                   Documents Verified
                 </p>
-                {selectedTherapistCheckData.documents.length ? (
-                  selectedTherapistCheckData.documents.map((doc, index) => (
+                {selectedTherapistCheckData?.documents?.length ? (
+                  selectedTherapistCheckData?.documents?.map((doc, index) => (
                     <div
                       key={index}
                       className="bg-gray-100 rounded-[10px] p-3 mb-2 flex items-center gap-3 border-2 border-[#B28D28]/10 bg-[#FAE08C]/30"
@@ -596,7 +596,7 @@ const Roles = () => {
                       <FaFileAlt className="text-gray-500" size={16} />
                       <div>
                         {/* You can show specific document types and links */}
-                        {Object.entries(doc).map(([key, url]) =>
+                        {Object.entries(doc)?.map(([key, url]) =>
                           url ? (
                             <p
                               key={key}

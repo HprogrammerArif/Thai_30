@@ -258,6 +258,16 @@ export const baseApi = createApi({
       providesTags: ["Booking"],
     }),
 
+    // booking schedual
+    updateBookingSchedule: builder.mutation({
+      query: ({ bookingId, data }) => ({
+        url: `api/manage_bookings/${bookingId}/`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Booking"],
+    }),
+
     //get details of booking
     getBookingDetails: builder.query({
       query: (bookingId) => `api/admin/booking-detail/${bookingId}/`,
@@ -569,9 +579,18 @@ export const baseApi = createApi({
 
     suggestCompensation: builder.mutation({
       query: ({ disputeId, data }) => ({
-        url: `disputes/${disputeId}/suggest-compensation/`,
+        url: `dispute/disputes/${disputeId}/suggest-compensation/`,
+        // dispute/disputes/7/suggest-compensation/
+
         method: "POST",
         body: data,
+      }),
+    }),
+
+    refundPayment: builder.mutation({
+      query: (disputeId) => ({
+        url: `dispute/disputes/${disputeId}/refund-payment/`,
+        method: "POST",
       }),
     }),
 
@@ -588,7 +607,10 @@ export const baseApi = createApi({
 });
 
 export const {
+  useUpdateBookingScheduleMutation,
   //dispute
+  useRefundPaymentMutation,
+  // useRefundPaymentMutation,
   useGetDisputesHomeDataQuery,
   useGetDisputeDetailsQuery,
   useSuggestCompensationMutation,
