@@ -16,10 +16,8 @@ const AddOns = () => {
   console.log({ selectedAddOnes });
   const [updateAddOneData, { isLoading: isUpdating }] =
     useUpdateAddOneDataMutation();
-  
 
   const [postAddOneData] = usePostAddOneDataMutation();
-  
 
   const [newMassage, setNewMassage] = useState({
     name: "",
@@ -55,7 +53,6 @@ const AddOns = () => {
     }
   };
 
-  
   // Pagination calculations
   const addOnesData = addOneData || [];
   const [currentPage, setCurrentPage] = useState(1);
@@ -159,7 +156,7 @@ const AddOns = () => {
   };
 
   return (
-    <section>
+    <section className="">
       {/* Add Ons */}
       <div className="bg-white rounded-[15px] shadow-md p-6 col-span-1 basis-7/12 mt-6 md:mt-12">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">Add Ons</h2>
