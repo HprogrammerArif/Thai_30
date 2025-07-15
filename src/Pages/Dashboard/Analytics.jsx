@@ -127,7 +127,7 @@ const Analytics = () => {
           <h2 className="text-lg font-semibold text-gray-800">
             Revenue Overview
           </h2>
-          <select className="border rounded-lg p-2 text-sm text-gray-600">
+          <select className="border rounded-lg p-2 text-sm text-gray-600 dark:text-gray-50">
             <option>This Year</option>
             <option>Last Year</option>
           </select>

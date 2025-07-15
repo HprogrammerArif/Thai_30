@@ -647,7 +647,7 @@ const AdminHome = () => {
         onClose={closeTherapistModal}
         therapist={selectedTherapist}
       />
-      <div className="bg-white rounded-2xl shadow-lg p-6 col-span-2 mt-10">
+      <div className="bg-white rounded-2xl shadow-lg p-6 col-span-2 mt-10 ">
         <PayoutLayout />
       </div>
 

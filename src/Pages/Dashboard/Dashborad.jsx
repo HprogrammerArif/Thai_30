@@ -333,7 +333,7 @@ export default function Dashboard() {
                 <span className="text-gray-700 font-bold text-xl">
                   {selectedItem}
                 </span>
-                <h1>
+                <h1 className="dark:text-gray-900">
                   Hi, Welcome{" "}
                   <span className="text-[#B28D28] font-bold">
                     {adminData?.full_name}
@@ -343,7 +343,7 @@ export default function Dashboard() {
             </div>
             <div className="flex items-center gap-4 me-10">
               <button className="p-2 bg-[#FAE08C1A] hover:bg-[#f8de91] border-2 border-[#B28D2833] rounded-full transition-colors duration-300">
-                <Bell size={24} className="text-[#B28D28]" />
+                <Bell size={24} className="text-[#B28D28] " />
               </button>
               <div className="flex items-center justify-center gap-2">
                 <div className="w-12">
@@ -354,21 +354,23 @@ export default function Dashboard() {
                   />
                 </div>
                 <div>
-                  <h2 className="font-bold">{adminData?.role}</h2>
+                  <h2 className="font-bold dark:text-gray-900">
+                    {adminData?.role}
+                  </h2>
                   <p className="text-gray-900">{adminData?.email}</p>
                 </div>
                 <div className="dropdown dropdown-end">
                   <div tabIndex={0} role="button">
-                    <ChevronDown size={20} />
+                    <ChevronDown size={20} className="text-gray-900" />
                   </div>
                   <ul
                     tabIndex={0}
-                    className="dropdown-content mt-4 menu bg-base-200 rounded-box z-50 w-32 p-2 shadow-md border border-gray-400"
+                    className="dropdown-content mt-4 menu bg-base-200 rounded-box z-50 w-32 p-2 shadow-md border border-gray-400 dark:text-gray-50"
                   >
                     <li>
                       <NavLink
                         to="/dashboard/profile"
-                        className="text-gray-700 hover:text-gray-900"
+                        className="text-gray-700 dark:text-gray-50 hover:text-gray-900"
                       >
                         Profile
                       </NavLink>
@@ -376,7 +378,7 @@ export default function Dashboard() {
                     <li>
                       <button
                         onClick={handleLogOut}
-                        className="text-gray-700 hover:text-gray-900"
+                        className="text-gray-700 dark:text-gray-50 hover:text-gray-900"
                       >
                         Logout
                       </button>

@@ -465,12 +465,12 @@ const Roles = () => {
       </div>
 
       {/* DaisyUI Modal for Admin Request */}
-      <dialog id="admin_request_modal" className="modal">
+      <dialog id="admin_request_modal" className="modal dark:text-gray-50">
         <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">Admin Request</h3>
             <form method="dialog">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl">
+              <button className="text-gray-500 dark:text-gray-50 hover:text-gray-700 text-2xl">
                 ×
               </button>
             </form>
@@ -479,26 +479,32 @@ const Roles = () => {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Name</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm  dark:text-gray-50">Name</p>
+                  <p className="font-medium text-gray-900 dark:text-gray-200">
                     {selectedAdminRequest.full_name}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Email</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-50">
+                    Email
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-200">
                     {selectedAdminRequest.email}
                   </p>
                 </div>
               </div>
               <div>
-                <p className="text-sm text-gray-600">Phone Number</p>
-                <p className="font-medium text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-50">
+                  Phone Number
+                </p>
+                <p className="font-medium text-gray-900 dark:text-gray-200">
                   {selectedAdminRequest.phone_number}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-gray-600">Assign Role</p>
+                <p className="text-sm text-gray-600 dark:text-gray-50">
+                  Assign Role
+                </p>
                 <select
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
                   value={role}
@@ -536,7 +542,7 @@ const Roles = () => {
         </div>
       </dialog>
 
-      <dialog id="therapist_check_modal" className="modal">
+      <dialog id="therapist_check_modal" className="modal dark:text-gray-50">
         <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">Background Check</h3>
@@ -557,34 +563,42 @@ const Roles = () => {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Name</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-50">
+                    Name
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-200">
                     {selectedTherapistCheckData.therapist_info.full_name}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Specialty</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-50">
+                    Specialty
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-200">
                     {selectedTherapistCheckData.therapist_info.role}
                   </p>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Phone</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-50">
+                    Phone
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-200">
                     {selectedTherapistCheckData.therapist_info.phone || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Email</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-50">
+                    Email
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-200">
                     {selectedTherapistCheckData.therapist_info.email}
                   </p>
                 </div>
               </div>
               <div>
-                <p className="text-base text-gray-600 font-medium mb-2">
+                <p className="text-base text-gray-600 dark:text-gray-50 font-medium mb-2">
                   Documents Verified
                 </p>
                 {selectedTherapistCheckData?.documents?.length ? (
@@ -593,7 +607,10 @@ const Roles = () => {
                       key={index}
                       className="bg-gray-100 rounded-[10px] p-3 mb-2 flex items-center gap-3 border-2 border-[#B28D28]/10 bg-[#FAE08C]/30"
                     >
-                      <FaFileAlt className="text-gray-500" size={16} />
+                      <FaFileAlt
+                        className="text-gray-500 dark:text-gray-50"
+                        size={16}
+                      />
                       <div>
                         {/* You can show specific document types and links */}
                         {Object.entries(doc)?.map(([key, url]) =>
@@ -618,7 +635,9 @@ const Roles = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="text-gray-500">No documents available.</p>
+                  <p className="text-gray-500 dark:text-gray-50">
+                    No documents available.
+                  </p>
                 )}
               </div>
               {/* If you want you can add expiringDocuments or any other sections similarly */}

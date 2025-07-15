@@ -250,7 +250,9 @@ const BookingWithDelete = () => {
                   className="border-b hover:bg-gray-50 cursor-pointer"
                   // onClick={() => openModal(booking?.booking_id)}
                 >
-                  <td className="p-4 font-medium">{booking?.booking_id}</td>
+                  <td className="p-4 font-medium text-gray-900">
+                    {booking?.booking_id}
+                  </td>
                   <td
                     onClick={() => openModal(booking?.booking_id)}
                     className="p-4"
@@ -317,7 +319,9 @@ const BookingWithDelete = () => {
                       {booking?.booking_status}
                     </span>
                   </td>
-                  <td className="p-4 font-medium">{booking?.amount}</td>
+                  <td className="p-4 text-gray-900 font-semibold">
+                    {booking?.amount}
+                  </td>
                   <td className="p-4 font-medium">
                     <button
                       className="text-[#B28D28] cursor-pointer hover:text-[#B28D28] transition-colors"
@@ -402,7 +406,7 @@ const BookingWithDelete = () => {
 
       {/* DaisyUI Modal */}
       <dialog id="bookingId" className="modal">
-        <div className="modal-box bg-white rounded-xl p-6 w-full max-w-3xl">
+        <div className="modal-box bg-white rounded-xl p-6 w-full max-w-3xl text-gray-900">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">Booking Details</h3>
             <form method="dialog">
@@ -526,7 +530,7 @@ const BookingWithDelete = () => {
 
       {/*  Edit schedule modal */}
       {isScheduleModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:text-gray-900">
           <div className="bg-white rounded-lg shadow-lg p-6 w-[400px]">
             <h2 className="text-lg font-semibold mb-4">Edit Schedule</h2>
 

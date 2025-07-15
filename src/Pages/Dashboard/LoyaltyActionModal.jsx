@@ -56,7 +56,9 @@ const LoyaltyActionModal = ({ isOpen, setIsOpen, selectedAction }) => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white p-6 rounded-lg shadow-lg relative w-[600px]"
       >
-        <h2 className="text-xl font-bold mb-4">Manage Loyalty Action</h2>
+        <h2 className="text-xl font-bold mb-4 dark:text-gray-900">
+          Manage Loyalty Action
+        </h2>
 
         <button
           type="button"
@@ -68,7 +70,9 @@ const LoyaltyActionModal = ({ isOpen, setIsOpen, selectedAction }) => {
 
         <div className="space-y-4">
           <div className="flex items-center gap-4">
-            <label className="w-1/3 font-medium">Title</label>
+            <label className="w-1/3 font-medium dark:text-gray-900">
+              Title
+            </label>
             <input
               type="text"
               {...register("title", { required: true })}
@@ -77,7 +81,9 @@ const LoyaltyActionModal = ({ isOpen, setIsOpen, selectedAction }) => {
           </div>
 
           <div className="flex items-center gap-4">
-            <label className="w-1/3 font-medium">Points</label>
+            <label className="w-1/3 font-medium dark:text-gray-900">
+              Points
+            </label>
             <input
               type="number"
               {...register("points", { required: true })}
@@ -86,7 +92,9 @@ const LoyaltyActionModal = ({ isOpen, setIsOpen, selectedAction }) => {
           </div>
 
           <div className="flex items-center gap-4">
-            <label className="w-1/3 font-medium">Action Type</label>
+            <label className="w-1/3 font-medium dark:text-gray-900">
+              Action Type
+            </label>
             <input
               type="text"
               {...register("action_type", { required: true })}
@@ -95,7 +103,9 @@ const LoyaltyActionModal = ({ isOpen, setIsOpen, selectedAction }) => {
           </div>
 
           <div className="flex items-center gap-4">
-            <label className="w-1/3 font-medium">Valid Until</label>
+            <label className="w-1/3 font-medium dark:text-gray-900">
+              Valid Until
+            </label>
             <input
               type="date"
               {...register("valid_until", { required: true })}

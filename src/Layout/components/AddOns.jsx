@@ -246,7 +246,9 @@ const AddOns = () => {
               {/* Fees Fields */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm text-gray-600">Fee</label>
+                  <label className="text-sm text-gray-600 dark:text-gray-50">
+                    Fee
+                  </label>
                   <input
                     type="number"
                     className="w-full border px-3 py-2 rounded"
@@ -260,7 +262,9 @@ const AddOns = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-gray-600">Duration</label>
+                  <label className="text-sm text-gray-600 dark:text-gray-50">
+                    Duration
+                  </label>
                   <input
                     type="number"
                     className="w-full border px-3 py-2 rounded"
@@ -279,7 +283,7 @@ const AddOns = () => {
               <div className="flex justify-end gap-3 mt-6">
                 <button
                   type="button"
-                  className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                  className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 dark:text-gray-50 hover:bg-gray-100 transition-colors"
                   onClick={() =>
                     document.getElementById("add_ones_modal").close()
                   }
@@ -301,7 +305,7 @@ const AddOns = () => {
 
       {/* add message using modal */}
       <dialog id="add_ons_modal" className="modal">
-        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
+        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl ">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">Add Ons</h3>
             <form method="dialog">
@@ -314,7 +318,9 @@ const AddOns = () => {
           <form onSubmit={handleSubmitData} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm text-gray-600">Name</label>
+                <label className="text-sm text-gray-600 dark:text-gray-50">
+                  Name
+                </label>
                 <input
                   type="text"
                   className="w-full border px-3 py-2 rounded"
@@ -327,7 +333,9 @@ const AddOns = () => {
               </div>
 
               <div>
-                <label className="text-sm text-gray-600">Duration</label>
+                <label className="text-sm text-gray-600 dark:text-gray-50">
+                  Duration
+                </label>
                 <input
                   type="number"
                   className="w-full border px-3 py-2 rounded"
@@ -343,7 +351,9 @@ const AddOns = () => {
               </div>
 
               <div>
-                <label className="text-sm text-gray-600">Fee</label>
+                <label className="text-sm text-gray-600 dark:text-gray-50">
+                  Fee
+                </label>
                 <input
                   type="number"
                   className="w-full border px-3 py-2 rounded"
@@ -362,7 +372,7 @@ const AddOns = () => {
             <div className="flex justify-end gap-3 mt-6">
               <button
                 type="button"
-                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 dark:text-gray-50 hover:bg-gray-100 transition-colors"
                 onClick={() => document.getElementById("add_ons_modal").close()}
               >
                 Cancel

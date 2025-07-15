@@ -144,19 +144,6 @@ const BookingAdminHome = () => {
     avgBookedValue: infoData?.customer_insights?.avg_booked_value || "$0",
   };
 
-  //   // Reusable Stat Card Component
-  // const StatCard = ({ label, value }) => (
-  //   <div className="flex-1 min-w-[200px] bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
-  //     <div className="space-y-2">
-  //       <h1 className="text-gray-800 font-medium">{label}</h1>
-  //       <h1 className="font-bold text-2xl text-black">{value}</h1>
-  //     </div>
-  //     <div className="bg-[#B28D28] p-3 rounded-xl">
-  //       <FaCalendarCheck className="text-white" size={24} />
-  //     </div>
-  //   </div>
-  // );
-
   return (
     <section className="">
       {/* Stats Cards */}

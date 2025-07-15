@@ -176,7 +176,7 @@ const BookingAdminHomeFixt = () => {
   console.log({ currentBookings });
 
   return (
-    <section className="">
+    <section className="dark:text-gray-700">
       <Toaster />
 
       {/* Bookings Table */}
@@ -490,9 +490,11 @@ const BookingAdminHomeFixt = () => {
 
       {/*  Edit schedule modal */}
       {isScheduleModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:text-gray-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-[400px]">
-            <h2 className="text-lg font-semibold mb-4">Edit Schedule</h2>
+            <h2 className="text-lg font-semibold mb-4 dark:text-gray-700">
+              Edit Schedule
+            </h2>
 
             {/* Replace this with your actual schedule form */}
             <form

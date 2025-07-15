@@ -321,67 +321,6 @@ const FinanceDispute = () => {
         </button> */}
       </div>
 
-      {/* New Support Ticket */}
-      {/* <div className="bg-white rounded-[15px] shadow-md p-6 mb-8">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">
-          New Support Ticket
-        </h2>
-        <div className="space-y-4">
-          {supportTickets?.map((ticket, index) => (
-            <div
-              key={index}
-              className="border-b pb-4 last:border-b-0 flex justify-between items-center hover:bg-gray-100 cursor-pointer p-4"
-            >
-              <div className="space-y-2">
-                <button className="bg-[#FFEAAF]/60 px-5 py-1 rounded-full border border-[#B28D28]/30">
-                  {ticket.user_role}
-                </button>
-                <div>
-                  <p className="font-medium text-gray-900">
-                    {ticket.issue_type}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Opened{" "}
-                    {formatDistanceToNow(new Date(ticket.created_at), {
-                      addSuffix: true,
-                    })}
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => {
-                  setSelectedTicket(ticket); // ticket from map
-                  setIsModalOpen(true);
-                }}
-                className="px-4 py-2 bg-[#B28D28] text-white rounded-full text-sm hover:bg-[#9a7b23] transition-colors"
-              >
-                Review
-              </button>
-            </div>
-          ))}
-        </div>
-       
-      </div> */}
-
-      {/* Messages Button */}
-      {/* <div className="fixed bottom-5 right-5 z-40">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="bg-[#B28D28] text-white px-4 py-2 rounded-full flex items-center gap-2 hover:bg-[#9a7b23] transition-colors shadow-md shadow-gray-400"
-        >
-          <FaEnvelope size={16} />
-          Messages
-          <span className="bg-white text-[#B28D28] rounded-full px-2 py-1 text-xs">
-            10
-          </span>
-        </button>
-      </div> */}
-
-      {/* Message Modal */}
-      {/* <MessageModalTest isOpen={isOpen} onClose={() => setIsOpen(false)} /> */}
-      {/* {isOpen && <ChatHome isOpen={isOpen} onClose={() => setIsOpen(false)} />} */}
-      {/* <MessageSidebar isOpen={isOpen} onClose={() => setIsOpen(false)} /> */}
-
       <TicketDetailsModal
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
@@ -390,30 +329,36 @@ const FinanceDispute = () => {
 
       {/* DaisyUI Modal for Dispute Details */}
       <dialog id="dispute_details_modal" className="modal">
-        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
+        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl bg-white dark:bg-gray-900">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="font-bold text-xl">Dispute Detail</h3>
+            <h3 className="font-bold text-xl text-gray-900 dark:text-gray-100">
+              Dispute Detail
+            </h3>
             <form method="dialog">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl">
+              <button className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl">
                 ×
               </button>
             </form>
           </div>
 
           {isDisputeDetailLoading ? (
-            <p className="text-gray-500">Loading...</p>
+            <p className="text-gray-500 dark:text-gray-400">Loading...</p>
           ) : selectedDisputeDetails ? (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Therapist Name</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Therapist Name
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.therapist_name || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Booking Date/Time</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Booking Date/Time
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.booking_date_time || "N/A"}
                   </p>
                 </div>
@@ -421,14 +366,18 @@ const FinanceDispute = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Customer</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Customer
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.customer || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Service</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Service
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.service || "N/A"}
                   </p>
                 </div>
@@ -436,29 +385,37 @@ const FinanceDispute = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Payment Method</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Payment Method
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.payment_method || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Location</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Location
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.location || "N/A"}
                   </p>
                 </div>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600">Complaint</p>
-                <p className="font-medium text-gray-900 whitespace-pre-wrap">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Complaint
+                </p>
+                <p className="font-medium text-gray-900 dark:text-gray-100 whitespace-pre-wrap">
                   {selectedDisputeDetails.complain || "N/A"}
                 </p>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600">Total</p>
-                <p className="font-medium text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Total
+                </p>
+                <p className="font-medium text-gray-900 dark:text-gray-100">
                   {selectedDisputeDetails.total !== null
                     ? `$${Number(selectedDisputeDetails.total).toFixed(2)}`
                     : "N/A"}
@@ -467,43 +424,49 @@ const FinanceDispute = () => {
 
               <div className="flex justify-end gap-3 mt-6">
                 <form method="dialog">
-                  <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
+                  <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors">
                     Cancel
                   </button>
                 </form>
               </div>
             </div>
           ) : (
-            <p className="text-red-500">No details found.</p>
+            <p className="text-red-500 dark:text-red-400">No details found.</p>
           )}
         </div>
       </dialog>
 
       <dialog id="suggest_compensation_modal" className="modal">
-        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
+        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl bg-white dark:bg-gray-900">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="font-bold text-xl">Suggest Compensation</h3>
+            <h3 className="font-bold text-xl text-gray-900 dark:text-gray-100">
+              Suggest Compensation
+            </h3>
             <form method="dialog">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl">
+              <button className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl">
                 ×
               </button>
             </form>
           </div>
 
           {isDisputeDetailLoading ? (
-            <p className="text-gray-500">Loading...</p>
+            <p className="text-gray-500 dark:text-gray-400">Loading...</p>
           ) : selectedDisputeDetails ? (
             <form onSubmit={handleCompensationSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Therapist Name</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Therapist Name
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.therapist_name || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Booking Date/Time</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Booking Date/Time
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.booking_date_time || "N/A"}
                   </p>
                 </div>
@@ -511,29 +474,37 @@ const FinanceDispute = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Customer</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Customer
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.customer || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Service</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Service
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.service || "N/A"}
                   </p>
                 </div>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600">Payment Method</p>
-                <p className="font-medium text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Payment Method
+                </p>
+                <p className="font-medium text-gray-900 dark:text-gray-100">
                   {selectedDisputeDetails.payment_method || "N/A"}
                 </p>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600">Total</p>
-                <p className="font-medium text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Total
+                </p>
+                <p className="font-medium text-gray-900 dark:text-gray-100">
                   {selectedDisputeDetails.total !== null
                     ? `$${Number(selectedDisputeDetails.total).toFixed(2)}`
                     : "N/A"}
@@ -541,21 +512,23 @@ const FinanceDispute = () => {
               </div>
 
               <div>
-                <p className="text-sm text-gray-600">Compensation Amount</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Compensation Amount
+                </p>
                 <input
                   type="number"
                   min={1}
                   placeholder="Enter compensation amount"
                   value={compensationAmount}
                   onChange={(e) => setCompensationAmount(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   required
                 />
               </div>
 
               <div className="flex justify-end gap-3 mt-6">
                 <form method="dialog">
-                  <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
+                  <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors">
                     Cancel
                   </button>
                 </form>
@@ -568,7 +541,9 @@ const FinanceDispute = () => {
               </div>
             </form>
           ) : (
-            <p className="text-red-500">No dispute details found.</p>
+            <p className="text-red-500 dark:text-red-400">
+              No dispute details found.
+            </p>
           )}
         </div>
       </dialog>
@@ -577,16 +552,18 @@ const FinanceDispute = () => {
       <dialog id="dispute_settings_modal" className="modal">
         <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="font-bold text-xl">Dispute Setting</h3>
+            <h3 className="font-bold text-xl ">Dispute Setting</h3>
             <form method="dialog">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl">
+              <button className="text-gray-500 hover:text-gray-700 text-2xl dark:text-gray-200">
                 ×
               </button>
             </form>
           </div>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <p className="text-sm text-gray-600">Dispute Type</p>
+              <p className="text-sm text-gray-600 dark:text-gray-200">
+                Dispute Type
+              </p>
               <select
                 value={disputeType}
                 onChange={(e) => setDisputeType(e.target.value)}
@@ -601,7 +578,9 @@ const FinanceDispute = () => {
               </select>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Resolution</p>
+              <p className="text-sm text-gray-600 dark:text-gray-200">
+                Resolution
+              </p>
               <select
                 value={resolution}
                 onChange={(e) => setResolution(e.target.value)}
@@ -622,7 +601,7 @@ const FinanceDispute = () => {
                 onClick={() =>
                   document.getElementById("dispute_settings_modal")?.close()
                 }
-                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors dark:text-gray-200"
               >
                 Cancel
               </button>

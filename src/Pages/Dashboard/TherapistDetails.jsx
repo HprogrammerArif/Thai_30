@@ -44,7 +44,7 @@ const TherapistDetails = () => {
   };
 
   return (
-    <div>
+    <div className="dark:text-gray-900">
       <Link
         onClick={() => navigate(-1)}
         className="mb-4 inline-block bg-gray-500 text-white px-4 py-2 rounded-full"
@@ -109,8 +109,6 @@ const TherapistDetails = () => {
               </div>
             </div>
           </div>
-
-          
         </div>
 
         {/* Right Column */}
@@ -419,7 +417,9 @@ const TherapistDetails = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-gray-600">Name</p>
-                <p className="font-medium text-gray-900">{therapistInfo?.name}</p>
+                <p className="font-medium text-gray-900">
+                  {therapistInfo?.name}
+                </p>
               </div>
               <div>
                 <p className="text-sm text-gray-600">Specialty</p>

@@ -49,13 +49,15 @@ const ReferralProgramModal = ({ isOpen, setIsOpen, referralProgramManage }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 dark:text-gray-400">
       <Toaster />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white p-6 rounded-lg shadow-lg relative w-[600px]"
       >
-        <h2 className="text-xl font-bold mb-4">Referral Program</h2>
+        <h2 className="text-xl font-bold mb-4 dark:text-gray-900">
+          Referral Program
+        </h2>
 
         <button
           type="button"
@@ -69,7 +71,9 @@ const ReferralProgramModal = ({ isOpen, setIsOpen, referralProgramManage }) => {
           {/* Referrer & Referee */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
-              <label className="w-1/3 font-medium">Referrer Value ($)</label>
+              <label className="w-1/3 font-medium dark:text-gray-900">
+                Referrer Value ($)
+              </label>
               <input
                 type="number"
                 {...register("referrer_reward", { required: true })}
@@ -77,7 +81,9 @@ const ReferralProgramModal = ({ isOpen, setIsOpen, referralProgramManage }) => {
               />
             </div>
             <div className="flex items-center gap-4">
-              <label className="w-1/3 font-medium">Referee Value ($)</label>
+              <label className="w-1/3 font-medium dark:text-gray-900">
+                Referee Value ($)
+              </label>
               <input
                 type="number"
                 {...register("referee_reward", { required: true })}
@@ -88,7 +94,9 @@ const ReferralProgramModal = ({ isOpen, setIsOpen, referralProgramManage }) => {
 
           {/* Valid Date */}
           <div className="flex items-center gap-4">
-            <label className="w-1/3 font-medium">Valid Date</label>
+            <label className="w-1/3 font-medium dark:text-gray-900">
+              Valid Date
+            </label>
             <input
               type="date"
               {...register("valid_till", { required: true })}

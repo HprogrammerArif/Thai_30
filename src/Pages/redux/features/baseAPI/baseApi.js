@@ -125,6 +125,15 @@ export const baseApi = createApi({
       }),
     }),
 
+    // change password
+    changePassword: builder.mutation({
+      query: (body) => ({
+        url: "auth/change-password/",
+        method: "POST",
+        body,
+      }),
+    }),
+
     //getadmin
     getAdmin: builder.query({
       query: () => "api/admin/profile/",
@@ -607,6 +616,7 @@ export const baseApi = createApi({
 });
 
 export const {
+  useChangePasswordMutation,
   useUpdateBookingScheduleMutation,
   //dispute
   useRefundPaymentMutation,

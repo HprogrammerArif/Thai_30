@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
@@ -11,7 +9,7 @@ import { useGetCustomerDetailsInfoQuery } from "../redux/features/baseAPI/baseAp
 const userImage = "https://i.ibb.co.com/8Ld9cfwp/Frame-1686551036-1.png";
 
 const CustomerDetails = () => {
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab] = useState("all");
   const { id } = useParams();
   const { data: customerData } = useGetCustomerDetailsInfoQuery(id);
   console.log("customerData", customerData);
@@ -51,28 +49,64 @@ const CustomerDetails = () => {
     cancelledAppointments: 3,
   };
 
-
-
   const rewardsData = {
-  all: [
-    { id: 1, type: 'Birthday Discount', amount: '$20', date: '2024-03-15', expire_date: "2024-04-03", status: 'earned' },
-    { id: 2, type: 'Loyalty Points', amount: '$10', date: '2024-02-20',  expire_date: "2024-06-18", status: 'used' },
-    { id: 3, type: 'Welcome Bonus', amount: '$15', date: '2024-01-10' , expire_date: "2024-03-25", status: 'expired' },
-  ],
-  earned: [
-    { id: 1, type: 'Birthday Discount', amount: '$20', date: '2024-03-15', status: 'earned' },
-  ],
-  used: [
-    { id: 2, type: 'Loyalty Points', amount: '$10', date: '2024-02-20', status: 'used' },
-  ],
-  expired: [
-    { id: 3, type: 'Welcome Bonus', amount: '$15', date: '2024-01-10', status: 'expired' },
-  ],
-};
-
+    all: [
+      {
+        id: 1,
+        type: "Birthday Discount",
+        amount: "$20",
+        date: "2024-03-15",
+        expire_date: "2024-04-03",
+        status: "earned",
+      },
+      {
+        id: 2,
+        type: "Loyalty Points",
+        amount: "$10",
+        date: "2024-02-20",
+        expire_date: "2024-06-18",
+        status: "used",
+      },
+      {
+        id: 3,
+        type: "Welcome Bonus",
+        amount: "$15",
+        date: "2024-01-10",
+        expire_date: "2024-03-25",
+        status: "expired",
+      },
+    ],
+    earned: [
+      {
+        id: 1,
+        type: "Birthday Discount",
+        amount: "$20",
+        date: "2024-03-15",
+        status: "earned",
+      },
+    ],
+    used: [
+      {
+        id: 2,
+        type: "Loyalty Points",
+        amount: "$10",
+        date: "2024-02-20",
+        status: "used",
+      },
+    ],
+    expired: [
+      {
+        id: 3,
+        type: "Welcome Bonus",
+        amount: "$15",
+        date: "2024-01-10",
+        status: "expired",
+      },
+    ],
+  };
 
   return (
-    <div className=" mx-auto">
+    <div className=" mx-auto dark:text-gray-900">
       {/* Back Button */}
       <Link
         onClick={() => navigate(-1)}
@@ -222,89 +256,92 @@ const CustomerDetails = () => {
           </div>
 
           <div className="bg-white rounded-[15px] shadow-md py-14 px-10">
-              <div>
-                <h1 className="text-lg sm:text-xl font-bold mb-4">Preferences</h1>
+            <div>
+              <h1 className="text-lg sm:text-xl font-bold mb-4">Preferences</h1>
 
-                <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2">
+                <div className="mb-3">
+                  <h1 className="text-[#7F7F7F] text-[14px] ">
+                    Preferred Therapist Gender
+                  </h1>
+                  <p className="font-medium">Female</p>
+                </div>
 
-                   <div className="mb-3">
-                    <h1 className="text-[#7F7F7F] text-[14px] ">Preferred Therapist Gender</h1>
-                    <p className="font-medium">Female</p>
-                   </div>
+                <div>
+                  <h1 className="text-[#7F7F7F] text-[14px] ">
+                    Pressure Preference
+                  </h1>
+                  <p className="font-medium">Medium to Firm</p>
+                </div>
 
-                   <div>
-                    <h1 className="text-[#7F7F7F] text-[14px] ">Pressure Preference</h1>
-                    <p className="font-medium">Medium to Firm</p>
-                   </div>
+                <div>
+                  <h1 className="text-[#7F7F7F] text-[14px] ">Allergies</h1>
+                  <p className="font-medium">Lavender Oil</p>
+                </div>
 
-                    <div>
-                    <h1 className="text-[#7F7F7F] text-[14px] ">Allergies</h1>
-                    <p className="font-medium">Lavender Oil</p>
-                   </div>
-
-                    <div>
-                    <h1 className="text-[#7F7F7F] text-[14px] ">Medical Conditions</h1>
-                    <p className="font-medium">None reported</p>
-                   </div>
-
+                <div>
+                  <h1 className="text-[#7F7F7F] text-[14px] ">
+                    Medical Conditions
+                  </h1>
+                  <p className="font-medium">None reported</p>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="py-10">
+        <div className="bg-white rounded-[15px] shadow-md py-14 px-10">
+          <h2 className="text-lg sm:text-xl font-bold mb-6">Point History</h2>
 
-       <div className="bg-white rounded-[15px] shadow-md py-14 px-10">
-  <h2 className="text-lg sm:text-xl font-bold mb-6">Point History</h2>
-  
-  {/* Tabs */}
-  <div className="flex space-x-1 border-b border-gray-200 mb-6">
-    {['all', 'earned', 'used', 'expired'].map((tab) => (
-      <button
-        key={tab}
-        className={`px-6 py-3 text-sm font-medium capitalize transition-colors duration-200
-          ${activeTab === tab 
-            ? 'border-b-2 border-[#B28D28] text-[#B28D28]' 
-            : 'text-gray-500 hover:text-[#B28D28]'
+          {/* Tabs */}
+          <div className="flex space-x-1 border-b border-gray-200 mb-6">
+            {["all", "earned", "used", "expired"].map((tab) => (
+              <button
+                key={tab}
+                className={`px-6 py-3 text-sm font-medium capitalize transition-colors duration-200
+          ${
+            activeTab === tab
+              ? "border-b-2 border-[#B28D28] text-[#B28D28]"
+              : "text-gray-500 hover:text-[#B28D28]"
           }`}
-        onClick={() => setActiveTab(tab)}
-      >
-        {tab}
-      </button>
-    ))}
-  </div>
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
 
-
-<div className="space-y-4">
-  {rewardsData[activeTab].length > 0 ? (
-    rewardsData[activeTab].map((reward) => (
-      <div
-        key={reward.id}
-        className="flex justify-between items-start border rounded-lg p-4 shadow-sm"
-      >
-        <div>
-          <div className="font-medium text-sm">{reward.type}</div>
-          <div className="text-xs text-gray-500 mt-1">
-            {new Date(reward.date).toLocaleDateString()} &nbsp;&nbsp;
-            <span className="text-gray-400">Expired {new Date(reward.expire_date).toLocaleDateString()}</span>
+          <div className="space-y-4">
+            {rewardsData[activeTab].length > 0 ? (
+              rewardsData[activeTab].map((reward) => (
+                <div
+                  key={reward.id}
+                  className="flex justify-between items-start border rounded-lg p-4 shadow-sm"
+                >
+                  <div>
+                    <div className="font-medium text-sm">{reward.type}</div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {new Date(reward.date).toLocaleDateString()} &nbsp;&nbsp;
+                      <span className="text-gray-400">
+                        Expired{" "}
+                        {new Date(reward.expire_date).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="text-amber-700 font-semibold text-sm whitespace-nowrap">
+                    +{reward.amount}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                No rewards found for this category
+              </div>
+            )}
           </div>
         </div>
-        <div className="text-amber-700 font-semibold text-sm whitespace-nowrap">
-          +{reward.amount}
-        </div>
-      </div>
-    ))
-  ) : (
-    <div className="text-center py-8 text-gray-500">
-      No rewards found for this category
-    </div>
-  )}
-</div>
-
-
-</div>
-
       </div>
     </div>
   );

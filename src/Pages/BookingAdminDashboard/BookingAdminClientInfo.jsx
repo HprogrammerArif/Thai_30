@@ -291,7 +291,7 @@ const BookingAdminClientInfo = () => {
       </div> */}
 
       {/* Customers Section */}
-      <div className="bg-white rounded-[15px] shadow-md p-5">
+      <div className="bg-white rounded-[15px] shadow-md p-5 dark:text-gray-700">
         <div className="flex justify-between items-center mb-5">
           <h1 className="text-xl font-bold">Customers</h1>
           <div className="flex space-x-3">
@@ -442,7 +442,7 @@ const BookingAdminClientInfo = () => {
       </div>
 
       {/* Therapists Section */}
-      <div className="bg-white rounded-[15px] shadow-md p-5 mt-20">
+      <div className="bg-white rounded-[15px] shadow-md p-5 mt-20 dark:text-gray-700">
         <div className="flex justify-between items-center mb-5">
           <h1 className="text-xl font-bold">Therapists</h1>
           <div className="flex space-x-3">

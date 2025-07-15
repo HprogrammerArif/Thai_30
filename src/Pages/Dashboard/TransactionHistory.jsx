@@ -1,11 +1,16 @@
-
-
 import { Search, ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useGetTransactionHistoryQuery, useGetTransactionHistoryDetailsQuery } from "../redux/features/baseAPI/baseApi";
+import {
+  useGetTransactionHistoryQuery,
+  useGetTransactionHistoryDetailsQuery,
+} from "../redux/features/baseAPI/baseApi";
 import { useState } from "react";
 
 export default function TransactionHistory() {
-  const { data: transactionsResult, isLoading, error } = useGetTransactionHistoryQuery();
+  const {
+    data: transactionsResult,
+    isLoading,
+    error,
+  } = useGetTransactionHistoryQuery();
   console.log("Transaction History Data:", transactionsResult);
 
   const [selectedTransactionId, setSelectedTransactionId] = useState(null);
@@ -13,10 +18,21 @@ export default function TransactionHistory() {
   const itemsPerPage = 5; // Number of transactions per page
   const maxPageButtons = 5; // Maximum number of page buttons to show
 
-  const { data: transactionDetails, isLoading: detailsLoading, error: detailsError } = useGetTransactionHistoryDetailsQuery(selectedTransactionId, {
+  const {
+    data: transactionDetails,
+    isLoading: detailsLoading,
+    error: detailsError,
+  } = useGetTransactionHistoryDetailsQuery(selectedTransactionId, {
     skip: !selectedTransactionId, // Skip query if selectedTransactionId is falsy
   });
-  console.log("Transaction Details:", transactionDetails, "Loading:", detailsLoading, "Error:", detailsError);
+  console.log(
+    "Transaction Details:",
+    transactionDetails,
+    "Loading:",
+    detailsLoading,
+    "Error:",
+    detailsError
+  );
 
   const baseURL = "http://10.10.13.75:3333/api";
   const transactions = transactionsResult?.results || [];
@@ -113,10 +129,12 @@ export default function TransactionHistory() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 ">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-semibold text-gray-900">Transaction History</h1>
+        <h1 className="text-xl font-semibold text-gray-900">
+          Transaction History
+        </h1>
       </div>
 
       {/* Table */}
@@ -124,14 +142,30 @@ export default function TransactionHistory() {
         <table className="table w-full">
           <thead>
             <tr className="border-gray-200">
-              <th className="text-left font-medium text-gray-600 bg-transparent">Therapist</th>
-              <th className="text-left font-medium text-gray-600 bg-transparent">Type</th>
-              <th className="text-left font-medium text-gray-600 bg-transparent">Payment</th>
-              <th className="text-left font-medium text-gray-600 bg-transparent">Commission</th>
-              <th className="text-left font-medium text-gray-600 bg-transparent">Date</th>
-              <th className="text-left font-medium text-gray-600 bg-transparent">Status</th>
-              <th className="text-left font-medium text-gray-600 bg-transparent">Method</th>
-              <th className="text-left font-medium text-gray-600 bg-transparent">Action</th>
+              <th className="text-left font-medium text-gray-600 bg-transparent">
+                Therapist
+              </th>
+              <th className="text-left font-medium text-gray-600 bg-transparent">
+                Type
+              </th>
+              <th className="text-left font-medium text-gray-600 bg-transparent">
+                Payment
+              </th>
+              <th className="text-left font-medium text-gray-600 bg-transparent">
+                Commission
+              </th>
+              <th className="text-left font-medium text-gray-600 bg-transparent">
+                Date
+              </th>
+              <th className="text-left font-medium text-gray-600 bg-transparent">
+                Status
+              </th>
+              <th className="text-left font-medium text-gray-600 bg-transparent">
+                Method
+              </th>
+              <th className="text-left font-medium text-gray-600 bg-transparent">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -155,7 +189,10 @@ export default function TransactionHistory() {
               </tr>
             ) : (
               currentTransactions.map((transaction) => (
-                <tr key={transaction.payment_id} className="border-gray-100 hover:bg-gray-50">
+                <tr
+                  key={transaction.payment_id}
+                  className="border-gray-100 hover:bg-gray-50"
+                >
                   <td className="py-4">
                     <div className="flex items-center gap-3">
                       <div className="avatar">
@@ -168,19 +205,29 @@ export default function TransactionHistory() {
                         </div>
                       </div>
                       <div>
-                        <div className="font-medium text-gray-900">{transaction?.therapist?.name}</div>
-                        <div className="text-sm text-gray-500">{transaction?.therapist?.email}</div>
+                        <div className="font-medium text-gray-900">
+                          {transaction?.therapist?.name}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {transaction?.therapist?.email}
+                        </div>
                       </div>
                     </div>
                   </td>
                   <td className="text-gray-600">{transaction?.type}</td>
-                  <td className="font-medium text-gray-600">${transaction?.payment}</td>
-                  <td className="text-gray-600 font-medium">${transaction?.commission}</td>
+                  <td className="font-medium text-gray-600">
+                    ${transaction?.payment}
+                  </td>
+                  <td className="text-gray-600 font-medium">
+                    ${transaction?.commission}
+                  </td>
                   <td className="text-blue-600">{transaction?.date}</td>
                   <td>
                     <span
                       className={`badge ${
-                        transaction.status === "Paid" ? "badge-success text-white" : "badge-warning text-gray-800"
+                        transaction.status === "Paid"
+                          ? "badge-success text-white"
+                          : "badge-warning text-gray-800"
                       }`}
                     >
                       {transaction.status}
@@ -203,7 +250,7 @@ export default function TransactionHistory() {
       </div>
 
       {/* Modal */}
-      <dialog id="transactionId" className="modal">
+      <dialog id="transactionId" className="modal text-gray-900">
         <div className="modal-box bg-white rounded-xl p-6 w-full max-w-3xl">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">Transaction Details</h3>
@@ -214,7 +261,10 @@ export default function TransactionHistory() {
             </form>
           </div>
           {detailsError ? (
-            <p className="text-red-500">Error loading transaction details: {detailsError.message || "Unknown error"}</p>
+            <p className="text-red-500">
+              Error loading transaction details:{" "}
+              {detailsError.message || "Unknown error"}
+            </p>
           ) : detailsLoading ? (
             <p className="text-gray-500">Loading transaction details...</p>
           ) : transactionDetails ? (
@@ -222,26 +272,33 @@ export default function TransactionHistory() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-500">Therapist Name</p>
-                  <p className="font-medium">{transactionDetails.therapist_name}</p>
+                  <p className="font-medium">
+                    {transactionDetails.therapist_name}
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Booking Date/Time</p>
                   <p className="font-medium">
-                    {new Date(transactionDetails.booking_date).toLocaleString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}
+                    {new Date(transactionDetails.booking_date).toLocaleString(
+                      "en-US",
+                      {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                      }
+                    )}
                   </p>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-500">Customer</p>
-                  <p className="font-medium">{transactionDetails.customer_name}</p>
+                  <p className="font-medium">
+                    {transactionDetails.customer_name}
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Service</p>
@@ -251,40 +308,56 @@ export default function TransactionHistory() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-500">Location</p>
-                  <p className="font-medium">{transactionDetails.location || "N/A"}</p>
+                  <p className="font-medium">
+                    {transactionDetails.location || "N/A"}
+                  </p>
                 </div>
               </div>
               <div className="border-t pt-4 space-y-5">
-                <p className="text-sm text-gray-500 font-medium mb-2">Payment Summary</p>
+                <p className="text-sm text-gray-500 font-medium mb-2">
+                  Payment Summary
+                </p>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
                     <p className="text-sm text-gray-500">Massage Charges</p>
-                    <p className="font-medium">${transactionDetails.summary.massage_charges.toFixed(2)}</p>
+                    <p className="font-medium">
+                      ${transactionDetails.summary.massage_charges.toFixed(2)}
+                    </p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Payment Method</p>
-                    <p className="font-medium">{transactionDetails.payment_method || "N/A"}</p>
+                    <p className="font-medium">
+                      {transactionDetails.payment_method || "N/A"}
+                    </p>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
                     <p className="text-sm text-gray-500">Commission</p>
-                    <p className="font-medium">${transactionDetails.summary.commission.toFixed(2)}</p>
+                    <p className="font-medium">
+                      ${transactionDetails.summary.commission.toFixed(2)}
+                    </p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Booking Fee</p>
-                    <p className="font-medium">${transactionDetails.summary.booking_fee.toFixed(2)}</p>
+                    <p className="font-medium">
+                      ${transactionDetails.summary.booking_fee.toFixed(2)}
+                    </p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Tips</p>
-                    <p className="font-medium">${transactionDetails.summary.tip.toFixed(2)}</p>
+                    <p className="font-medium">
+                      ${transactionDetails.summary.tip.toFixed(2)}
+                    </p>
                   </div>
                 </div>
               </div>
               <div className="border-t pt-4 flex justify-end">
                 <div className="text-right">
                   <p className="text-sm text-gray-500">Total Amount</p>
-                  <p className="font-bold text-lg">${transactionDetails.summary.total.toFixed(2)}</p>
+                  <p className="font-bold text-lg">
+                    ${transactionDetails.summary.total.toFixed(2)}
+                  </p>
                 </div>
               </div>
             </div>
@@ -297,7 +370,8 @@ export default function TransactionHistory() {
       {/* Pagination */}
       <div className="flex justify-between items-center mt-6">
         <div className="text-sm text-gray-500">
-          Showing {totalItems > 0 ? startIndex + 1 : 0}-{Math.min(endIndex, totalItems)} of {totalItems} entries
+          Showing {totalItems > 0 ? startIndex + 1 : 0}-
+          {Math.min(endIndex, totalItems)} of {totalItems} entries
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -317,8 +391,6 @@ export default function TransactionHistory() {
           </button>
         </div>
       </div>
-
-      
     </div>
   );
 }

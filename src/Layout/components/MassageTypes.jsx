@@ -190,8 +190,6 @@ const MassageTypes = () => {
     document.getElementById("edit_massage_check_modal").showModal();
   };
 
-
-
   return (
     <section>
       {/* Massage Type */}
@@ -298,7 +296,9 @@ const MassageTypes = () => {
               {/* Fees Fields */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm text-gray-600">Massage Fee</label>
+                  <label className="text-sm text-gray-600 dark:text-gray-50">
+                    Massage Fee
+                  </label>
                   <input
                     type="text"
                     className="w-full border px-3 py-2 rounded"
@@ -312,7 +312,9 @@ const MassageTypes = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-gray-600">Booking Fee</label>
+                  <label className="text-sm text-gray-600 dark:text-gray-50">
+                    Booking Fee
+                  </label>
                   <input
                     type="text"
                     className="w-full border px-3 py-2 rounded"
@@ -329,7 +331,9 @@ const MassageTypes = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm text-gray-600">Tips Fee</label>
+                  <label className="text-sm text-gray-600 dark:text-gray-50">
+                    Tips Fee
+                  </label>
                   <input
                     type="text"
                     className="w-full border px-3 py-2 rounded"
@@ -343,7 +347,9 @@ const MassageTypes = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-gray-600">Image</label>
+                  <label className="text-sm text-gray-600 dark:text-gray-50">
+                    Image
+                  </label>
                   <input
                     type="file"
                     className="w-full border px-3 py-2 rounded"
@@ -361,7 +367,7 @@ const MassageTypes = () => {
               <div className="flex justify-end gap-3 mt-6">
                 <button
                   type="button"
-                  className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                  className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 dark:text-gray-50 hover:bg-gray-100 transition-colors"
                   onClick={() =>
                     document.getElementById("edit_massage_check_modal").close()
                   }
@@ -382,7 +388,7 @@ const MassageTypes = () => {
 
       {/* add message using modal */}
 
-      <dialog id="add_massage_modal" className="modal">
+      <dialog id="add_massage_modal" className="modal ">
         <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">Add Massage Type</h3>
@@ -394,9 +400,11 @@ const MassageTypes = () => {
           </div>
 
           <form onSubmit={handleSubmitData} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 ">
               <div>
-                <label className="text-sm text-gray-600">Name</label>
+                <label className="text-sm text-gray-600 dark:text-gray-50">
+                  Name
+                </label>
                 <input
                   type="text"
                   className="w-full border px-3 py-2 rounded"
@@ -409,7 +417,9 @@ const MassageTypes = () => {
               </div>
 
               <div>
-                <label className="text-sm text-gray-600">Massage Fee</label>
+                <label className="text-sm text-gray-600 dark:text-gray-50">
+                  Massage Fee
+                </label>
                 <input
                   type="number"
                   className="w-full border px-3 py-2 rounded"
@@ -425,7 +435,9 @@ const MassageTypes = () => {
               </div>
 
               <div>
-                <label className="text-sm text-gray-600">Booking Fee</label>
+                <label className="text-sm text-gray-600 dark:text-gray-50">
+                  Booking Fee
+                </label>
                 <input
                   type="number"
                   className="w-full border px-3 py-2 rounded"
@@ -441,7 +453,9 @@ const MassageTypes = () => {
               </div>
 
               <div>
-                <label className="text-sm text-gray-600">Tip Fee</label>
+                <label className="text-sm text-gray-600 dark:text-gray-50">
+                  Tip Fee
+                </label>
                 <input
                   type="number"
                   className="w-full border px-3 py-2 rounded"
@@ -453,7 +467,7 @@ const MassageTypes = () => {
               </div>
 
               <div>
-                <label className="text-sm text-gray-600">
+                <label className="text-sm text-gray-600 dark:text-gray-50">
                   Image (optional)
                 </label>
                 <input
@@ -468,7 +482,7 @@ const MassageTypes = () => {
             <div className="flex justify-end gap-3 mt-6">
               <button
                 type="button"
-                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 dark:text-gray-50 hover:bg-gray-100 transition-colors"
                 onClick={() =>
                   document.getElementById("add_massage_modal").close()
                 }

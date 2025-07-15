@@ -65,7 +65,7 @@ const LoyaltyProgramModal = ({ isOpen, setIsOpen, loyaltyProgramData }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 dark:text-gray-900">
       <Toaster />
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -88,7 +88,7 @@ const LoyaltyProgramModal = ({ isOpen, setIsOpen, loyaltyProgramData }) => {
               type="number"
               step="0.01"
               {...register("spent_per_point", { required: true })}
-              className="border border-gray-300 p-2 rounded w-full"
+              className="border border-gray-300 dark:text-gray-100 p-2 rounded w-full"
             />
           </div>
           <div className="flex items-center gap-4">
@@ -99,7 +99,7 @@ const LoyaltyProgramModal = ({ isOpen, setIsOpen, loyaltyProgramData }) => {
               type="number"
               step="0.01"
               {...register("discount_per_100_points", { required: true })}
-              className="border border-gray-300 p-2 rounded w-full"
+              className="border border-gray-300 dark:text-gray-100 p-2 rounded w-full"
             />
           </div>
         </div>

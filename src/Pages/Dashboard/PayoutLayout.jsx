@@ -139,9 +139,11 @@ const PayoutLayout = () => {
   const prevPage = () => setCurrentPage((prevPage) => prevPage - 1);
 
   return (
-    <div className="overflow-x-auto">
-      <h1 className="text-xl font-bold text-gray-800 mb-6">Pay-Out Approval</h1>
-      <table className="table table-zebra w-full">
+    <div className="overflow-x-auto bg-white text-gray-900">
+      <h1 className="text-xl font-bold text-gray-800 mb-6 dark:text-gray-900">
+        Pay-Out Approval
+      </h1>
+      <table className="table w-full">
         <thead>
           <tr className="text-gray-700">
             <th className="text-base">Name</th>
@@ -155,7 +157,7 @@ const PayoutLayout = () => {
         <tbody>
           {currentPayouts.length > 0 ? (
             currentPayouts.map((payout, id) => (
-              <tr key={id} className="hover:bg-gray-50 cursor-pointer">
+              <tr key={id} className="hover:bg-gray-100 cursor-pointer">
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -167,14 +169,13 @@ const PayoutLayout = () => {
                       </div>
                     </div>
                     <div>
-                      <p className="text-black text-[16px]">
+                      <p className="text-[16px] text-gray-900">
                         {payout?.therapist_name}
                       </p>
                       <p className="text-gray-500">{payout?.therapist_email}</p>
                     </div>
                   </div>
                 </td>
-
                 <td className="text-base">{payout?.specialization}</td>
                 <td className="text-base">{payout?.date || "N/A"}</td>
                 <td className="capitalize text-base">
@@ -196,7 +197,7 @@ const PayoutLayout = () => {
                     </div>
                   ) : (
                     <span
-                      className={`text-[13px] text-gray-100 capitalize badge ${
+                      className={`text-[13px] capitalize badge ${
                         payout?.status === "pending"
                           ? "badge-warning"
                           : "badge-success"
@@ -223,9 +224,12 @@ const PayoutLayout = () => {
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
-          className=" cursor-pointer"
+          className="cursor-pointer"
         >
-          <ChevronLeft size={16} className="font-bold" />
+          <ChevronLeft
+            size={16}
+            className="font-bold text-gray-700 dark:text-gray-900"
+          />
         </button>
         <div className="flex gap-2">
           {[...Array(Math.ceil(getPendingPayout.length / itemsPerPage))].map(
@@ -233,8 +237,10 @@ const PayoutLayout = () => {
               <button
                 key={index}
                 onClick={() => paginate(index + 1)}
-                className={`w-7 h-7 flex items-center justify-center text-white rounded-full bg-[#B28D28] ${
-                  currentPage === index + 1 ? "btn-active" : "btn-outline"
+                className={`w-7 h-7 flex items-center justify-center text-white rounded-full ${
+                  currentPage === index + 1
+                    ? "bg-[#B28D28]"
+                    : "bg-gray-400 hover:bg-gray-500"
                 }`}
               >
                 {index + 1}
@@ -247,9 +253,12 @@ const PayoutLayout = () => {
           disabled={
             currentPage === Math.ceil(getPendingPayout.length / itemsPerPage)
           }
-          className=" cursor-pointer"
+          className="cursor-pointer"
         >
-          <ChevronRight size={16} className="font-bold" />
+          <ChevronRight
+            size={16}
+            className="font-bold text-gray-700 dark:text-gray-900"
+          />
         </button>
       </div>
     </div>

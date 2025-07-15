@@ -42,15 +42,20 @@ const Sidebar = ({ onClose, isOpen, onSelectUser }) => {
   };
 
   return (
-    <aside className="h-full w-20 lg:w-40 border-r border-base-300 flex flex-col">
-      <button onClick={onClose} className="flex items-center p-2">
+    <aside className="h-full w-20 lg:w-40 border-r border-base-300 flex flex-col shadow-md dark:bg-[#f5edde] ">
+      <button
+        onClick={onClose}
+        className="flex items-center p-2 dark:text-gray-900"
+      >
         <X />
       </button>
 
       <div className="border-b border-base-300 w-full p-5 pt-0">
         <div className="flex items-center gap-2">
-          <Users className="size-6" />
-          <span className="font-medium hidden lg:block">Messages</span>
+          <Users className="size-6 dark:text-gray-900" />
+          <span className="font-medium hidden lg:block dark:text-gray-900">
+            Messages
+          </span>
         </div>
       </div>
 
@@ -58,7 +63,9 @@ const Sidebar = ({ onClose, isOpen, onSelectUser }) => {
         {loading ? (
           <SidebarSkeleton />
         ) : users.length === 0 ? (
-          <div className="text-center text-zinc-500 py-4">No users found</div>
+          <div className="text-center text-zinc-500 py-4 dark:text-gray-900">
+            No users found
+          </div>
         ) : (
           users.map((user) => {
             const isOnline = onlineUsers.includes(user._id?.toString());
@@ -88,7 +95,7 @@ const Sidebar = ({ onClose, isOpen, onSelectUser }) => {
                 </div>
 
                 <div className="hidden lg:block text-left min-w-0">
-                  <div className="font-normal truncate text-base">
+                  <div className="font-normal truncate text-base dark:text-zinc-600 ">
                     {user.name || "Unnamed"}
                   </div>
                   <div className="text-xs text-zinc-400">

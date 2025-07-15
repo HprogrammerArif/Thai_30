@@ -14,6 +14,7 @@ import { MdDiscount } from "react-icons/md";
 import {
   useAddPromotionMutation,
   useDeletePromotionMutation,
+  useGetAnalyticsDataQuery,
   useGetLoyaltyActionsQuery,
   useGetLoyaltyProgramQuery,
   useGetPromotionsDataQuery,
@@ -46,6 +47,9 @@ const Promotions = () => {
   const { data: promotionsData, isLoading } = useGetPromotionsDataQuery();
   const [addPromotion, { isLoading: isLoadingAddPromotion }] =
     useAddPromotionMutation();
+
+  const { data: promotionInfoData } = useGetAnalyticsDataQuery();
+  console.log({ promotionInfoData });
 
   console.log({ promotionsData });
 
@@ -158,7 +162,7 @@ const Promotions = () => {
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Total Revenue</h1>
             <h1 className="font-bold text-xl text-black">
-              $34672{" "}
+              $ {promotionInfoData?.stats?.total_revenue}
               <span className="text-sm font-semibold text-green-500">+5%</span>
             </h1>
           </div>
@@ -167,7 +171,7 @@ const Promotions = () => {
           </div>
         </div>
 
-        <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
+        {/* <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Active Promotions</h1>
             <h1 className="font-bold text-2xl text-black">15</h1>
@@ -175,9 +179,9 @@ const Promotions = () => {
           <div className="bg-[#B28D28] p-3 rounded-xl">
             <BadgePercent className="text-white" size={24} />
           </div>
-        </div>
+        </div> */}
 
-        <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
+        {/* <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Redemption Rate</h1>
             <h1 className="font-bold text-xl text-black">45</h1>
@@ -185,12 +189,14 @@ const Promotions = () => {
           <div className="bg-[#B28D28] p-2 rounded-xl">
             <TbReceiptDollar className="text-white font-bold" size={24} />
           </div>
-        </div>
+        </div> */}
 
         <div className="bg-white flex items-center justify-between rounded-[15px] shadow-md p-6 hover:shadow-lg transition-shadow">
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Avg Order Value</h1>
-            <h1 className="font-bold text-xl text-black">$89</h1>
+            <h1 className="font-bold text-xl text-black">
+              $ {promotionInfoData?.customer_insights?.avg_booked_value}{" "}
+            </h1>
           </div>
           <div className="bg-[#B28D28] p-2 rounded-xl">
             <FaStar className="text-white font-bold" size={24} />
@@ -400,12 +406,12 @@ const Promotions = () => {
       />
 
       {/* DaisyUI Modal for New Promotion */}
-      <dialog id="new_promotion_modal" className="modal">
+      <dialog id="new_promotion_modal" className="modal ">
         <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl py-10">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">New Promotion</h3>
             <form method="dialog">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl">
+              <button className="text-gray-500 dark:text-gray-50 hover:text-gray-700 text-2xl">
                 ×
               </button>
             </form>
@@ -418,7 +424,7 @@ const Promotions = () => {
           >
             {/* Promotion Title */}
             <div>
-              <label className="block text-gray-600 mb-1">
+              <label className="block text-gray-600 mb-1 dark:text-gray-50">
                 Promotion Title
               </label>
               <input
@@ -432,7 +438,9 @@ const Promotions = () => {
 
             {/* Promotion Type */}
             <div>
-              <label className="block text-gray-600 mb-1">Promotion Type</label>
+              <label className="block text-gray-600 mb-1 dark:text-gray-50">
+                Promotion Type
+              </label>
               <select
                 {...register("type", { required: true })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
@@ -447,7 +455,9 @@ const Promotions = () => {
 
             {/* Validity */}
             <div>
-              <label className="block  text-gray-600 mb-1">Validity</label>
+              <label className="block  text-gray-600 mb-1 dark:text-gray-50">
+                Validity
+              </label>
               <div className="relative">
                 <input
                   type="date"
@@ -464,7 +474,7 @@ const Promotions = () => {
 
             {/* Discount Value */}
             <div>
-              <label className="block  text-gray-600 mb-1">
+              <label className="block  text-gray-600 mb-1 dark:text-gray-50">
                 Discount Value
               </label>
               <div className="flex items-center gap-3">
@@ -496,7 +506,7 @@ const Promotions = () => {
                   document.getElementById("new_promotion_modal")?.close();
                   reset();
                 }}
-                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 dark:text-gray-50 hover:bg-gray-100 transition-colors"
               >
                 Cancel
               </button>

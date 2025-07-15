@@ -492,7 +492,7 @@ const DisputeManagement = () => {
           {supportTickets?.map((ticket, index) => (
             <div
               key={index}
-              className="border-b pb-4 last:border-b-0 flex justify-between items-center hover:bg-gray-100 cursor-pointer p-4"
+              className="border-b pb-4 last:border-b-0 flex justify-between items-center hover:bg-gray-100 cursor-pointer p-4 dark:text-gray-900"
             >
               <div className="space-y-2">
                 <button className="bg-[#FFEAAF]/60 px-5 py-1 rounded-full border border-[#B28D28]/30">
@@ -554,353 +554,221 @@ const DisputeManagement = () => {
 
       {/* DaisyUI Modal for Dispute Details */}
       <dialog id="dispute_details_modal" className="modal">
-        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
+        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+          {/* Modal Header */}
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">Dispute Detail</h3>
             <form method="dialog">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl">
+              <button
+                className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-2xl leading-none px-2"
+                aria-label="Close"
+              >
                 ×
               </button>
             </form>
           </div>
 
+          {/* Loading, Error, or Data */}
           {isDisputeDetailLoading ? (
-            <p className="text-gray-500">Loading...</p>
+            <p className="text-gray-500 dark:text-gray-400">Loading...</p>
           ) : selectedDisputeDetails ? (
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              {/* Row 1 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Therapist Name</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Therapist Name
+                  </p>
+                  <p className="font-medium">
                     {selectedDisputeDetails.therapist_name || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Booking Date/Time</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Booking Date/Time
+                  </p>
+                  <p className="font-medium">
                     {selectedDisputeDetails.booking_date_time || "N/A"}
                   </p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              {/* Row 2 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Customer</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Customer
+                  </p>
+                  <p className="font-medium">
                     {selectedDisputeDetails.customer || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Service</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Service
+                  </p>
+                  <p className="font-medium">
                     {selectedDisputeDetails.service || "N/A"}
                   </p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              {/* Row 3 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Payment Method</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Payment Method
+                  </p>
+                  <p className="font-medium">
                     {selectedDisputeDetails.payment_method || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Location</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Location
+                  </p>
+                  <p className="font-medium">
                     {selectedDisputeDetails.location || "N/A"}
                   </p>
                 </div>
               </div>
 
+              {/* Complaint */}
               <div>
-                <p className="text-sm text-gray-600">Complaint</p>
-                <p className="font-medium text-gray-900 whitespace-pre-wrap">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Complaint
+                </p>
+                <p className="font-medium whitespace-pre-wrap">
                   {selectedDisputeDetails.complain || "N/A"}
                 </p>
               </div>
 
+              {/* Total */}
               <div>
-                <p className="text-sm text-gray-600">Total</p>
-                <p className="font-medium text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Total
+                </p>
+                <p className="font-medium">
                   {selectedDisputeDetails.total !== null
                     ? `$${Number(selectedDisputeDetails.total).toFixed(2)}`
                     : "N/A"}
                 </p>
               </div>
 
+              {/* Footer */}
               <div className="flex justify-end gap-3 mt-6">
                 <form method="dialog">
-                  <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
+                  <button className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                     Cancel
                   </button>
                 </form>
               </div>
             </div>
           ) : (
-            <p className="text-red-500">No details found.</p>
+            <p className="text-red-500 dark:text-red-400">No details found.</p>
           )}
         </div>
+
+        {/* Optional: Dimmed overlay */}
+        <form method="dialog" className="modal-backdrop bg-black/20" />
       </dialog>
 
-      {/* 
-        <dialog id="dispute_details_modal" className="modal">
-        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="font-bold text-xl">Dispute Details</h3>
-            <form method="dialog">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl">
-                ×
-              </button>
-            </form>
-          </div>
-
-          {selectedDispute && (
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-600">Dispute Type</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedDispute.dispute_type}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Status</p>
-                  <p className="font-medium text-gray-900 capitalize">
-                    {selectedDispute.status}
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-600">Client ID</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedDispute.client_id}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Appointment Date</p>
-                  <p className="font-medium text-gray-900">
-                    {new Date(
-                      selectedDispute.appointment_date
-                    ).toLocaleString()}
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-600">Booking ID</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedDispute.booking}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Refund Issued</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedDispute.refund_issued ? "Yes" : "No"}
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-sm text-gray-600">Compensation Amount</p>
-                <p className="font-medium text-gray-900">
-                  $
-                  {Number(selectedDispute?.compensation_amount || 0).toFixed(2)}
-                </p>
-              </div>
-
-              <div className="flex justify-end gap-3 mt-6">
-                <form method="dialog">
-                  <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
-                    Cancel
-                  </button>
-                </form>
-
-                {selectedDispute.status === "pending" && (
-                  <button
-                    onClick={() => openCompensationModal(selectedDispute)}
-                    className="px-6 py-2 bg-[#B28D28] text-white rounded-lg hover:bg-[#9a7b23] transition-colors"
-                  >
-                    Compensate
-                  </button>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </dialog> */}
-
-      {/* DaisyUI Modal for Suggest Compensation
       <dialog id="suggest_compensation_modal" className="modal">
-        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
+        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-100">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">Suggest Compensation</h3>
             <form method="dialog">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl">
-                ×
-              </button>
-            </form>
-          </div>
-
-          {selectedDispute && (
-            <form onSubmit={handleCompensationSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-600">Therapist Name</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedDispute.therapist_name || "N/A"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Booking Date/Time</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedDispute.booking_date_time || "N/A"}
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-600">Customer</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedDispute.customer || "N/A"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Service</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedDispute.service || "N/A"}
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-sm text-gray-600">Payment Method</p>
-                <p className="font-medium text-gray-900">
-                  {selectedDispute.payment_method || "N/A"}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-sm text-gray-600">Total</p>
-                <p className="font-medium text-gray-900">
-                  {selectedDispute.total !== null
-                    ? `$${Number(selectedDispute.total).toFixed(2)}`
-                    : "N/A"}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-sm text-gray-600">Compensation Amount</p>
-                <input
-                  type="number"
-                  min={1}
-                  placeholder="Enter compensation amount"
-                  value={compensationAmount}
-                  onChange={(e) => setCompensationAmount(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
-                  required
-                />
-              </div>
-
-              <div className="flex justify-end gap-3 mt-6">
-                <form method="dialog">
-                  <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
-                    Cancel
-                  </button>
-                </form>
-                <button
-                  type="submit"
-                  className="px-6 py-2 bg-[#B28D28] text-white rounded-lg hover:bg-[#9a7b23] transition-colors"
-                >
-                  Save
-                </button>
-              </div>
-            </form>
-          )}
-        </div>
-      </dialog> */}
-
-      <dialog id="suggest_compensation_modal" className="modal">
-        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="font-bold text-xl">Suggest Compensation</h3>
-            <form method="dialog">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl">
+              <button className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100 text-2xl">
                 ×
               </button>
             </form>
           </div>
 
           {isDisputeDetailLoading ? (
-            <p className="text-gray-500">Loading...</p>
+            <p className="text-gray-500 dark:text-gray-400">Loading...</p>
           ) : selectedDisputeDetails ? (
             <form onSubmit={handleCompensationSubmit} className="space-y-4">
+              {/* Therapist + Booking */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Therapist Name</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Therapist Name
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.therapist_name || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Booking Date/Time</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Booking Date/Time
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.booking_date_time || "N/A"}
                   </p>
                 </div>
               </div>
 
+              {/* Customer + Service */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Customer</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Customer
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.customer || "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Service</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Service
+                  </p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {selectedDisputeDetails.service || "N/A"}
                   </p>
                 </div>
               </div>
 
+              {/* Payment + Total */}
               <div>
-                <p className="text-sm text-gray-600">Payment Method</p>
-                <p className="font-medium text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Payment Method
+                </p>
+                <p className="font-medium text-gray-900 dark:text-gray-100">
                   {selectedDisputeDetails.payment_method || "N/A"}
                 </p>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600">Total</p>
-                <p className="font-medium text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Total
+                </p>
+                <p className="font-medium text-gray-900 dark:text-gray-100">
                   {selectedDisputeDetails.total !== null
                     ? `$${Number(selectedDisputeDetails.total).toFixed(2)}`
                     : "N/A"}
                 </p>
               </div>
 
+              {/* Compensation Input */}
               <div>
-                <p className="text-sm text-gray-600">Compensation Amount</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Compensation Amount
+                </p>
                 <input
                   type="number"
                   min={1}
                   placeholder="Enter compensation amount"
                   value={compensationAmount}
                   onChange={(e) => setCompensationAmount(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B28D28] focus:border-transparent"
                   required
                 />
               </div>
 
+              {/* Actions */}
               <div className="flex justify-end gap-3 mt-6">
                 <form method="dialog">
-                  <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
+                  <button className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                     Cancel
                   </button>
                 </form>
@@ -913,13 +781,15 @@ const DisputeManagement = () => {
               </div>
             </form>
           ) : (
-            <p className="text-red-500">No dispute details found.</p>
+            <p className="text-red-500 dark:text-red-400">
+              No dispute details found.
+            </p>
           )}
         </div>
       </dialog>
 
       {/* DaisyUI Modal for Dispute Settings */}
-      <dialog id="dispute_settings_modal" className="modal">
+      <dialog id="dispute_settings_modal" className="modal ">
         <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">Dispute Setting</h3>

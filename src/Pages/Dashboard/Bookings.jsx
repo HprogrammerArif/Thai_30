@@ -225,7 +225,7 @@ const Bookings = () => {
             <h1 className="font-bold text-2xl text-black flex items-center gap-3">
               {adminData?.total_payout_amount.toFixed(2)}
               <span className="text-sm font-medium text-[#F1312B] bg-red-50 px-2 py-1 rounded-full">
-                {adminData?.total_payout_requests} Pending
+                $ {adminData?.total_payout_requests} Pending
               </span>
             </h1>
           </div>
@@ -238,7 +238,7 @@ const Bookings = () => {
           <div className="space-y-2">
             <h1 className="text-gray-800 font-medium">Commission</h1>
             <h1 className="font-bold text-2xl text-black">
-              {adminData?.total_commission.toFixed(2)}{" "}
+              $ {adminData?.total_commission.toFixed(2)}{" "}
             </h1>
           </div>
           <div className="bg-[#B28D28] p-3 rounded-xl">
@@ -253,7 +253,7 @@ const Bookings = () => {
 
       {/* DaisyUI Modal */}
       <dialog id="bookingId" className="modal">
-        <div className="modal-box bg-white rounded-xl p-6 w-full max-w-3xl">
+        <div className="modal-box bg-white rounded-xl p-6 w-full max-w-3xl text-gray-900">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl">Booking Details</h3>
             <form method="dialog">
@@ -370,7 +370,7 @@ const Bookings = () => {
       <TransactionHistory />
 
       {/* Safety Alerts */}
-      <div className="bg-white p-5 my-8 rounded-[15px] shadow-md">
+      <div className="bg-white p-5 my-8 rounded-[15px] shadow-md text-gray-900">
         <h1 className="text-xl font-semibold pb-8">Safety Alerts</h1>
         <div className="space-y-8">
           <div className="flex items-center justify-between bg-[#FEF2F2] px-10 rounded-[15px]">

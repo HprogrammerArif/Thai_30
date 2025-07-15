@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 const baseURL = "http://10.10.13.75:3333/";
 import { useState } from "react";
 
-const ChatHeader = ({selectedUser}) => {
+const ChatHeader = ({ selectedUser }) => {
   // const { selectedUser, setSelectedUser } = useChatStore();
   // const { onlineUsers } = useAuthStore();
   const [User, setSelectedUser] = useState(null);
@@ -24,23 +24,22 @@ const ChatHeader = ({selectedUser}) => {
   //   profilePic: "/avatar.png",
   // };
 
-  console.log({selectedUser})
-
+  console.log({ selectedUser });
 
   return (
-    <div className="p-2.5 border-b border-base-300">
+    <div className="p-2.5 border-b border-base-300 dark:text-gray-900">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           {/* Avatar */}
           <div className="avatar">
             <div className="size-10 rounded-full relative">
-              <img 
-              src={`${baseURL}api${selectedUser?.profile_image}` || "/avatar.png"} 
-              alt={selectedUser.name} 
+              <img
+                src={
+                  `${baseURL}api${selectedUser?.profile_image}` || "/avatar.png"
+                }
+                alt={selectedUser.name}
               />
             </div>
-
-            
           </div>
 
           {/* User info */}
