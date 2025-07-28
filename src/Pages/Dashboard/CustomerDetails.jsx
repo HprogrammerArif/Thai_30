@@ -15,7 +15,7 @@ const CustomerDetails = () => {
   console.log("customerData", customerData);
 
   const navigate = useNavigate();
-  const baseURL = "http://10.10.13.75:3333/api";
+  const baseURL = "https://backend.thaimassagesnearmeapp.com/api";
 
   const customer = {
     name: "Mike Millian",

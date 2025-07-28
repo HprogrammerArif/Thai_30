@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { ToastContainer } from "react-toastify";
 import {
+  baseUrlFixt,
   useAddMassageTypeMutation,
   useGetMassageTypeQuery,
   useUpdateMassageTypeMutation,
@@ -12,7 +13,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const MassageTypes = () => {
   const [profileImage, setProfileImage] = useState(null); // file to upload
-  const baseURL = "http://10.10.13.75:3333/";
   const [previewUrl, setPreviewUrl] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const { data: massageTypesData, isLoading } = useGetMassageTypeQuery({});
@@ -217,7 +217,7 @@ const MassageTypes = () => {
                   <td className="p-4">
                     <div className="flex items-center gap-3">
                       <img
-                        src={`${baseURL}api${check.image}`}
+                        src={`${baseUrlFixt}api${check.image}`}
                         alt={check.name}
                         className="w-10 h-10 rounded-full object-cover"
                       />

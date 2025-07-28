@@ -11,7 +11,7 @@ import {
 import { toast } from "sonner";
 
 const Profile = () => {
-  const baseURL = "http://10.10.13.75:3333/";
+  const baseURL = "https://backend.thaimassagesnearmeapp.com/";
   const [profileImage, setProfileImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [showChangePassword, setShowChangePassword] = useState(false);

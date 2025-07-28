@@ -5,7 +5,7 @@ import axios from "axios";
 import SidebarSkeleton from "./skeletons/SidebarSkeleton";
 import { useCurrentToken } from "../../../redux/features/auth/authSlice";
 
-const baseURL = "http://10.10.13.75:3333/";
+const baseURL = "https://backend.thaimassagesnearmeapp.com/";
 
 const Sidebar = ({ onClose, isOpen, onSelectUser }) => {
   const token = useSelector(useCurrentToken);
@@ -120,7 +120,7 @@ export default Sidebar;
 // import SidebarSkeleton from "./skeletons/SidebarSkeleton";
 // import { useCurrentToken } from "../../../redux/features/auth/authSlice";
 
-// const baseURL = "http://10.10.13.75:3333/";
+// const baseURL = "https://backend.thaimassagesnearmeapp.com/";
 
 // const Sidebar = ({ onClose, isOpen, onSelectUser }) => {
 //   const token = useSelector(useCurrentToken);
@@ -229,7 +229,7 @@ export default Sidebar;
 // // import axios from "axios";
 // // import { useCurrentToken } from "../../../redux/features/auth/authSlice";
 // // import { useSelector } from "react-redux";
-// // const baseURL = "http://10.10.13.75:3333/";
+// // const baseURL = "https://backend.thaimassagesnearmeapp.com/";
 
 // // const Sidebar = ({ onClose, isOpen }) => {
 // //   // const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore();
@@ -278,7 +278,7 @@ export default Sidebar;
 // //       setLoading(true);
 // //       try {
 // //         const response = await axios.get(
-// //           "http://10.10.13.75:3333/api/chat/inbox/",
+// //           "https://backend.thaimassagesnearmeapp.com/api/chat/inbox/",
 // //           {
 // //             headers: {
 // //               Authorization: `Bearer ${token}`, // or use withCredentials: true

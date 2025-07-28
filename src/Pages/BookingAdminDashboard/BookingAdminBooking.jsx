@@ -6,6 +6,7 @@ import { FaCalendarCheck } from "react-icons/fa6";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { LuTrash2 } from "react-icons/lu";
 import {
+  baseUrlFixt,
   useAdminInfoQuery,
   useDeleteBookingMutation,
   useGetAllBookingsQuery,
@@ -49,8 +50,6 @@ const BookingAdminBooking = () => {
     });
   //   console.log("bookingDetails", bookingDetails);
   const [deleteBooking, { isLoading }] = useDeleteBookingMutation();
-
-  const baseURL = "http://10.10.13.75:3333/";
 
   const filteredBookings = bookingsInfo?.filter((booking) =>
     booking.booking_status.toLowerCase().includes(searchStatus.toLowerCase())
@@ -307,7 +306,7 @@ const BookingAdminBooking = () => {
                   >
                     <div className="flex items-center gap-3">
                       <img
-                        src={`${baseURL}api${booking?.client_image}`}
+                        src={`${baseUrlFixt}api${booking?.client_image}`}
                         alt={booking?.client_name}
                         className="w-10 h-10 rounded-full object-cover"
                       />
@@ -327,7 +326,7 @@ const BookingAdminBooking = () => {
                   >
                     <div className="flex items-center gap-3">
                       <img
-                        src={`${baseURL}api${booking?.therapist_image}`}
+                        src={`${baseUrlFixt}api${booking?.therapist_image}`}
                         alt={booking.therapist_name}
                         className="w-10 h-10 rounded-full object-cover"
                       />

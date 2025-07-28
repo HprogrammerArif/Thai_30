@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import { formatMessageTime } from "../lib/utils";
 import { useCurrentToken } from "../../../redux/features/auth/authSlice";
 
-const baseURL = "http://10.10.13.75:3333/";
+const baseURL = "https://backend.thaimassagesnearmeapp.com/";
 const SOCKET_URL = "ws://10.10.13.75:3333/ws/chat";
 // const SOCKET_URL = "ws://192.168.10.16:3333/ws/chat";
-// http://10.10.13.75:3333/
+// https://backend.thaimassagesnearmeapp.com/
 
 const ChatContainer = ({ selectedUser }) => {
   const [messages, setMessages] = useState([]);
@@ -32,14 +32,14 @@ const ChatContainer = ({ selectedUser }) => {
           }
         );
         // Map each message object: rename `content` → `message`
-const mappedMessages = (res.data || []).map((msg) => ({
-  ...msg,
-  message: msg.content, // new key
-  // Optionally remove original key:
-  // content: undefined,
-}));
+        const mappedMessages = (res.data || []).map((msg) => ({
+          ...msg,
+          message: msg.content, // new key
+          // Optionally remove original key:
+          // content: undefined,
+        }));
 
-setMessages(mappedMessages);
+        setMessages(mappedMessages);
       } catch (err) {
         console.error("Fetch messages error", err);
       }
@@ -50,32 +50,32 @@ setMessages(mappedMessages);
 
   // WebSocket connection setup & message handling
   useEffect(() => {
-  if (!selectedUser?.chat_room_id) return;
+    if (!selectedUser?.chat_room_id) return;
 
-  // No trailing slash here
-  const ws = new WebSocket(`${SOCKET_URL}/${selectedUser.chat_room_id}/`);
-  socketRef.current = ws;
+    // No trailing slash here
+    const ws = new WebSocket(`${SOCKET_URL}/${selectedUser.chat_room_id}/`);
+    socketRef.current = ws;
 
-  console.log({selectedUser})
+    console.log({ selectedUser });
 
-  ws.onopen = () => console.log("✅ WebSocket connected");
-  ws.onclose = () => console.log("🔌 WebSocket closed");
-  ws.onerror = (e) => console.error("❌ WebSocket error", e);
+    ws.onopen = () => console.log("✅ WebSocket connected");
+    ws.onclose = () => console.log("🔌 WebSocket closed");
+    ws.onerror = (e) => console.error("❌ WebSocket error", e);
 
-  ws.onmessage = (e) => {
-    try {
-      const data = JSON.parse(e.data);
-      setMessages((prev) => {
-        if (prev.some((m) => m.id === data.id)) return prev;
-        return [...prev, data];
-      });
-    } catch (err) {
-      console.error("Parse error", err);
-    }
-  };
+    ws.onmessage = (e) => {
+      try {
+        const data = JSON.parse(e.data);
+        setMessages((prev) => {
+          if (prev.some((m) => m.id === data.id)) return prev;
+          return [...prev, data];
+        });
+      } catch (err) {
+        console.error("Parse error", err);
+      }
+    };
 
-  return () => ws.close();
-}, [selectedUser]);
+    return () => ws.close();
+  }, [selectedUser]);
 
   // Scroll to bottom on messages update
   useEffect(() => {
@@ -92,7 +92,7 @@ setMessages(mappedMessages);
     }
   };
 
-  console.log({messages})
+  console.log({ messages });
 
   return (
     <div className="flex-1 flex flex-col overflow-auto">
@@ -150,12 +150,6 @@ setMessages(mappedMessages);
 
 export default ChatContainer;
 
-
-
-
-
-
-
 // import { useEffect, useRef, useState } from "react";
 // import axios from "axios";
 // import MessageInput from "./MessageInput";
@@ -163,7 +157,7 @@ export default ChatContainer;
 // import { formatMessageTime } from "../lib/utils";
 // import { useSelector } from "react-redux";
 // import { useCurrentToken } from "../../../redux/features/auth/authSlice";
-// const baseURL = "http://10.10.13.75:3333/";
+// const baseURL = "https://backend.thaimassagesnearmeapp.com/";
 
 // const ChatContainer = ({ selectedUser }) => {
 //   const [messages, setMessages] = useState([]);
@@ -179,7 +173,7 @@ export default ChatContainer;
 //     const fetchMessages = async () => {
 //       try {
 //         const response = await axios.get(
-//           `http://10.10.13.75:3333/api/chat/messages/${selectedUser.chat_room_id}/`,
+//           `https://backend.thaimassagesnearmeapp.com/api/chat/messages/${selectedUser.chat_room_id}/`,
 //           {
 //             headers: {
 //               Authorization: `Bearer ${token}`,
@@ -274,10 +268,10 @@ export default ChatContainer;
 // //     const fetchMessages = async () => {
 // //       try {
 // //         // const response = await axios.get(
-// //         //   `http://10.10.13.75:3333/api/chat/messages/${selectedUser.chat_room_id}/`
+// //         //   `https://backend.thaimassagesnearmeapp.com/api/chat/messages/${selectedUser.chat_room_id}/`
 // //         // );
 // //         const response = await axios.get(
-// //           `http://10.10.13.75:3333/api/chat/messages/${selectedUser.chat_room_id}/`,
+// //           `https://backend.thaimassagesnearmeapp.com/api/chat/messages/${selectedUser.chat_room_id}/`,
 // //           {
 // //             headers: {
 // //               Authorization: `Bearer ${token}`,

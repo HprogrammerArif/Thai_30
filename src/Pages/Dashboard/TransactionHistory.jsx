@@ -34,7 +34,7 @@ export default function TransactionHistory() {
     detailsError
   );
 
-  const baseURL = "http://10.10.13.75:3333/api";
+  const baseURL = "https://backend.thaimassagesnearmeapp.com/api";
   const transactions = transactionsResult?.results || [];
 
   // Pagination logic

@@ -51,7 +51,7 @@ const BookingWithDelete = () => {
   //   console.log("bookingDetails", bookingDetails);
   const [deleteBooking, { isLoading }] = useDeleteBookingMutation();
 
-  const baseURL = "http://10.10.13.75:3333/";
+  const baseURL = "https://backend.thaimassagesnearmeapp.com/";
 
   const filteredBookings = bookingsInfo?.filter((booking) =>
     booking.booking_status.toLowerCase().includes(searchStatus.toLowerCase())

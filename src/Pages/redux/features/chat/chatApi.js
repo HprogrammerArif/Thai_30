@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://10.10.13.75:3333/",
+    baseUrl: "https://backend.thaimassagesnearmeapp.com/",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth?.userData?.token;
       if (token) {
@@ -16,7 +16,9 @@ export const baseApi = createApi({
   endpoints: (builder) => ({
     getMessages: builder.query({
       query: (roomId) => `api/chat/messages/${roomId}/`,
-      providesTags: (result, error, roomId) => [{ type: "Messages", id: roomId }],
+      providesTags: (result, error, roomId) => [
+        { type: "Messages", id: roomId },
+      ],
     }),
     sendMessage: builder.mutation({
       query: (message) => ({

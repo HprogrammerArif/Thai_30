@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+export const baseUrlFixt = "https://backend.thaimassagesnearmeapp.com/";
+
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://10.10.13.75:3333/",
+    baseUrl: "https://backend.thaimassagesnearmeapp.com/",
 
     // prepareHeaders: (headers) => {
     //   const token = localStorage.getItem("access_token");

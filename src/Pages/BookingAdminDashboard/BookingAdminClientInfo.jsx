@@ -85,7 +85,7 @@ const BookingAdminClientInfo = () => {
     }
   };
 
-  const paseURL = "http://10.10.13.75:3333/";
+  const paseURL = "https://backend.thaimassagesnearmeapp.com/";
 
   // Pagination calculations for Customers
   const filteredCustomers = customerData

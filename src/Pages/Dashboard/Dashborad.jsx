@@ -32,7 +32,7 @@ export default function Dashboard() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   let profileData = adminData;
 
-  const baseURL = "http://10.10.13.75:3333/";
+  const baseURL = "https://backend.thaimassagesnearmeapp.com/";
 
   // const menuItems = [
   //   {

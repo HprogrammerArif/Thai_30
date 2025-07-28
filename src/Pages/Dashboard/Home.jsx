@@ -35,7 +35,7 @@ const AdminHome = () => {
   const bookingsPerPage = 4;
   const [timePeriod, setTimePeriod] = useState("last_week");
 
-  const paseURL = "http://10.10.13.75:3333/";
+  const paseURL = "https://backend.thaimassagesnearmeapp.com/";
 
   const {
     data: adminData,

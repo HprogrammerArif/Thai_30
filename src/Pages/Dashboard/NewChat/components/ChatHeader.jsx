@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 // import { useAuthStore } from "../store/useAuthStore";
 // import { useChatStore } from "../store/useChatStore";
-const baseURL = "http://10.10.13.75:3333/";
+const baseURL = "https://backend.thaimassagesnearmeapp.com/";
 import { useState } from "react";
 
 const ChatHeader = ({ selectedUser }) => {

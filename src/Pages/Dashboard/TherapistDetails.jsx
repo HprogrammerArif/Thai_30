@@ -22,7 +22,7 @@ const TherapistDetails = () => {
 
   const navigate = useNavigate();
   const userImage = "https://i.ibb.co.com/8Ld9cfwp/Frame-1686551036-1.png";
-  const baseURL = "http://10.10.13.75:3333/api";
+  const baseURL = "https://backend.thaimassagesnearmeapp.com/api";
 
   // State for the modal and form
   const [documentType, setDocumentType] = useState("");
