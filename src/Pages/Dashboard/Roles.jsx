@@ -247,7 +247,7 @@ const Roles = () => {
       // }
       document.getElementById("admin_request_modal").close();
     } catch (error) {
-      toast.error("Something went wrong!");
+      // toast.error("Something went wrong!");
       console.error("Error assigning role:", error);
     }
   };
@@ -420,7 +420,7 @@ const Roles = () => {
       </div>
 
       {/* Suspicious Activity Alerts */}
-      <div className="bg-white rounded-[15px] shadow-md p-6">
+      {/* <div className="bg-white rounded-[15px] shadow-md p-6">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">
           Suspicious Activity Alerts
         </h2>
@@ -462,7 +462,7 @@ const Roles = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* DaisyUI Modal for Admin Request */}
       <dialog id="admin_request_modal" className="modal dark:text-gray-50">
@@ -661,108 +661,7 @@ const Roles = () => {
         </div>
       </dialog>
 
-      {/* DaisyUI Modal for Therapist Background Check
-      <dialog id="therapist_check_modal" className="modal">
-        <div className="modal-box p-6 rounded-lg shadow-lg max-w-3xl">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="font-bold text-xl">Background Check</h3>
-            <form method="dialog">
-              <button className="text-gray-500 hover:text-gray-700 text-2xl">
-                ×
-              </button>
-            </form>
-          </div>
-
-          {isLoading && selectedTherapistCheckData ? (
-            <p className="text-center text-gray-500">Loading...</p>
-          ) : selectedTherapistCheckData ? (
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-600">Name</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedTherapistCheck?.name}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Specialty</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedTherapistCheck?.specialty}
-                  </p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-600">Phone</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedTherapistCheck?.phone}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Email</p>
-                  <p className="font-medium text-gray-900">
-                    {selectedTherapistCheck?.email}
-                  </p>
-                </div>
-              </div>
-              <div>
-                <p className="text-base text-gray-600 font-medium mb-2">
-                  Documents Verified
-                </p>
-                {selectedTherapistCheck?.documents?.map((doc, index) => (
-                  <div
-                    key={index}
-                    className="bg-gray-100 rounded-[10px] p-3 mb-2 flex items-center gap-3  border-2 border-[#B28D28]/10 bg-[#FAE08C]/30"
-                  >
-                    <FaFileAlt className="text-gray-500" size={16} />
-                    <div>
-                      <p className="text-sm text-gray-900 font-medium">
-                        {doc.type}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {doc.file} ({doc.size})
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div>
-                <p className="text-base text-gray-900 font-medium mb-2">
-                  Documents Expiring
-                </p>
-                {selectedTherapistCheck?.expiringDocuments?.map(
-                  (doc, index) => (
-                    <div
-                      key={index}
-                      className=" rounded-[10px] p-3 mb-2 flex items-center gap-3 border-2 border-[#B28D28]/10 bg-[#FAE08C]/30"
-                    >
-                      <FaFileAlt className="text-gray-500" size={16} />
-                      <div>
-                        <p className="text-sm text-gray-900 font-medium">
-                          {doc.type}
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          {doc.file} ({doc.size})
-                        </p>
-                      </div>
-                    </div>
-                  )
-                )}
-              </div>
-              <div className="flex justify-end gap-3 mt-6">
-                <button className="px-6 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors flex items-center gap-2">
-                  <FaEnvelope size={16} /> Send Message
-                </button>
-                <button className="px-6 py-2 bg-[#B28D28] text-white rounded-lg hover:bg-[#9a7b23] transition-colors">
-                  Disable Therapist
-                </button>
-              </div>
-            </div>
-          ) : (
-            <p className="text-center text-gray-500">No data found.</p>
-          )}
-        </div>
-      </dialog> */}
+   
 
       {/* Toast container for showing notifications */}
       <ToastContainer

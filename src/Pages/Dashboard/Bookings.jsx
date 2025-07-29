@@ -370,7 +370,7 @@ const Bookings = () => {
       <TransactionHistory />
 
       {/* Safety Alerts */}
-      <div className="bg-white p-5 my-8 rounded-[15px] shadow-md text-gray-900">
+      {/* <div className="bg-white p-5 my-8 rounded-[15px] shadow-md text-gray-900">
         <h1 className="text-xl font-semibold pb-8">Safety Alerts</h1>
         <div className="space-y-8">
           <div className="flex items-center justify-between bg-[#FEF2F2] px-10 rounded-[15px]">
@@ -411,7 +411,7 @@ const Bookings = () => {
             Load More
           </p>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

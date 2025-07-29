@@ -99,7 +99,7 @@ const Sidebar = ({ onClose, isOpen, onSelectUser }) => {
                     {user.name || "Unnamed"}
                   </div>
                   <div className="text-xs text-zinc-400">
-                    {isOnline ? "Online" : "Offline"}
+                    {/* {isOnline ? "Online" : "Offline"} */}
                   </div>
                 </div>
               </button>
